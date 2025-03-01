@@ -5,58 +5,38 @@
 #include "CoreMinimal.h"
 #include "Enchantments/CardEnchantment.h"
 #include "Impacts/CardImpact.h"
-#include "UObject/NoExportTypes.h"
+#include "../../../UI/Texts/RichTextRepresentable.h"
 #include "EffectBlock.generated.h"
 
 /**
  * 
  */
-UCLASS()
-class CS3247_PROJECT_API UEffectBlock : public UObject
-{
+UCLASS(BlueprintType)
+class CS3247_PROJECT_API UEffectBlock : public UObject, public IRichTextRepresentable {
 	GENERATED_BODY()
 
 public:
-    UEffectBlock();
-
-	int Cost;
-	int CraftCost;
-	TSoftObjectPtr<UCardImpact> Impact;
-	TArray<TSoftObjectPtr<UCardEnchantment>> Enchantments;
-
-	void SetCost()
-	{
-		int Total = 0;
-		for (TSoftObjectPtr<UCardEnchantment> Elem : this->Enchantments) {
-			Total += Elem.Get()->UseCost;
-		}
-		Total += this->Impact.Get()->UseCost;
-		this->Cost = Total;
-	}
-
-	int GetCost() const { return this->Cost; }
-
-	// To be called on creation of a card. Sets the initial durability of it.
+	UEffectBlock();
+	
 	UFUNCTION(BlueprintCallable)
-	void SetCraftCost()
-	{
-		int Total = 0;
-		for (TSoftObjectPtr<UCardEnchantment> Elem : this->Enchantments) {
-			Total += Elem.Get()->CraftCost;
-		}
-		Total += this->Impact.Get()->CraftCost;
-		this->CraftCost = Total;
-	}
+	UEffectBlock* WithImpact(UCardImpact* CardImpact);
 
-	int GetCraftCost() const { return this->CraftCost; }
+	UFUNCTION(BlueprintCallable)
+	UEffectBlock* Append(UCardEnchantment* Enchantment); 
 
-	UCardEffect * Use() const
-	{
-		UCardEffect *Result = this->Impact.Get()->Apply();
-		for (TSoftObjectPtr<UCardEnchantment> Enhancement : this->Enchantments)
-		{
-			Result = Enhancement->Enchant(Result);
-		}
-		return Result;
-	}
+	UFUNCTION(BlueprintCallable)
+	UEffectBlock* AppendAll(const TArray<UCardEnchantment*> CardEnchantments);
+
+	UFUNCTION(BlueprintCallable)
+	UCardEffect* GetEffect();
+
+	UFUNCTION(BlueprintCallable)
+	virtual FString ToRichText() const override;
+
+private:
+	TWeakObjectPtr<UCardImpact> Impact;
+	
+	TLinkedList<UCardEnchantment*> Enchantments;
 };
+
+
