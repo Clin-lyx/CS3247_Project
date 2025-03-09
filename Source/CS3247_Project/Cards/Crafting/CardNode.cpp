@@ -34,6 +34,16 @@ bool UCardNode::BreakLinkWith(UCardNode* Node) {
 	return false;
 }
 
+void UCardNode::BreakAllLinks() {
+	if (IsValid(this->Predecessor)) {
+		this->Predecessor->BreakLinkWith(this);
+	}
+
+	for (const auto& Successor : this->Successors) {
+		Successor->BreakLinkWith(this);
+	}
+}
+
 int UCardNode::CountBuildableConnectedNodes() {
 	int Count = 0;
 	TSet<UCardNode*> Visited = {};
