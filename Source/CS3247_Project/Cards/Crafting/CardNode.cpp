@@ -71,6 +71,7 @@ int UCardNode::CountBuildableConnectedNodes() {
 }
 
 TArray<UCardEffect*> UCardNode::Build() {
+	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Building from ") + this->Ingredient->GetName());
 	if (this->IsTerminal()) {
 		return {Cast<UCardImpact>(this->Ingredient)->Apply()};
 	}

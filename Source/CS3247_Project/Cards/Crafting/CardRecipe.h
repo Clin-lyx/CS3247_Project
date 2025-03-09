@@ -12,7 +12,7 @@
  * 
  */
 UCLASS(BlueprintType)
-class CS3247_PROJECT_API UCardRecipe : public UObject {
+class CS3247_PROJECT_API UCardRecipe : public UObject, public ITextDescribable {
 	GENERATED_BODY()
 
 public:
@@ -32,6 +32,10 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	UCard* Forge();
+
+	UFUNCTION(BlueprintCallable)
+	virtual FText GetDescription() const override;
+	
 private:
 	UPROPERTY()
 	TObjectPtr<UCardNode> Source = nullptr;
