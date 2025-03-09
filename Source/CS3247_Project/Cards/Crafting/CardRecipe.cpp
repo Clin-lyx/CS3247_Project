@@ -18,7 +18,7 @@ bool UCardRecipe::RemoveNode(UCardNode* Node) {
 
 UCard* UCardRecipe::Forge() {
 	UCard* Card = NewObject<UCard>();
-	Card->Effects = this->Source->Build();
+	Card->Effects = this->Source->GetRoot()->Build();
 	double Cost = 0.0;
 	for (const auto& Node : this->Nodes) {
 		Cost += Node->Ingredient->UseCost;
