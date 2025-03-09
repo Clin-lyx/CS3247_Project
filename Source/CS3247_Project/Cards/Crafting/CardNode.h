@@ -40,6 +40,9 @@ public:
 	FORCEINLINE bool IsReadyToCraft() const { return this->IsTerminal() || this->Successors.Num() > 0; }
 	
 	UCardNode* GetRoot();
+
+	UFUNCTION(BlueprintCallable)
+	FORCEINLINE bool IsImpact() { return this->Ingredient->IsA(UCardImpact::StaticClass()); }
 private:
 	UPROPERTY()
 	UCardNode* Predecessor;

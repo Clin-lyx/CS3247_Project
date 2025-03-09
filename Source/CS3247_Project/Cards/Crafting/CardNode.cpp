@@ -102,3 +102,4 @@ UCardNode* UCardNode::GetRoot() {
 
 	return this->Predecessor->GetRoot();
 }
+
