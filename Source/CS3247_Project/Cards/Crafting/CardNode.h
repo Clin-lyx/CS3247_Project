@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Card Effects/CardEffect.h"
 #include "Card Effects/CardIngredient.h"
+#include "Card Effects/Enchantments/CardEnchantment.h"
 #include "Card Effects/Impacts/CardImpact.h"
 #include "UObject/Object.h"
 #include "CardNode.generated.h"
@@ -20,35 +21,35 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(ExposeOnSpawn))
 	UCardIngredient* Ingredient;
 
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "Node Connections")
+	FORCEINLINE bool CanInsertNodeAfter() const {
+		return this->Ingredient->IsA(UCardEnchantment::StaticClass());
+	}
+
+	UFUNCTION(BlueprintCallable, Category = "Node Connections")
+	FORCEINLINE bool IsTerminal() const {
+		return this->FirstSuccessor == nullptr && this->SecondSuccessor == nullptr;
+	}
+
+	UFUNCTION(BlueprintCallable, Category = "Node Connections")
 	bool AddSuccessor(UCardNode* Node);
-	
-	FORCEINLINE bool Precedes(UCardNode* Node) const { return Node->Predecessor == this; }
-	
-	FORCEINLINE bool Succeeds(UCardNode* Node) const { return this->Predecessor == Node; }
+
+	UFUNCTION(BlueprintCallable, Category = "Node Connections")
+	bool BreakLinkWith(UCardNode* Node);
+
+	UFUNCTION(BlueprintCallable, Category= "Node Connections")
+	void BreakAllLinks();
 
 	UFUNCTION(BlueprintCallable)
-	bool BreakLinkWith(UCardNode* Node);
-	
-	void BreakAllLinks();
-	
-	int CountBuildableConnectedNodes();
-
-	UFUNCTION()
 	TArray<UCardEffect*> Build();
 	
-	FORCEINLINE bool IsReadyToCraft() const { return this->IsTerminal() || this->Successors.Num() > 0; }
-	
-	UCardNode* GetRoot();
 private:
 	UPROPERTY()
-	UCardNode* Predecessor;
+	TObjectPtr<UCardNode> Predecessor;
 
 	UPROPERTY()
-	TSet<UCardNode*> Successors;
-	
-	FORCEINLINE bool IsTerminal() const {
-		return this->Ingredient->IsA(UCardImpact::StaticClass()) &&
-			this->Successors.Num() == 0;
-	}
+	TObjectPtr<UCardNode> FirstSuccessor;
+
+	UPROPERTY()
+	TObjectPtr<UCardNode> SecondSuccessor;
 };

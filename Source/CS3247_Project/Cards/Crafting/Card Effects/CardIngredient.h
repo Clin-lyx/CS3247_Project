@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "CardEffect.h"
 #include "Engine/DataAsset.h"
 #include "CardIngredient.generated.h"
 
@@ -28,4 +29,8 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cost")
 	int32 CraftCost;
+	
+	FORCEINLINE virtual UCardEffect* Apply() { return NewObject<UCardEffect>(); }
+
+	FORCEINLINE virtual UCardEffect* ComposeTo(UCardEffect* Current) { return Current; }
 };

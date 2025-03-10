@@ -13,8 +13,4 @@
 UCLASS(Abstract)
 class CS3247_PROJECT_API UCardEnchantment : public UCardIngredient {
 	GENERATED_BODY()
-
-public:
-	UFUNCTION(BlueprintCallable)
-	virtual UCardEffect* Enchant(UCardEffect* Effect);
 };

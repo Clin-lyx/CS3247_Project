@@ -3,7 +3,7 @@
 
 #include "CardEnchantmentPowerUp.h"
 
-UCardEffect* UCardEnchantmentPowerUp::Enchant(UCardEffect* Effect) {
+UCardEffect* UCardEnchantmentPowerUp::ComposeTo(UCardEffect* Effect) {
 	const double Ratio = FMath::Max(1 + this->Value / 100.0, 1.0);
 	Effect->BaseDamage *= Ratio;
 	Effect->HealAmount *= Ratio;

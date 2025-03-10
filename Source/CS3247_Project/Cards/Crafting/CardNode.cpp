@@ -5,32 +5,56 @@
 #include "Card Effects/Enchantments/CardEnchantment.h"
 
 bool UCardNode::AddSuccessor(UCardNode* Node) {
-	if (IsValid(Node->Predecessor) || this->Successors.Contains(Node)) {
+	if (!IsValid(Node)) {
+		return false;
+	}
+	
+	// If the node already has a predecessor, cannot link.
+	if (IsValid(Node->Predecessor)) {
 		return false;
 	}
 
-	Node->Predecessor = this;
-	this->Successors.Add(Node);
-	return true;
+	// If the node is already a successor, cannot re-link.
+	if (Node == this->FirstSuccessor || Node == this->SecondSuccessor) {
+		return false;
+	}
+
+	if (!IsValid(this->FirstSuccessor)) {
+		this->FirstSuccessor = Node;
+		Node->Predecessor = this;
+		return true;
+	}
+
+	if (!IsValid(this->SecondSuccessor)) {
+		this->SecondSuccessor = Node;
+		Node->Predecessor = Node;
+		return true;
+	}
+	
+	return false;
 }
 
 bool UCardNode::BreakLinkWith(UCardNode* Node) {
 	if (!IsValid(Node)) {
 		return false;
 	}
-		
-	if (this->Precedes(Node)) {
+
+	if (Node == this->Predecessor) {
+		return Node->BreakLinkWith(this);
+	}
+
+	if (Node == this->FirstSuccessor && this == Node->Predecessor) {
+		this->FirstSuccessor = nullptr;
 		Node->Predecessor = nullptr;
-		this->Successors.Remove(Node);
 		return true;
 	}
 
-	if (this->Succeeds(Node)) {
-		this->Predecessor = nullptr;
-		Node->Successors.Remove(this);
+	if (Node == this->SecondSuccessor && this == Node->Predecessor) {
+		this->SecondSuccessor = nullptr;
+		Node->Predecessor = nullptr;
 		return true;
 	}
-		
+	
 	return false;
 }
 
@@ -39,41 +63,14 @@ void UCardNode::BreakAllLinks() {
 		this->Predecessor->BreakLinkWith(this);
 	}
 
-	for (const auto& Successor : this->Successors) {
-		Successor->BreakLinkWith(this);
-	}
-}
-
-int UCardNode::CountBuildableConnectedNodes() {
-	int Count = 0;
-	TSet<UCardNode*> Visited = {};
-	TQueue<UCardNode*> Queue = {};
-	Queue.Enqueue(this);
-	UCardNode* Curr;
-	while (Queue.Dequeue(Curr)) {
-		Visited.Add(Curr);
-		if (Curr->IsReadyToCraft()) {
-			Count += 1;
-		}
-
-		if (IsValid(this->Predecessor) && !Visited.Contains(this->Predecessor)) {
-			Queue.Enqueue(this->Predecessor);
-		}
-        	
-		for (auto& Successor : Curr->Successors) {
-			if (!Visited.Contains(Successor)) {
-				Queue.Enqueue(Successor);
-			}
-		}
-	}
-		
-	return Count;
+	this->FirstSuccessor->BreakLinkWith(this);
+	this->SecondSuccessor->BreakLinkWith(this);
 }
 
 TArray<UCardEffect*> UCardNode::Build() {
 	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Building from ") + this->Ingredient->GetName());
 	if (this->IsTerminal()) {
-		return {Cast<UCardImpact>(this->Ingredient)->Apply()};
+		return {this->Ingredient->Apply()};
 	}
 
 	TArray<UCardEffect*> CardEffects = {};

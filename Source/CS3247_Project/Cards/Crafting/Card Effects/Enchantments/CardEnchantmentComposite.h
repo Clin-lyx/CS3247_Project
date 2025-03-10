@@ -17,5 +17,5 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	TArray<TSoftObjectPtr<UCardEnchantment>> Enchantments;
 	
-	virtual UCardEffect* Enchant(UCardEffect* Effect) override;
+	virtual UCardEffect* ComposeTo(UCardEffect* Effect) override;
 };

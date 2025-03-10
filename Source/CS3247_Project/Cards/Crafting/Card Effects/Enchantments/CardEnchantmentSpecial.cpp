@@ -3,7 +3,7 @@
 
 #include "CardEnchantmentSpecial.h"
 
-UCardEffect* UCardEnchantmentSpecial::Enchant(UCardEffect* Effect) {
+UCardEffect* UCardEnchantmentSpecial::ComposeTo(UCardEffect* Effect) {
 	Effect->SpecialEffects.AddTag(this->SpecialEffect);
 	return Effect;
 }

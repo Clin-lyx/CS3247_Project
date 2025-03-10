@@ -19,13 +19,10 @@ bool UCardRecipe::RemoveNode(UCardNode* Node) {
 UCard* UCardRecipe::Forge() {
 	UCard* Card = NewObject<UCard>();
 	Card->Effects = this->Source->GetRoot()->Build();
-	double Cost = 0.0;
-	
 	for (const auto& Node : this->Nodes) {
-		Cost += Node->Ingredient->UseCost;
+		Card->Cost += Node->Ingredient->UseCost;
 	}
-
-	Card->Cost = Cost;
+	
 	Card->Name = FText::FromString(TEXT("New Card"));
 	return Card;
 }

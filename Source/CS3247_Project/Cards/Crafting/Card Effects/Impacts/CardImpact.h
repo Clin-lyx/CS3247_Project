@@ -17,8 +17,5 @@ class CS3247_PROJECT_API UCardImpact : public UCardIngredient, public IRichTextR
 	GENERATED_BODY()
 
 public:
-	UFUNCTION(BlueprintCallable)
-	virtual UCardEffect* Apply();
-
 	virtual FString ToRichText() const override;
 };

@@ -23,5 +23,5 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	int Strength;
 	
-	virtual UCardEffect* Enchant(UCardEffect* Effect) override;
+	virtual UCardEffect* ComposeTo(UCardEffect* Effect) override;
 };

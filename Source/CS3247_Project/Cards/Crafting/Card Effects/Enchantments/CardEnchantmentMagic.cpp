@@ -3,12 +3,13 @@
 
 #include "CardEnchantmentMagic.h"
 
-UCardEffect* UCardEnchantmentMagic::Enchant(UCardEffect* Effect) {
+UCardEffect* UCardEnchantmentMagic::ComposeTo(UCardEffect* Effect) {
 	const double ExtraDamageAmount = Effect->BaseDamage.DamageValue * this->Strength / 100.0;
 	if (Effect->ExtraDamageEffects.Contains(this->EnchantmentType)) {
 		Effect->ExtraDamageEffects[this->EnchantmentType] += ExtraDamageAmount;
 	} else {
-		Effect->ExtraDamageEffects.Add(this->EnchantmentType, FDamageData(this->EnchantmentType, ExtraDamageAmount));
+		const FDamageData Dmg = FDamageData(this->EnchantmentType, ExtraDamageAmount);
+		Effect->ExtraDamageEffects.Add(this->EnchantmentType, Dmg);
 	}
 
 	return Effect;

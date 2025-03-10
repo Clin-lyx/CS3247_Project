@@ -3,7 +3,7 @@
 
 #include "CardEnchantmentPowerDown.h"
 
-UCardEffect* UCardEnchantmentPowerDown::Enchant(UCardEffect* Effect) {
+UCardEffect* UCardEnchantmentPowerDown::ComposeTo(UCardEffect* Effect) {
 	const double Ratio = FMath::Clamp(1 - this->Value / 100.0, 0.0, 1.0);
 	Effect->BaseDamage *= Ratio;
 	Effect->HealAmount *= Ratio;
