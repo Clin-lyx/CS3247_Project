@@ -2,3 +2,6 @@
 
 
 #include "FlowControl.h"
+TArray<TObjectPtr<UCardEffect>> UFlowControl::Combine(UCardEffect* Left, UCardEffect* Right) {
+	return {Left, Right};
+}

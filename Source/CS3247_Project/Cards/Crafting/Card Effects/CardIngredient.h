@@ -30,7 +30,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cost")
 	int32 CraftCost;
 	
-	FORCEINLINE virtual UCardEffect* Apply() { return NewObject<UCardEffect>(); }
+	virtual UCardEffect* Apply();
 
-	FORCEINLINE virtual UCardEffect* ComposeTo(UCardEffect* Current) { return Current; }
+	virtual UCardEffect* ComposeTo(UCardEffect* Current);
 };

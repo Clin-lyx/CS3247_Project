@@ -77,27 +77,19 @@ TArray<UCardEffect*> UCardNode::Build() {
 	
 	if (this->Ingredient->IsA(UCardEnchantment::StaticClass())) {
 		UCardEnchantment* Enchantment = Cast<UCardEnchantment>(this->Ingredient);
-		for (const auto& Successor : this->Successors) {
+		/*for (const auto& Successor : this->Successors) {
 			for (const auto& CardEffect : Successor->Build()) {
 				CardEffects.Add(Enchantment->Enchant(CardEffect));
 			}
-		}
+		}*/
 		
 		return CardEffects;
 	}
 
-	for (const auto& Successor : this->Successors) {
+	/*for (const auto& Successor : this->Successors) {
 		CardEffects.Append(Successor->Build());
-	}
+	}*/
 	
 	return CardEffects;
-}
-
-UCardNode* UCardNode::GetRoot() {
-	if (!IsValid(this->Predecessor)) {
-		return this;
-	}
-
-	return this->Predecessor->GetRoot();
 }
 

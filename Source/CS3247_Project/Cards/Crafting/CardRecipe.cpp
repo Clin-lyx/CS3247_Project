@@ -3,8 +3,9 @@
 
 #include "CardRecipe.h"
 bool UCardRecipe::IsValidRecipe() const {
-	return this->Source != nullptr &&
-		this->Source->CountBuildableConnectedNodes() == this->Nodes.Num();
+	return true;
+	/*this->Source != nullptr &&
+		this->Source->CountBuildableConnectedNodes() == this->Nodes.Num();*/
 }
 
 bool UCardRecipe::RemoveNode(UCardNode* Node) {
@@ -18,7 +19,7 @@ bool UCardRecipe::RemoveNode(UCardNode* Node) {
 
 UCard* UCardRecipe::Forge() {
 	UCard* Card = NewObject<UCard>();
-	Card->Effects = this->Source->GetRoot()->Build();
+	//Card->Effects = this->Source->GetRoot()->Build();
 	for (const auto& Node : this->Nodes) {
 		Card->Cost += Node->Ingredient->UseCost;
 	}

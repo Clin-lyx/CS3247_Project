@@ -14,5 +14,5 @@ class CS3247_PROJECT_API UFlowControlParallel : public UFlowControl {
 	GENERATED_BODY()
 
 public:
-	TArray<TObjectPtr<UCardEffect>> Combine(UCardEffect* Left, UCardEffect* Right) override;
+	virtual TArray<TObjectPtr<UCardEffect>> Combine(UCardEffect* Left, UCardEffect* Right) override;
 };

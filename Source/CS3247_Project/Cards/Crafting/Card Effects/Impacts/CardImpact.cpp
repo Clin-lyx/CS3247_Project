@@ -3,10 +3,6 @@
 
 #include "CardImpact.h"
 
-UCardEffect* UCardImpact::Apply() {
-	return NewObject<UCardEffect>();
-}
-
 FString UCardImpact::ToRichText() const {
 	return FString::Printf(TEXT("Unknown Card Impact"));
 }
