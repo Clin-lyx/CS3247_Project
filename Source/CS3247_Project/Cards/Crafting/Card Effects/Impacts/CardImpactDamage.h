@@ -16,11 +16,16 @@ class CS3247_PROJECT_API UCardImpactDamage : public UCardImpact {
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta=(Categories="Damage"))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(Categories="Damage"))
 	FGameplayTag DamageType;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 Value;
 	
 	virtual UCardEffect* Apply() override;
+
+	virtual FString ToRichText() const override;
+
+private:
+	FString GetDamageType() const;
 };
