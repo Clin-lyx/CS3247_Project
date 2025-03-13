@@ -2,3 +2,10 @@
 
 
 #include "CardIngredient.h"
+UCardEffect* UCardIngredient::Apply() {
+	return NewObject<UCardEffect>();
+}
+
+UCardEffect* UCardIngredient::ComposeTo(UCardEffect* Current) {
+	return Current;
+}

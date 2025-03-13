@@ -4,18 +4,21 @@
 #include "CardNode.h"
 #include "Card Effects/Enchantments/CardEnchantment.h"
 
-bool UCardNode::AddSuccessor(UCardNode* Node) {
+bool UCardNode::AddSuccessor(UCardNode* Node, FText& ErrorMsg) {
 	if (!IsValid(Node)) {
+		ErrorMsg = FText::FromString(TEXT("The parent node is not alive."));
 		return false;
 	}
 	
 	// If the node already has a predecessor, cannot link.
 	if (IsValid(Node->Predecessor)) {
+		ErrorMsg = FText::FromString(TEXT("The child node already has a predecessor. Unlink first."));
 		return false;
 	}
 
 	// If the node is already a successor, cannot re-link.
 	if (Node == this->FirstSuccessor || Node == this->SecondSuccessor) {
+		ErrorMsg = FText::FromString(TEXT("The child node is already a successor. Duplicated link."));
 		return false;
 	}
 
@@ -30,17 +33,21 @@ bool UCardNode::AddSuccessor(UCardNode* Node) {
 		Node->Predecessor = Node;
 		return true;
 	}
-	
+
+	// The node already has two children.
+	ErrorMsg = FText::FromString(TEXT("The parent node already has two successors. Unlink one of them first."));
 	return false;
 }
 
-bool UCardNode::BreakLinkWith(UCardNode* Node) {
+bool UCardNode::BreakLinkWith(UCardNode* Node, FText& ErrorMsg) {
 	if (!IsValid(Node)) {
+		ErrorMsg = FText::FromString(TEXT("The other node is not alive."));
 		return false;
 	}
 
 	if (Node == this->Predecessor) {
-		return Node->BreakLinkWith(this);
+		FText Empty = FText::GetEmpty();
+		return Node->BreakLinkWith(this, Empty);
 	}
 
 	if (Node == this->FirstSuccessor && this == Node->Predecessor) {
@@ -54,17 +61,20 @@ bool UCardNode::BreakLinkWith(UCardNode* Node) {
 		Node->Predecessor = nullptr;
 		return true;
 	}
-	
+
+	ErrorMsg = FText::Format(FTextFormat::FromString("{0} and {1} are not connected"),
+		this->GetDescription(), Node->GetDescription());
 	return false;
 }
 
 void UCardNode::BreakAllLinks() {
+	FText Empty = FText::GetEmpty();
 	if (IsValid(this->Predecessor)) {
-		this->Predecessor->BreakLinkWith(this);
+		this->Predecessor->BreakLinkWith(this, Empty);
 	}
 
-	this->FirstSuccessor->BreakLinkWith(this);
-	this->SecondSuccessor->BreakLinkWith(this);
+	this->FirstSuccessor->BreakLinkWith(this, Empty);
+	this->SecondSuccessor->BreakLinkWith(this, Empty);
 }
 
 TArray<UCardEffect*> UCardNode::Build() {

@@ -7,6 +7,7 @@
 #include "Card Effects/CardIngredient.h"
 #include "Card Effects/Enchantments/CardEnchantment.h"
 #include "Card Effects/Impacts/CardImpact.h"
+#include "CS3247_Project/UI/Texts/TextDescribable.h"
 #include "UObject/Object.h"
 #include "CardNode.generated.h"
 
@@ -14,7 +15,7 @@
  * 
  */
 UCLASS(EditInlineNew, BlueprintType, Blueprintable)
-class CS3247_PROJECT_API UCardNode : public UDataAsset {
+class CS3247_PROJECT_API UCardNode : public UDataAsset, public ITextDescribable {
 	GENERATED_BODY()
 
 public:
@@ -32,17 +33,21 @@ public:
 	}
 
 	UFUNCTION(BlueprintCallable, Category = "Node Connections")
-	bool AddSuccessor(UCardNode* Node);
+	bool AddSuccessor(UCardNode* Node, FText& ErrorMsg);
 
 	UFUNCTION(BlueprintCallable, Category = "Node Connections")
-	bool BreakLinkWith(UCardNode* Node);
+	bool BreakLinkWith(UCardNode* Node, FText& ErrorMsg);
 
 	UFUNCTION(BlueprintCallable, Category= "Node Connections")
 	void BreakAllLinks();
 
 	UFUNCTION(BlueprintCallable)
 	TArray<UCardEffect*> Build();
-	
+
+	UFUNCTION(BlueprintCallable)
+	virtual FORCEINLINE FText GetDescription() const override {
+		return FText::FromString("[" + this->Ingredient->GetName() + "]");
+	}
 private:
 	UPROPERTY()
 	TObjectPtr<UCardNode> Predecessor;
