@@ -3,43 +3,34 @@
 
 #include "CardEffect.h"
 
-#include "../../../UI/Texts/Text.h"
+#include "../../../../UI/Texts/Text.h"
 
-UCardEffect::UCardEffect() {
-	this->ManaCost = 0;
-	this->ExtraDamageEffects = {};
-	this->HealAmount = 0;
-	this->SpecialEffects = FGameplayTagContainer();
-}
-
-FString UCardEffect::ToRichText() const {
+FString UCardEffect::ToString() const {
 	TStringBuilder<256> Sb = TStringBuilder<256>();
 	TArray<FString> Lines = {};
-	if (this->BaseDamage > 0) {
-		Lines.Add(this->BaseDamage.ToRichText());
+	for (auto& Entry : this->AtomicEffects) {
+		Lines.Add(Entry.Value->ToString());
 	}
 
-	const int Heal = FMath::CeilToInt(this->HealAmount);
-	if (Heal > 0) {
-		const FString HealNum = UText::Green(FString::Printf(TEXT("%d"), Heal));
-		Lines.Add(FString::Printf(TEXT("Heals %s HP"), *HealNum));
+	return Sb.Join(Lines, '\n').ToString();
+}
+
+FText UCardEffect::ToText() const {
+	TStringBuilder<256> Sb = TStringBuilder<256>();
+	TArray<FText> Lines = {};
+	for (auto& Entry : this->AtomicEffects) {
+		Lines.Add(Entry.Value->ToText());
 	}
 
-	for (auto& ExtraDamage : this->ExtraDamageEffects) {
-		if (ExtraDamage.Value > 0) {
-			Lines.Add(ExtraDamage.Value.ToRichText());
-		}
+	return FText::FromString(Sb.Join(Lines, '\n').ToString());
+}
+
+FText UCardEffect::ToRichText() const {
+	TStringBuilder<256> Sb = TStringBuilder<256>();
+	TArray<FText> Lines = {};
+	for (auto& Entry : this->AtomicEffects) {
+		Lines.Add(Entry.Value->ToRichText());
 	}
 
-	if (!this->SpecialEffects.IsEmpty()) {
-		for (auto& SpecialEffect : this->SpecialEffects) {
-			Lines.Add(FString::Printf(TEXT("%s"), *SpecialEffect.ToString()));
-		}
-	}
-
-	if (Lines.IsEmpty()) {
-		return "";
-	}
-	
-	return Sb.Join(Lines, TEXT("\n")).ToString();
+	return FText::FromString(Sb.Join(Lines, '\n').ToString());
 }

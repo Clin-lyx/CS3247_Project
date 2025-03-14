@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "../../../../UI/Texts/Localisable.h"
-#include "CS3247_Project/UI/Texts/Printable.h"
+#include "../../../../UI/Texts/Printable.h"
 #include "UObject/Object.h"
 #include "AtomicCardEffect.generated.h"
 

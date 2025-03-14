@@ -19,36 +19,41 @@ public:
 	UPROPERTY(BlueprintReadOnly)
 	FGameplayTag DamageType;
 	
-	UPROPERTY(BlueprintReadOnly)
+	UPROPERTY(BlueprintGetter = GetDamageValue)
 	double DamageValue;
 	
 	UDamageEffect() : DamageValue(0) {}
 	
-	UDamageEffect(const FGameplayTag DamageType, const double DamageValue) :
-		DamageType(DamageType), DamageValue(DamageValue) {}
+
+	FORCEINLINE int32 GetDamageValue() const { return FMath::CeilToInt(DamageValue); }
+
+	virtual FString ToString() const override;
+
+	virtual FText ToText() const override;
 	
+	virtual FText ToRichText() const override;
 	
-	UDamageEffect operator+ (const double Offset) const; 
+	UDamageEffect* operator+ (const double Offset) const; 
 
-	UDamageEffect operator- (const double Offset) const;
+	UDamageEffect* operator- (const double Offset) const;
 
-	UDamageEffect operator* (const double Factor) const;
+	UDamageEffect* operator* (const double Factor) const;
 
-	UDamageEffect operator+= (const double Value) const;
+	UDamageEffect* operator+= (const double Value) const;
 
-	UDamageEffect operator-= (const double Value) const;
+	UDamageEffect* operator-= (const double Value) const;
 
-	UDamageEffect operator*= (const double Value) const;
+	UDamageEffect* operator*= (const double Value) const;
 
-	bool operator> (const int Value) const;
+	bool operator> (const int32 Value) const;
 
-	bool operator< (const int Value) const;
+	bool operator< (const int32 Value) const;
 
-	bool operator== (const int Value) const;
+	bool operator== (const int32 Value) const;
 
-	bool operator!= (const int Value) const;
+	bool operator!= (const int32 Value) const;
 
-	bool operator>= (const int Value) const;
+	bool operator>= (const int32 Value) const;
 
-	bool operator<= (const int Value) const;
+	bool operator<= (const int32 Value) const;
 };

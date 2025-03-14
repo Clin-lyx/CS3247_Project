@@ -3,42 +3,47 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "DamageData.h"
 #include "GameplayTagContainer.h"
-#include "../../../UI/Texts/RichTextRepresentable.h"
+#include "ManaCostEffect.h"
+#include "../../../../UI/Texts/Localisable.h"
+#include "../../../../UI/Texts/Printable.h"
 #include "UObject/Object.h"
 #include "CardEffect.generated.h"
 
+class UAtomicCardEffect;
 /**
- * 
+ * One complete card effect. It can consist of the following atomic effects:
+ * - Mana Cost (always)
+ * - Damage
+ * - Healing
+ * - Enchantment Damage
+ * - Special Effects
  */
 UCLASS(BlueprintType)
-class CS3247_PROJECT_API UCardEffect : public UObject, public IRichTextRepresentable {
+class CS3247_PROJECT_API UCardEffect : public UObject, public IPrintable, public ILocalisable {
 	GENERATED_BODY()
 
 public:
-	UCardEffect();
-
-	////////////////////////////////////////////////////////////////////////////
-	// Changes to player attributes
-	////////////////////////////////////////////////////////////////////////////
-	
-
-	UPROPERTY(BlueprintReadOnly)
-	FDamageData BaseDamage;
-	
-	UPROPERTY(BlueprintReadOnly)
-	TMap<FGameplayTag, FDamageData> ExtraDamageEffects;
-	
-	UPROPERTY(BlueprintReadOnly)
-	float HealAmount;
-
-	////////////////////////////////////////////////////////////////////////////
-	// Special effects
-	////////////////////////////////////////////////////////////////////////////
-	UPROPERTY(BlueprintReadOnly)
-	FGameplayTagContainer SpecialEffects;
+	UCardEffect() : AtomicEffects({{UManaCostEffect::StaticClass(),
+		NewObject<UManaCostEffect>(this)}}) {}
 
 	UFUNCTION(BlueprintCallable)
-	virtual FString ToRichText() const override;
+	FORCEINLINE UAtomicCardEffect* GetEffect(const TSubclassOf<UAtomicCardEffect> EffectType) const {
+		return this->AtomicEffects.Contains(EffectType) ? this->AtomicEffects[EffectType] : nullptr;
+	}
+
+	FORCEINLINE void SetEffect(const TSubclassOf<UAtomicCardEffect>& EffectType,
+		UAtomicCardEffect* Effect) {
+		this->AtomicEffects.Add(EffectType, Effect);
+	}
+
+	virtual FString ToString() const override;
+	
+	virtual FText ToText() const override;
+	
+	virtual FText ToRichText() const override;
+	
+private:
+	UPROPERTY()
+	TMap<TSubclassOf<UAtomicCardEffect>, UAtomicCardEffect*> AtomicEffects;
 };

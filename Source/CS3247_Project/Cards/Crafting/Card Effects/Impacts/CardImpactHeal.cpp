@@ -3,7 +3,7 @@
 
 #include "CardImpactHeal.h"
 
-#include "CS3247_Project/UI/Texts/Text.h"
+#include "CS3247_Project/UI/Texts/TextUtil.h"
 
 UCardEffect* UCardImpactHeal::Apply() {
 	UCardEffect* Data = Super::Apply();
@@ -12,6 +12,6 @@ UCardEffect* UCardImpactHeal::Apply() {
 }
 
 FString UCardImpactHeal::ToRichText() const {
-	const FString HealNum = UText::Green(FString::Printf(TEXT("%d"), this->Value));
+	const FString HealNum = UTextUtil::Green(FString::Printf(TEXT("%d"), this->Value));
 	return FString::Printf(TEXT("Heals %s HP"), *HealNum);
 }
