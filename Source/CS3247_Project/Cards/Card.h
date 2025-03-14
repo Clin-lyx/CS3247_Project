@@ -35,15 +35,16 @@ public:
 	TObjectPtr<UCardRecipe> Recipe;
 	
 	UCard();
+	
+	virtual FText ToText() const override;
 
-	UFUNCTION(BlueprintCallable)
-	virtual FText GetDescription() const override;
+	virtual FText ToRichText() const override;
 
 	UFUNCTION(BlueprintCallable, meta=(DeprecatedFunction = "true"))
 	void GetCardInfo(FText& CardName, FText& Desc, int& UseCost, int& CardDurability, TArray<UCardEffect*>& CardEffects) const;
 
 	UFUNCTION(BlueprintCallable, Category = "Card Info")
-	FORCEINLINE void GetCardData(int& UseCost, int& CardDurability, TArray<TObjectPtr<UCardEffect>>& CardEffects) const {
+	FORCEINLINE void GetCardData(int& UseCost, int& CardDurability, TArray<UCardEffect*>& CardEffects) const {
 		UseCost = this->Cost;
 		CardDurability = this->Durability;
 		CardEffects = this->Effects;

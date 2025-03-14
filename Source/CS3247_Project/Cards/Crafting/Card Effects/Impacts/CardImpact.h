@@ -13,6 +13,6 @@
  * 
  */
 UCLASS(Abstract)
-class CS3247_PROJECT_API UCardImpact : public UCardIngredient, public IPrintable, public ILocalisable {
+class CS3247_PROJECT_API UCardImpact : public UCardIngredient {
 	GENERATED_BODY()
 };

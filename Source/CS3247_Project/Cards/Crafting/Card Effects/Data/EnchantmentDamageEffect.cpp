@@ -34,7 +34,7 @@ void UEnchantmentDamageEffect::OffsetStrength(const double Offset) {
 FString UEnchantmentDamageEffect::ToString() const {
 	TStringBuilder<256> Sb = TStringBuilder<256>();
 	for (auto& Entry : this->EnchantmentDamages) {
-		Sb.Appendf(TEXT("%s enchantment damage: %lf\n"), Entry.Key.GetTagName(), Entry.Value);
+		Sb.Appendf(TEXT("%s enchantment damage: %lf\n"), *Entry.Key.GetTagName().ToString(), Entry.Value);
 	}
 	
 	return Sb.ToString();	

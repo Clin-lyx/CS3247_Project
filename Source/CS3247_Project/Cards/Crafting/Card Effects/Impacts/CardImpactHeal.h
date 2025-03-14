@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "CardImpact.h"
-#include "../CardEffect.h"
 #include "CardImpactHeal.generated.h"
 
 /**

@@ -2,6 +2,9 @@
 
 
 #include "CardRecipe.h"
+#include "CardNode.h"
+#include "../Card.h"
+
 bool UCardRecipe::IsValidRecipe() const {
 	return true;
 	/*this->Source != nullptr &&
@@ -21,18 +24,9 @@ UCard* UCardRecipe::Forge() {
 	UCard* Card = NewObject<UCard>();
 	//Card->Effects = this->Source->GetRoot()->Build();
 	for (const auto& Node : this->Nodes) {
-		Card->Cost += Node->Ingredient->UseCost;
+		Card->Cost += Node.Get()->Ingredient->UseCost;
 	}
 	
 	Card->Name = FText::FromString(TEXT("New Card"));
 	return Card;
-}
-
-FText UCardRecipe::GetDescription() const {
-	TStringBuilder<256> Sb = TStringBuilder<256>();
-	for (const auto& Node : this->Nodes) {
-		Sb.Appendf(TEXT("%s "), *Node.Get()->Ingredient->GetName());
-	}
-
-	return FText::FromString(Sb.ToString());
 }

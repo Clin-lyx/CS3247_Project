@@ -19,4 +19,10 @@ public:
 	virtual void OffsetStrength(const double Offset);
 
 	virtual void ScaleStrength(const double Ratio);
+
+	virtual FString ToString() const override;
+	
+	virtual FText ToText() const override;
+
+	virtual FText ToRichText() const override;
 };

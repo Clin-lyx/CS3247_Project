@@ -23,7 +23,7 @@ FString UCardImpactDamage::ToString() const {
 
 FText UCardImpactDamage::ToText() const {
 	return FText::Format(FTextFormat::FromString(TEXT("{0} {1} damage")),
-		this->Value, this->DamageType.ToString());
+		this->Value, FText::FromString(this->DamageType.ToString()));
 }
 FText UCardImpactDamage::ToRichText() const {
 	return FText::Format(FTextFormat::FromString(TEXT("{0} {1} damage")),

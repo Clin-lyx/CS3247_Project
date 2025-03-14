@@ -13,7 +13,7 @@ class UCardNode;
  * 
  */
 UCLASS(BlueprintType)
-class CS3247_PROJECT_API UCardRecipe : public UObject, public ILocalisable {
+class CS3247_PROJECT_API UCardRecipe : public UObject {
 	GENERATED_BODY()
 
 public:
@@ -33,9 +33,6 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	UCard* Forge();
-
-	UFUNCTION(BlueprintCallable)
-	virtual FText GetDescription() const override;
 	
 private:
 	UPROPERTY()

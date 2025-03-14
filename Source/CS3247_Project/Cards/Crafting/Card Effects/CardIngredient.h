@@ -3,6 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "../../../UI/Texts/Localisable.h"
+#include "../../../UI/Texts/Printable.h"
 #include "Engine/DataAsset.h"
 #include "CardIngredient.generated.h"
 
@@ -12,7 +14,7 @@ class UCardEffect;
  * The abstract base class for all card ingredients in crafting.
  */
 UCLASS(Abstract, BlueprintType, Blueprintable)
-class CS3247_PROJECT_API UCardIngredient : public UDataAsset {
+class CS3247_PROJECT_API UCardIngredient : public UDataAsset, public IPrintable, public ILocalisable {
 	GENERATED_BODY()
 	
 public:
@@ -44,4 +46,10 @@ public:
 	 * @return The new effect.
 	 */
 	virtual UCardEffect* ComposeTo(UCardEffect* Current);
+
+	virtual FString ToString() const override;
+
+	virtual FText ToText() const override;
+
+	virtual FText ToRichText() const override;
 };

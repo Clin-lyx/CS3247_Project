@@ -16,14 +16,14 @@ UCardEffect* UCardImpactHeal::Apply(UCard* OwningCard) {
 }
 
 FString UCardImpactHeal::ToString() const {
-	return FString::Printf(TEXT("Effect: heal %lf"), this->HealAmount);
+	return FString::Printf(TEXT("Impact: heal %d HP"), this->Value);
 }
 
 FText UCardImpactHeal::ToText() const {
-	return FText::FromString(FString::Printf(TEXT("Heals %d HP"), this->GetHealAmount()));
+	return FText::FromString(FString::Printf(TEXT("Heals %d HP"), this->Value));
 }
 
 FText UCardImpactHeal::ToRichText() const {
 	return FText::Format(FTextFormat::FromString(TEXT("Heals {0} HP")),
-		UText::Green(FString::FromInt(this->GetHealAmount())));
+		UText::Green(FString::FromInt(this->Value)));
 }

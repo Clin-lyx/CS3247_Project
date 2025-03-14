@@ -6,6 +6,7 @@
 #include "CardEnchantment.h"
 #include "CardEnchantmentComposite.generated.h"
 
+class UCardEffect;
 /**
  * 
  */
@@ -14,7 +15,7 @@ class CS3247_PROJECT_API UCardEnchantmentComposite : public UCardEnchantment {
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	UPROPERTY(EditDefaultsOnly, Category = "Inner Enchantments")
 	TArray<TSoftObjectPtr<UCardEnchantment>> Enchantments;
 	
 	virtual UCardEffect* ComposeTo(UCardEffect* Effect) override;

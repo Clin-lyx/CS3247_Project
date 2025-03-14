@@ -77,16 +77,16 @@ void UCardNode::BreakAllLinks() {
 	this->SecondSuccessor->BreakLinkWith(this, Empty);
 }
 
-TArray<TObjectPtr<UCardEffect>> UCardNode::Build() {
+TArray<TObjectPtr<UCardEffect>> UCardNode::Build(UCard* OwningCard) {
 	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Building from ") + this->Ingredient->GetName());
 	// If this is a leaf node, we expect it to be an impact, so just build.
 	if (this->IsTerminal()) {
-		return {this->Ingredient->Apply()};
+		return {this->Ingredient->Apply(OwningCard)};
 	}
 
 	TArray<TObjectPtr<UCardEffect>> CardEffects = {};
 	// Otherwise, build the first successor.
-	TArray<TObjectPtr<UCardEffect>> LeftSubtree = this->FirstSuccessor->Build();
+	TArray<TObjectPtr<UCardEffect>> LeftSubtree = this->FirstSuccessor->Build(OwningCard);
 	
 	
 	

@@ -12,7 +12,7 @@ FString UDamageEffect::ToString() const {
 
 FText UDamageEffect::ToText() const {
 	return FText::Format(FTextFormat::FromString(TEXT("{0} {1} damage")),
-		this->GetDamageValue(), this->DamageType.ToString());
+		this->GetDamageValue(), FText::FromString(this->DamageType.ToString()));
 }
 
 FText UDamageEffect::ToRichText() const {

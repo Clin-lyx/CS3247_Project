@@ -15,9 +15,9 @@ FString UCardEffect::ToString() const {
 
 FText UCardEffect::ToText() const {
 	TStringBuilder<256> Sb = TStringBuilder<256>();
-	TArray<FText> Lines = {};
+	TArray<FString> Lines = {};
 	for (auto& Entry : this->AtomicEffects) {
-		Lines.Add(Entry.Value->ToText());
+		Lines.Add(Entry.Value->ToText().ToString());
 	}
 
 	return FText::FromString(Sb.Join(Lines, '\n').ToString());
@@ -25,9 +25,9 @@ FText UCardEffect::ToText() const {
 
 FText UCardEffect::ToRichText() const {
 	TStringBuilder<256> Sb = TStringBuilder<256>();
-	TArray<FText> Lines = {};
+	TArray<FString> Lines = {};
 	for (auto& Entry : this->AtomicEffects) {
-		Lines.Add(Entry.Value->ToRichText());
+		Lines.Add(Entry.Value->ToRichText().ToString());
 	}
 
 	return FText::FromString(Sb.Join(Lines, '\n').ToString());
