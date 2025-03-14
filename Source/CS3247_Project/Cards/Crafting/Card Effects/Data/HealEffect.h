@@ -21,23 +21,15 @@ public:
 	UFUNCTION(BlueprintCallable)
 	FORCEINLINE int32 GetHealAmount() const { return FMath::CeilToInt32(this->HealAmount); }
 
+	virtual void ScaleStrength(const double Ratio) override;
+
+	virtual void OffsetStrength(const double Offset) override;
+
 	virtual FString ToString() const override;
 	
 	virtual FText ToText() const override;
 	
 	virtual FText ToRichText() const override;
-
-	UHealEffect* operator+(const double Offset) const;
-
-	UHealEffect* operator-(const double Offset) const;
-
-	UHealEffect* operator*(const double Factor) const;
-
-	UHealEffect* operator+=(const double Offset) const;
-
-	UHealEffect* operator-=(const double Offset) const;
-
-	UHealEffect* operator*=(const double Factor) const;
 
 	bool operator==(const int32 Value) const;
 

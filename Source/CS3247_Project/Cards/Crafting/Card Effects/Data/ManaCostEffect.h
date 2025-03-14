@@ -17,28 +17,20 @@ class CS3247_PROJECT_API UManaCostEffect : public UAtomicCardEffect {
 public:
 	UManaCostEffect() : ManaCost(0) {}
 	
-	UPROPERTY(BlueprintGetter = GetManaCost)
 	double ManaCost;
 
+	UFUNCTION(BlueprintCallable)
 	FORCEINLINE int32 GetManaCost() const { return FMath::CeilToInt32(this->ManaCost); }
+
+	virtual void ScaleStrength(const double Ratio) override;
+
+	virtual void OffsetStrength(const double Offset) override;
 
 	virtual FString ToString() const override;
 
 	virtual FText ToText() const override;
 	
 	virtual FText ToRichText() const override;
-
-	UManaCostEffect* operator+ (const double Offset) const; 
-
-	UManaCostEffect* operator- (const double Offset) const;
-
-	UManaCostEffect* operator* (const double Factor) const;
-
-	UManaCostEffect* operator+= (const double Value) const;
-
-	UManaCostEffect* operator-= (const double Value) const;
-
-	UManaCostEffect* operator*= (const double Value) const;
 
 	bool operator> (const int32 Value) const;
 

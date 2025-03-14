@@ -26,6 +26,14 @@ public:
 		this->EnchantmentDamages.Add(DmgType, DmgVal);
 	}
 
+	void ScaleStrength(const FGameplayTag DmgType, const double Ratio);
+
+	void OffsetStrength(const FGameplayTag DmgType, const double Offset);
+
+	virtual void ScaleStrength(const double Ratio) override;
+
+	virtual void OffsetStrength(const double Offset) override;
+
 	virtual FString ToString() const override;
 
 	virtual FText ToText() const override;

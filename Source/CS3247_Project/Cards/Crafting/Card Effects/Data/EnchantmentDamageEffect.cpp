@@ -5,6 +5,32 @@
 
 #include "../../../../UI/Texts/Text.h"
 
+void UEnchantmentDamageEffect::ScaleStrength(const FGameplayTag DmgType, const double Ratio) {
+	if (this->EnchantmentDamages.Contains(DmgType)) {
+		this->EnchantmentDamages[DmgType] *= Ratio;
+	}
+}
+
+void UEnchantmentDamageEffect::OffsetStrength(const FGameplayTag DmgType, const double Offset) {
+	if (this->EnchantmentDamages.Contains(DmgType)) {
+		this->EnchantmentDamages[DmgType] += Offset;
+	}
+}
+
+void UEnchantmentDamageEffect::ScaleStrength(const double Ratio) {
+	Super::ScaleStrength(Ratio);
+	for (auto& Entry : this->EnchantmentDamages) {
+		Entry.Value *= Ratio;
+	}
+}
+
+void UEnchantmentDamageEffect::OffsetStrength(const double Offset) {
+	Super::OffsetStrength(Offset);
+	for (auto& Entry : this->EnchantmentDamages) {
+		Entry.Value += Offset;
+	}
+}
+
 FString UEnchantmentDamageEffect::ToString() const {
 	TStringBuilder<256> Sb = TStringBuilder<256>();
 	for (auto& Entry : this->EnchantmentDamages) {

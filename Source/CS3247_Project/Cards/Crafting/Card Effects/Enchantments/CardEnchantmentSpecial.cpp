@@ -3,8 +3,23 @@
 
 #include "CardEnchantmentSpecial.h"
 
+#include "../Data/CardEffect.h"
+#include "../Data/SpecialEffect.h"
+
 UCardEffect* UCardEnchantmentSpecial::ComposeTo(UCardEffect* Effect) {
-	Effect->SpecialEffects.AddTag(this->SpecialEffect);
+	Cast<USpecialEffect>(Effect->GetEffect(USpecialEffect::StaticClass()))->AddSpecialEffect(this->SpecialEffect);
 	return Effect;
+}
+
+FString UCardEnchantmentSpecial::ToString() const {
+	return FString::Printf(TEXT("On played: %s"), *this->SpecialEffect.ToString());
+}
+
+FText UCardEnchantmentSpecial::ToText() const {
+	return FText::FromString(this->ToString());
+}
+
+FText UCardEnchantmentSpecial::ToRichText() const {
+	return FText::FromString(this->ToString());
 }
 

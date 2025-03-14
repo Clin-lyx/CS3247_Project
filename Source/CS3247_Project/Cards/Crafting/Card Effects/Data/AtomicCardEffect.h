@@ -14,4 +14,9 @@
 UCLASS(Abstract)
 class CS3247_PROJECT_API UAtomicCardEffect : public UObject, public ILocalisable, public IPrintable {
 	GENERATED_BODY()
+
+public:
+	virtual void OffsetStrength(const double Offset);
+
+	virtual void ScaleStrength(const double Ratio);
 };

@@ -24,6 +24,9 @@ class CS3247_PROJECT_API UCardEffect : public UObject, public IPrintable, public
 	GENERATED_BODY()
 
 public:
+	UPROPERTY()
+	TMap<TSubclassOf<UAtomicCardEffect>, UAtomicCardEffect*> AtomicEffects;
+	
 	int32 EnchantmentDecay;
 	
 	UCardEffect() : EnchantmentDecay(0), AtomicEffects({{UManaCostEffect::StaticClass(),
@@ -44,8 +47,4 @@ public:
 	virtual FText ToText() const override;
 	
 	virtual FText ToRichText() const override;
-	
-private:
-	UPROPERTY()
-	TMap<TSubclassOf<UAtomicCardEffect>, UAtomicCardEffect*> AtomicEffects;
 };

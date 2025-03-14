@@ -5,6 +5,16 @@
 
 #include "CS3247_Project/UI/Texts/Text.h"
 
+void UManaCostEffect::ScaleStrength(const double Ratio) {
+	Super::ScaleStrength(Ratio);
+	this->ManaCost *= Ratio;
+}
+
+void UManaCostEffect::OffsetStrength(const double Offset) {
+	Super::OffsetStrength(Offset);
+	this->ManaCost += Offset;
+}
+
 FString UManaCostEffect::ToString() const {
 	return FString::Printf(TEXT("Effect: use %d mana"), this->ManaCost);
 }

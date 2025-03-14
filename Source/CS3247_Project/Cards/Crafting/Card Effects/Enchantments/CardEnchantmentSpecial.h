@@ -4,8 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "CardEnchantment.h"
+#include "GameplayTagContainer.h"
 #include "CardEnchantmentSpecial.generated.h"
 
+class UCardEffect;
 /**
  * 
  */
@@ -18,4 +20,10 @@ public:
 	FGameplayTag SpecialEffect;
 
 	virtual UCardEffect* ComposeTo(UCardEffect* Effect) override;
+
+	virtual FString ToString() const override;
+
+	virtual FText ToText() const override;
+
+	virtual FText ToRichText() const override;
 };

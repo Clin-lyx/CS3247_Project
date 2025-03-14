@@ -21,34 +21,14 @@ FText UDamageEffect::ToRichText() const {
 		UText::BfIt(this->DamageType.ToString()));
 }
 
-UDamageEffect* UDamageEffect::operator+(const double Offset) const {
-	UDamageEffect* NewEffect = NewObject<UDamageEffect>();
-	NewEffect->DamageType = this->DamageType;
-	NewEffect->DamageValue = this->DamageValue + Offset;
-	return NewEffect;
+void UDamageEffect::ScaleStrength(const double Ratio) {
+	Super::ScaleStrength(Ratio);
+	this->DamageValue *= Ratio;
 }
 
-UDamageEffect* UDamageEffect::operator-(const double Offset) const {
-	return *this + (-Offset);
-}
-
-UDamageEffect* UDamageEffect::operator*(const double Factor) const {
-	UDamageEffect* NewEffect = NewObject<UDamageEffect>();
-	NewEffect->DamageType = this->DamageType;
-	NewEffect->DamageValue = this->DamageValue * Factor;
-	return NewEffect;
-}
-
-UDamageEffect* UDamageEffect::operator+=(const double Value) const {
-	return *this + Value;
-}
-
-UDamageEffect* UDamageEffect::operator-=(const double Value) const {
-	return *this - Value;
-}
-
-UDamageEffect* UDamageEffect::operator*=(const double Value) const {
-	return *this * Value;
+void UDamageEffect::OffsetStrength(const double Offset) {
+	Super::OffsetStrength(Offset);
+	this->DamageValue += Offset;
 }
 
 bool UDamageEffect::operator>(const int32 Value) const {
