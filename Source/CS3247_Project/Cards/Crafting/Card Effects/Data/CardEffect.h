@@ -24,7 +24,9 @@ class CS3247_PROJECT_API UCardEffect : public UObject, public IPrintable, public
 	GENERATED_BODY()
 
 public:
-	UCardEffect() : AtomicEffects({{UManaCostEffect::StaticClass(),
+	int32 EnchantmentDecay;
+	
+	UCardEffect() : EnchantmentDecay(0), AtomicEffects({{UManaCostEffect::StaticClass(),
 		NewObject<UManaCostEffect>(this)}}) {}
 
 	UFUNCTION(BlueprintCallable)

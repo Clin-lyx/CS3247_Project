@@ -3,9 +3,9 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "../CardEffect.h"
 #include "../CardIngredient.h"
-#include "../../../../UI/Texts/RichTextRepresentable.h"
+#include "../../../../UI/Texts/Localisable.h"
+#include "../../../../UI/Texts/Printable.h"
 #include "Engine/DataAsset.h"
 #include "CardImpact.generated.h"
 
@@ -13,9 +13,6 @@
  * 
  */
 UCLASS(Abstract)
-class CS3247_PROJECT_API UCardImpact : public UCardIngredient, public IRichTextRepresentable {
+class CS3247_PROJECT_API UCardImpact : public UCardIngredient, public IPrintable, public ILocalisable {
 	GENERATED_BODY()
-
-public:
-	virtual FString ToRichText() const override;
 };

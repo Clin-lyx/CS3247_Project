@@ -7,7 +7,7 @@
 #include "Printable.generated.h"
 
 // This class does not need to be modified.
-UINTERFACE()
+UINTERFACE(NotBlueprintable, MinimalAPI)
 class UPrintable : public UInterface {
 	GENERATED_BODY()
 };

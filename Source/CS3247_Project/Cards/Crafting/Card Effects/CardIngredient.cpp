@@ -2,10 +2,11 @@
 
 
 #include "CardIngredient.h"
-#include "CardEffect.h"
+#include "../Card Effects/Data/CardEffect.h"
+#include "../../../Cards/Card.h"
 
-UCardEffect* UCardIngredient::Apply() {
-	return NewObject<UCardEffect>();
+UCardEffect* UCardIngredient::Apply(UCard* OwningCard) {
+	return NewObject<UCardEffect>(OwningCard);
 }
 
 UCardEffect* UCardIngredient::ComposeTo(UCardEffect* Current) {

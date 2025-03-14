@@ -26,8 +26,7 @@ public:
 	FORCEINLINE bool CanInsertNodeAfter() const {
 		return this->Ingredient->IsA(UCardEnchantment::StaticClass());
 	}
-
-	UFUNCTION(BlueprintCallable, Category = "Node Connections")
+	
 	FORCEINLINE bool IsTerminal() const {
 		return this->FirstSuccessor == nullptr && this->SecondSuccessor == nullptr;
 	}
@@ -40,9 +39,8 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category= "Node Connections")
 	void BreakAllLinks();
-
-	UFUNCTION(BlueprintCallable)
-	TArray<UCardEffect*> Build();
+	
+	TArray<TObjectPtr<UCardEffect>> Build();
 
 	UFUNCTION(BlueprintCallable)
 	virtual FORCEINLINE FText ToText() const override {

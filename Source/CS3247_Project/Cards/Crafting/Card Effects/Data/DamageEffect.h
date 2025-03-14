@@ -19,12 +19,11 @@ public:
 	UPROPERTY(BlueprintReadOnly)
 	FGameplayTag DamageType;
 	
-	UPROPERTY(BlueprintGetter = GetDamageValue)
 	double DamageValue;
 	
 	UDamageEffect() : DamageValue(0) {}
 	
-
+	UFUNCTION(BlueprintCallable)
 	FORCEINLINE int32 GetDamageValue() const { return FMath::CeilToInt(DamageValue); }
 
 	virtual FString ToString() const override;

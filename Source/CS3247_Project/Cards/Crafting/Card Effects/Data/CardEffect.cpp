@@ -3,8 +3,6 @@
 
 #include "CardEffect.h"
 
-#include "../../../../UI/Texts/Text.h"
-
 FString UCardEffect::ToString() const {
 	TStringBuilder<256> Sb = TStringBuilder<256>();
 	TArray<FString> Lines = {};

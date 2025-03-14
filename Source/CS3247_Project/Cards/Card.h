@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "../UI/Texts/Localisable.h"
 #include "Card.generated.h"
 
 class ILocalisable;

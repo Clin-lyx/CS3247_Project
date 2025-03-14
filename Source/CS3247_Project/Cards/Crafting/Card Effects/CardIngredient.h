@@ -6,6 +6,7 @@
 #include "Engine/DataAsset.h"
 #include "CardIngredient.generated.h"
 
+class UCard;
 class UCardEffect;
 /**
  * The abstract base class for all card ingredients in crafting.
@@ -32,9 +33,10 @@ public:
 
 	/**
 	 * Create a new card effect based on the effects of this ingredient.
+	 * @param[in] OwningCard The card that owns this effect.
 	 * @return The new effect.
 	 */
-	virtual UCardEffect* Apply();
+	virtual UCardEffect* Apply(UCard* OwningCard);
 
 	/**
 	 * Modify an existing card effect based on the effects of this ingredient.

@@ -7,7 +7,7 @@
 #include "Localisable.generated.h"
 
 // This class does not need to be modified.
-UINTERFACE()
+UINTERFACE(NotBlueprintable, MinimalAPI)
 class ULocalisable : public UInterface {
 	GENERATED_BODY()
 };

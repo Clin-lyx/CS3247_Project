@@ -14,11 +14,11 @@ class CS3247_PROJECT_API UHealEffect : public UAtomicCardEffect {
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(BlueprintGetter = GetHealAmount)
 	double HealAmount;
 
 	UHealEffect() : HealAmount(0) {}
 
+	UFUNCTION(BlueprintCallable)
 	FORCEINLINE int32 GetHealAmount() const { return FMath::CeilToInt32(this->HealAmount); }
 
 	virtual FString ToString() const override;

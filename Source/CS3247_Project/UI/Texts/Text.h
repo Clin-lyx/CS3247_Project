@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "UObject/Object.h"
-#include "UText.generated.h"
+#include "Text.generated.h"
 
 /**
  * 
