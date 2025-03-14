@@ -3,16 +3,17 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "CardNode.h"
-#include "CS3247_Project/Cards/Card.h"
 #include "UObject/Object.h"
 #include "CardRecipe.generated.h"
 
+class ILocalisable;
+class UCard;
+class UCardNode;
 /**
  * 
  */
 UCLASS(BlueprintType)
-class CS3247_PROJECT_API UCardRecipe : public UObject, public ITextDescribable {
+class CS3247_PROJECT_API UCardRecipe : public UObject, public ILocalisable {
 	GENERATED_BODY()
 
 public:

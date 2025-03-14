@@ -63,7 +63,7 @@ bool UCardNode::BreakLinkWith(UCardNode* Node, FText& ErrorMsg) {
 	}
 
 	ErrorMsg = FText::Format(FTextFormat::FromString("{0} and {1} are not connected"),
-		this->GetDescription(), Node->GetDescription());
+		this->ToText(), Node->ToText());
 	return false;
 }
 

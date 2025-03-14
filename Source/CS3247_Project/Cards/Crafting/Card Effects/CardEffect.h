@@ -3,12 +3,12 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "DamageData.h"
 #include "GameplayTagContainer.h"
-#include "../../../UI/Texts/RichTextRepresentable.h"
 #include "UObject/Object.h"
 #include "CardEffect.generated.h"
 
+struct FDamageData;
+class IRichTextRepresentable;
 /**
  * 
  */

@@ -7,7 +7,7 @@
 #include "Card Effects/CardIngredient.h"
 #include "Card Effects/Enchantments/CardEnchantment.h"
 #include "Card Effects/Impacts/CardImpact.h"
-#include "CS3247_Project/UI/Texts/TextDescribable.h"
+#include "CS3247_Project/UI/Texts/Localisable.h"
 #include "UObject/Object.h"
 #include "CardNode.generated.h"
 
@@ -15,7 +15,7 @@
  * 
  */
 UCLASS(EditInlineNew, BlueprintType, Blueprintable)
-class CS3247_PROJECT_API UCardNode : public UDataAsset, public ITextDescribable {
+class CS3247_PROJECT_API UCardNode : public UDataAsset, public ILocalisable {
 	GENERATED_BODY()
 
 public:
@@ -45,7 +45,7 @@ public:
 	TArray<UCardEffect*> Build();
 
 	UFUNCTION(BlueprintCallable)
-	virtual FORCEINLINE FText GetDescription() const override {
+	virtual FORCEINLINE FText ToText() const override {
 		return FText::FromString("[" + this->Ingredient->GetName() + "]");
 	}
 private:

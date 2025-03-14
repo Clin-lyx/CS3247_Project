@@ -4,22 +4,22 @@
 
 #include "CoreMinimal.h"
 #include "UObject/Interface.h"
-#include "RichTextRepresentable.generated.h"
+#include "Localisable.generated.h"
 
 // This class does not need to be modified.
 UINTERFACE()
-class URichTextRepresentable : public UInterface {
+class ULocalisable : public UInterface {
 	GENERATED_BODY()
 };
 
 /**
- * A interface for classes that have a rich text description.
- * Commonly used to things that need to be displayed in the UI.
+ * An interface for classes that can be localised into a text representation.
+ * Commonly used for things that need to be displayed in the UI.
  */
-class CS3247_PROJECT_API IRichTextRepresentable {
+class CS3247_PROJECT_API ILocalisable {
 	GENERATED_BODY()
 
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
-	virtual FString ToRichText() const = 0;
+	virtual FText ToText() const = 0;
 };
