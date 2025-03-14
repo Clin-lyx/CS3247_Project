@@ -1,0 +1,17 @@
+﻿// Fill out your copyright notice in the Description page of Project Settings.
+
+#pragma once
+
+#include "CoreMinimal.h"
+#include "../../../../UI/Texts/Localisable.h"
+#include "CS3247_Project/UI/Texts/Printable.h"
+#include "UObject/Object.h"
+#include "AtomicCardEffect.generated.h"
+
+/**
+ * 
+ */
+UCLASS(Abstract)
+class CS3247_PROJECT_API UAtomicCardEffect : public UObject, public ILocalisable, public IPrintable {
+	GENERATED_BODY()
+};

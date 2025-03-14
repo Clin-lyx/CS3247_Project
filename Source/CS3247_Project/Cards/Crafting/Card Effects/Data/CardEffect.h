@@ -3,12 +3,12 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "DamageData.h"
 #include "GameplayTagContainer.h"
+#include "../../../UI/Texts/RichTextRepresentable.h"
 #include "UObject/Object.h"
 #include "CardEffect.generated.h"
 
-struct FDamageData;
-class IRichTextRepresentable;
 /**
  * 
  */
@@ -19,15 +19,23 @@ class CS3247_PROJECT_API UCardEffect : public UObject, public IRichTextRepresent
 public:
 	UCardEffect();
 
+	////////////////////////////////////////////////////////////////////////////
+	// Changes to player attributes
+	////////////////////////////////////////////////////////////////////////////
+	
+
 	UPROPERTY(BlueprintReadOnly)
 	FDamageData BaseDamage;
 	
 	UPROPERTY(BlueprintReadOnly)
 	TMap<FGameplayTag, FDamageData> ExtraDamageEffects;
-
+	
 	UPROPERTY(BlueprintReadOnly)
 	float HealAmount;
 
+	////////////////////////////////////////////////////////////////////////////
+	// Special effects
+	////////////////////////////////////////////////////////////////////////////
 	UPROPERTY(BlueprintReadOnly)
 	FGameplayTagContainer SpecialEffects;
 

@@ -3,12 +3,12 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "../CardEffect.h"
-#include "../CardIngredient.h"
 #include "CardEnchantment.generated.h"
 
+class UCardIngredient;
+
 /**
- * 
+ * An enchantment ingredient for card crafting.
  */
 UCLASS(Abstract)
 class CS3247_PROJECT_API UCardEnchantment : public UCardIngredient {

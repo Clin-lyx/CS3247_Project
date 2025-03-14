@@ -2,11 +2,11 @@
 
 
 #include "Text.h"
-FString UText::Bf(const FString& Str) {
+FText UText::Bf(const FString& Str) {
 	return "<bf>" + Str + "</>";
 }
 
-FString UText::It(const FString& Str) {
+FText UText::It(const FString& Str) {
 	return "<it>" + Str + "</>";
 }
 

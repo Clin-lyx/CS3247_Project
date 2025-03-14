@@ -21,5 +21,6 @@ class CS3247_PROJECT_API IPrintable {
 
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
+	UFUNCTION(BlueprintCallable)
 	virtual FString ToString() const = 0;
 };

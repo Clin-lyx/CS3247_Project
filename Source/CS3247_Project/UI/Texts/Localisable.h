@@ -21,5 +21,9 @@ class CS3247_PROJECT_API ILocalisable {
 
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
+	UFUNCTION(BlueprintCallable)
 	virtual FText ToText() const = 0;
+
+	UFUNCTION(BlueprintCallable)
+	virtual FText ToRichText() const = 0;
 };

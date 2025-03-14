@@ -6,6 +6,7 @@
 #include "../../../UI/Texts/Text.h"
 
 UCardEffect::UCardEffect() {
+	this->ManaCost = 0;
 	this->ExtraDamageEffects = {};
 	this->HealAmount = 0;
 	this->SpecialEffects = FGameplayTagContainer();

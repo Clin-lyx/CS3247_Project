@@ -2,6 +2,8 @@
 
 
 #include "CardIngredient.h"
+#include "CardEffect.h"
+
 UCardEffect* UCardIngredient::Apply() {
 	return NewObject<UCardEffect>();
 }
