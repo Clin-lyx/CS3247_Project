@@ -17,27 +17,9 @@ class CS3247_PROJECT_API UCardRecipe : public UObject {
 	GENERATED_BODY()
 
 public:
-	UFUNCTION(BlueprintCallable)
-	bool IsValidRecipe() const;
+	UPROPERTY(BlueprintReadWrite)
+	TObjectPtr<UCardNode> Source;
 
 	UFUNCTION(BlueprintCallable)
-	FORCEINLINE void AddNode(UCardNode* Node) {
-		this->Nodes.Add(Node);
-		if (this->Source == nullptr) {
-			this->Source = Node;
-		}
-	}
-
-	UFUNCTION(BlueprintCallable)
-	bool RemoveNode(UCardNode* Node);
-
-	UFUNCTION(BlueprintCallable)
-	UCard* Forge();
-	
-private:
-	UPROPERTY()
-	TObjectPtr<UCardNode> Source = nullptr;
-	
-	UPROPERTY()
-	TSet<TObjectPtr<UCardNode>> Nodes = {};
+	UCard* Forge(UActorComponent* PlayerDeckComponent) const;
 };

@@ -29,8 +29,7 @@ public:
 	
 	int32 EnchantmentDecay;
 	
-	UCardEffect() : AtomicEffects({{UManaCostEffect::StaticClass(),
-		NewObject<UManaCostEffect>(this)}}), EnchantmentDecay(0) {}
+	UCardEffect() : AtomicEffects({}), EnchantmentDecay(0) {}
 
 	UFUNCTION(BlueprintCallable)
 	FORCEINLINE UAtomicCardEffect* GetEffect(const TSubclassOf<UAtomicCardEffect> EffectType) const {
