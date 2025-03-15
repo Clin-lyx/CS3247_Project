@@ -2,7 +2,7 @@
 
 
 #include "CardNode.h"
-#include "Card Effects/Enchantments/CardEnchantment.h"
+#include "../Card Effects/Enchantments/CardEnchantment.h"
 
 bool UCardNode::AddSuccessor(UCardNode* Node, FText& ErrorMsg) {
 	if (!IsValid(Node)) {
@@ -78,24 +78,6 @@ void UCardNode::BreakAllLinks() {
 }
 
 TArray<TObjectPtr<UCardEffect>> UCardNode::Build(UCard* OwningCard) {
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Building from ") + this->Ingredient->GetName());
-	// If this is a leaf node, we expect it to be an impact, so just build.
-	if (this->IsTerminal()) {
-		return {this->Ingredient->Apply(OwningCard)};
-	}
-	
-	// Otherwise, build the first successor.
-	TArray<TObjectPtr<UCardEffect>> SuccessorEffects = this->FirstSuccessor->Build(OwningCard);
-	if (IsValid(this->SecondSuccessor)) {
-		// If there is a second successor, then this node must be a control flow node.
-		this->Ingredient->Merge(SuccessorEffects, this->SecondSuccessor->Build(OwningCard));
-	}
-
-	TArray<TObjectPtr<UCardEffect>> CardEffects = {};
-	for (auto& CardEffect : CardEffects) {
-		CardEffects.Add(this->Ingredient->ComposeTo(CardEffect));
-	}
-	
-	return CardEffects;
+	return {};
 }
 

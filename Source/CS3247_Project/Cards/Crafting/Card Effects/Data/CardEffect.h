@@ -27,7 +27,7 @@ public:
 	UPROPERTY()
 	TMap<TSubclassOf<UAtomicCardEffect>, UAtomicCardEffect*> AtomicEffects;
 	
-	int32 EnchantmentDecay;
+	double EnchantmentDecay;
 	
 	UCardEffect() : AtomicEffects({}), EnchantmentDecay(0) {}
 

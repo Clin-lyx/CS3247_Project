@@ -2,7 +2,7 @@
 
 
 #include "CardRecipe.h"
-#include "CardNode.h"
+#include "Nodes/CardNode.h"
 #include "../Card.h"
 
 UCard* UCardRecipe::Forge(UActorComponent* PlayerDeckComponent) const {
