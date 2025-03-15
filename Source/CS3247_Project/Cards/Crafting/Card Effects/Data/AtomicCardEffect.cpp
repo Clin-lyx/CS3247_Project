@@ -4,15 +4,15 @@
 #include "AtomicCardEffect.h"
 void UAtomicCardEffect::ScaleStrength(const double Ratio) {}
 
-FString UAtomicCardEffect::ToString() const {
+FString UAtomicCardEffect::ToString_Implementation() const {
 	return this->GetName();
 }
 
-FText UAtomicCardEffect::ToText() const {
+FText UAtomicCardEffect::ToText_Implementation() const {
 	return FText::FromString(this->ToString());
 }
 
-FText UAtomicCardEffect::ToRichText() const {
+FText UAtomicCardEffect::ToRichText_Implementation() const {
 	return this->ToText();
 }
 

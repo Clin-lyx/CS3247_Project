@@ -9,14 +9,14 @@ UCardNode* UCardIngredient::WrapIntoNode(UActorComponent* CardCrafter) {
 	return nullptr;
 }
 
-FString UCardIngredient::ToString() const {
+FString UCardIngredient::ToString_Implementation() const {
 	return this->Name.ToString();
 }
 
-FText UCardIngredient::ToText() const {
+FText UCardIngredient::ToText_Implementation() const {
 	return FText::FromString(this->ToString());
 }
 
-FText UCardIngredient::ToRichText() const {
+FText UCardIngredient::ToRichText_Implementation() const {
 	return this->ToText();
 }

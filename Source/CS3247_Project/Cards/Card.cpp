@@ -10,7 +10,7 @@ UCard::UCard() {
 	this->Effects = {};
 }
 
-FText UCard::ToText() const {
+FText UCard::ToText_Implementation() const {
 	TStringBuilder<256> Sb = TStringBuilder<256>();
 	TArray<FString> Lines = {};
 	for (auto& Effect : this->Effects) {
@@ -20,7 +20,7 @@ FText UCard::ToText() const {
 	return FText::FromString(Sb.Join(Lines, '\n').ToString());
 }
 
-FText UCard::ToRichText() const {
+FText UCard::ToRichText_Implementation() const {
 	TStringBuilder<256> Sb = TStringBuilder<256>();
 	TArray<FString> Lines = {};
 	for (auto& Effect : this->Effects) {

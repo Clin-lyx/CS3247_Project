@@ -3,7 +3,7 @@
 
 #include "CardEffect.h"
 
-FString UCardEffect::ToString() const {
+FString UCardEffect::ToString_Implementation() const {
 	TStringBuilder<256> Sb = TStringBuilder<256>();
 	TArray<FString> Lines = {};
 	for (auto& Entry : this->AtomicEffects) {
@@ -13,7 +13,8 @@ FString UCardEffect::ToString() const {
 	return Sb.Join(Lines, '\n').ToString();
 }
 
-FText UCardEffect::ToText() const {
+
+FText UCardEffect::ToText_Implementation() const {
 	TStringBuilder<256> Sb = TStringBuilder<256>();
 	TArray<FString> Lines = {};
 	for (auto& Entry : this->AtomicEffects) {
@@ -23,7 +24,7 @@ FText UCardEffect::ToText() const {
 	return FText::FromString(Sb.Join(Lines, '\n').ToString());
 }
 
-FText UCardEffect::ToRichText() const {
+FText UCardEffect::ToRichText_Implementation() const {
 	TStringBuilder<256> Sb = TStringBuilder<256>();
 	TArray<FString> Lines = {};
 	for (auto& Entry : this->AtomicEffects) {

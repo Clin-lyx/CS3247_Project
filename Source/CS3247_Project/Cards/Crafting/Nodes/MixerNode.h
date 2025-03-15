@@ -20,5 +20,5 @@ public:
 
 	virtual TArray<TObjectPtr<UCardEffect>> Build(UCard* OwningCard) override;
 
-	FORCEINLINE virtual FString ToString() const override { return TEXT("[" + this->Mixer->GetName() + "]"); }
+	FORCEINLINE virtual FString ToString_Implementation() const override { return TEXT("[" + this->Mixer->GetName() + "]"); }
 };

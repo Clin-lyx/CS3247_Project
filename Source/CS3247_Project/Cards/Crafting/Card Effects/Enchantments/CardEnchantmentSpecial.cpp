@@ -11,15 +11,15 @@ UCardEffect* UCardEnchantmentSpecial::ComposeTo(UCardEffect* Effect) {
 	return Effect;
 }
 
-FString UCardEnchantmentSpecial::ToString() const {
+FString UCardEnchantmentSpecial::ToString_Implementation() const {
 	return FString::Printf(TEXT("On played: %s"), *this->SpecialEffect.ToString());
 }
 
-FText UCardEnchantmentSpecial::ToText() const {
+FText UCardEnchantmentSpecial::ToText_Implementation() const {
 	return FText::FromString(this->ToString());
 }
 
-FText UCardEnchantmentSpecial::ToRichText() const {
+FText UCardEnchantmentSpecial::ToRichText_Implementation() const {
 	return FText::FromString(this->ToString());
 }
 

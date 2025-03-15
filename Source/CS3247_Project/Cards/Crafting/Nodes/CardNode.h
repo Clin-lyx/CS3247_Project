@@ -30,11 +30,11 @@ public:
 	
 	virtual TArray<TObjectPtr<UCardEffect>> Build(UCard* OwningCard);
 
-	virtual FORCEINLINE FString ToString() const override { return TEXT("Card Node"); }
+	virtual FORCEINLINE FString ToString_Implementation() const override { return TEXT("Card Node"); }
 	
-	virtual FORCEINLINE FText ToText() const override { return FText::FromString(this->ToString()); }
+	virtual FORCEINLINE FText ToText_Implementation() const override { return FText::FromString(this->ToString()); }
 	
-	virtual FORCEINLINE FText ToRichText() const override { return this->ToText(); }
+	virtual FORCEINLINE FText ToRichText_Implementation() const override { return this->ToText(); }
 protected:
 	UPROPERTY()
 	TObjectPtr<UCardNode> Predecessor;

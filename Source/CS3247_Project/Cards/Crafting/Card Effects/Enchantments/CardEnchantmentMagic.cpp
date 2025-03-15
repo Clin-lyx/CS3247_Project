@@ -18,16 +18,16 @@ UCardEffect* UCardEnchantmentMagic::ComposeTo(UCardEffect* Effect) {
 	return Effect;
 }
 
-FString UCardEnchantmentMagic::ToString() const {
+FString UCardEnchantmentMagic::ToString_Implementation() const {
 	return FString::Printf(TEXT("%d%% %s enchantment"), this->Strength,
 		*this->EnchantmentType.GetTagName().ToString());	
 }
 
-FText UCardEnchantmentMagic::ToText() const {
+FText UCardEnchantmentMagic::ToText_Implementation() const {
 	return FText::FromString(this->ToString());
 }
 
-FText UCardEnchantmentMagic::ToRichText() const {
+FText UCardEnchantmentMagic::ToRichText_Implementation() const {
 	return FText::Format(FTextFormat::FromString(TEXT("{0}% {1} enchantment")),
 		UText::Bf(FString::FromInt(this->Strength)),
 		UText::BfIt(this->EnchantmentType.ToString()));
