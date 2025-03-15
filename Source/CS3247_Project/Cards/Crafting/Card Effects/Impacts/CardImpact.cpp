@@ -4,9 +4,11 @@
 #include "CardImpact.h"
 
 #include "../../Nodes/ImpactNode.h"
+#include "../../../Card.h"
+#include "../Data/CardEffect.h"
 
 UCardEffect* UCardImpact::Apply(UCard* OwningCard) {
-	return nullptr;
+	return NewObject<UCardEffect>(OwningCard);
 }
 
 UCardNode* UCardImpact::WrapIntoNode(UActorComponent* CardCrafter) {
