@@ -9,11 +9,11 @@ FString UAtomicCardEffect::ToString_Implementation() const {
 }
 
 FText UAtomicCardEffect::ToText_Implementation() const {
-	return FText::FromString(this->ToString());
+	return FText::FromString(Execute_ToString(this));
 }
 
 FText UAtomicCardEffect::ToRichText_Implementation() const {
-	return this->ToText();
+	return Execute_ToText(this);
 }
 
 void UAtomicCardEffect::OffsetStrength(const double Offset) {}

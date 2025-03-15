@@ -32,11 +32,11 @@ public:
 
 	virtual FORCEINLINE FString ToString_Implementation() const override { return TEXT("Card Node"); }
 	
-	virtual FORCEINLINE FText ToText_Implementation() const override { return FText::FromString(this->ToString()); }
+	virtual FORCEINLINE FText ToText_Implementation() const override { return FText::FromString(Execute_ToString(this)); }
 	
-	virtual FORCEINLINE FText ToRichText_Implementation() const override { return this->ToText(); }
+	virtual FORCEINLINE FText ToRichText_Implementation() const override { return Execute_ToText(this); }
 protected:
-	UPROPERTY()
+	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UCardNode> Predecessor;
 
 	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))

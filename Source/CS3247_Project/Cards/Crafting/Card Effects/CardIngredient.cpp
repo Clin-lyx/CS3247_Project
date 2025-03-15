@@ -14,9 +14,9 @@ FString UCardIngredient::ToString_Implementation() const {
 }
 
 FText UCardIngredient::ToText_Implementation() const {
-	return FText::FromString(this->ToString());
+	return FText::FromString(Execute_ToString(this));
 }
 
 FText UCardIngredient::ToRichText_Implementation() const {
-	return this->ToText();
+	return Execute_ToText(this);
 }

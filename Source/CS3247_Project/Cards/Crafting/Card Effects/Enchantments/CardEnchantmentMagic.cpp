@@ -24,7 +24,7 @@ FString UCardEnchantmentMagic::ToString_Implementation() const {
 }
 
 FText UCardEnchantmentMagic::ToText_Implementation() const {
-	return FText::FromString(this->ToString());
+	return FText::FromString(Execute_ToString(this));
 }
 
 FText UCardEnchantmentMagic::ToRichText_Implementation() const {

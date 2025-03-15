@@ -16,10 +16,10 @@ FString UCardEnchantmentSpecial::ToString_Implementation() const {
 }
 
 FText UCardEnchantmentSpecial::ToText_Implementation() const {
-	return FText::FromString(this->ToString());
+	return FText::FromString(Execute_ToString(this));
 }
 
 FText UCardEnchantmentSpecial::ToRichText_Implementation() const {
-	return FText::FromString(this->ToString());
+	return Execute_ToText(this);
 }
 

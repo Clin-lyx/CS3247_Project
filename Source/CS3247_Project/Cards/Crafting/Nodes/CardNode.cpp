@@ -45,36 +45,41 @@ bool UCardNode::BreakLinkWith(UCardNode* Node, FText& ErrorMsg) {
 		return false;
 	}
 
-	if (Node == this->Predecessor) {
+	if (this->Predecessor && this->Predecessor == Node) {
 		FText Empty = FText::GetEmpty();
 		return Node->BreakLinkWith(this, Empty);
 	}
 
-	if (Node == this->FirstSuccessor && this == Node->Predecessor) {
+	if (this->FirstSuccessor && Node->Predecessor && this->FirstSuccessor == Node &&  Node->Predecessor == this) {
 		this->FirstSuccessor = nullptr;
 		Node->Predecessor = nullptr;
 		return true;
 	}
 
-	if (Node == this->SecondSuccessor && this == Node->Predecessor) {
+	if (this->SecondSuccessor && Node->Predecessor && Node == this->SecondSuccessor && this == Node->Predecessor) {
 		this->SecondSuccessor = nullptr;
 		Node->Predecessor = nullptr;
 		return true;
 	}
 
 	ErrorMsg = FText::Format(FTextFormat::FromString("{0} and {1} are not connected"),
-		this->ToText(), Node->ToText());
+		Execute_ToText(this), Execute_ToText(Node));
 	return false;
 }
 
 void UCardNode::BreakAllLinks() {
 	FText Empty = FText::GetEmpty();
-	if (IsValid(this->Predecessor)) {
+	if (this->Predecessor) {
 		this->Predecessor->BreakLinkWith(this, Empty);
 	}
 
-	this->FirstSuccessor->BreakLinkWith(this, Empty);
-	this->SecondSuccessor->BreakLinkWith(this, Empty);
+	if (this->FirstSuccessor) {
+		this->FirstSuccessor->BreakLinkWith(this, Empty);
+	}
+
+	if (this->SecondSuccessor) {
+		this->SecondSuccessor->BreakLinkWith(this, Empty);
+	}
 }
 
 TArray<TObjectPtr<UCardEffect>> UCardNode::Build(UCard* OwningCard) {
