@@ -10,7 +10,7 @@
 /**
  * A card effect to use mana.
  */
-UCLASS()
+UCLASS(BlueprintType)
 class CS3247_PROJECT_API UManaCostEffect : public UAtomicCardEffect {
 	GENERATED_BODY()
 

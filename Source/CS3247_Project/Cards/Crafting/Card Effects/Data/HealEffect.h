@@ -9,7 +9,7 @@
 /**
  * 
  */
-UCLASS()
+UCLASS(BlueprintType)
 class CS3247_PROJECT_API UHealEffect : public UAtomicCardEffect {
 	GENERATED_BODY()
 
