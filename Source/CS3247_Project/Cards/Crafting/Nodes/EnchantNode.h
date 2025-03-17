@@ -17,6 +17,8 @@ class CS3247_PROJECT_API UEnchantNode : public UCardNode {
 public:
 	UPROPERTY()
 	TObjectPtr<UCardEnchantment> Enchantment;
+
+	FORCEINLINE virtual UCardIngredient* Unpack() const override { return this->Enchantment.Get(); }
 	
 	virtual TArray<TObjectPtr<UCardEffect>> Build(UCard* OwningCard) override;
 

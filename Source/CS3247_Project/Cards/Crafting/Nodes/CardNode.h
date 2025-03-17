@@ -15,8 +15,10 @@ class CS3247_PROJECT_API UCardNode : public UDataAsset, public IPrintable, publi
 	GENERATED_BODY()
 
 public:
+	FORCEINLINE virtual UCardIngredient* Unpack() const { return nullptr; }
+	
 	FORCEINLINE bool IsTerminal() const {
-		return !IsValid(this->FirstSuccessor) && !IsValid(this->SecondSuccessor);
+		return !this->FirstSuccessor && !this->SecondSuccessor;
 	}
 
 	UFUNCTION(BlueprintCallable, Category = "Node Connections")
@@ -29,6 +31,8 @@ public:
 	void BreakAllLinks();
 	
 	virtual TArray<TObjectPtr<UCardEffect>> Build(UCard* OwningCard);
+
+	TArray<UCardNode*> GetSuccessors() const;
 
 	virtual FORCEINLINE FString ToString_Implementation() const override { return TEXT("Card Node"); }
 	

@@ -6,6 +6,7 @@
 #include "UObject/Object.h"
 #include "CardRecipe.generated.h"
 
+class UCardIngredient;
 class ILocalisable;
 class UCard;
 class UCardNode;
@@ -22,4 +23,7 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	UCard* Forge(UActorComponent* PlayerDeckComponent) const;
+
+	UFUNCTION(BlueprintCallable)
+	TMap<UCardIngredient*, TArray<UCardIngredient*>> ToMap() const;
 };
