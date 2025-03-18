@@ -2,6 +2,8 @@
 
 
 #include "CardRecipe.h"
+
+#include "IngredientPair.h"
 #include "../Nodes/CardNode.h"
 #include "../../Card.h"
 
@@ -11,19 +13,24 @@ UCard* UCardRecipe::Forge(UActorComponent* PlayerDeckComponent) const {
 	return Card;
 }
 
-TMap<UCardIngredient*, TArray<UCardIngredient*>> UCardRecipe::ToMap() const {
-	TMap<UCardIngredient*, TArray<UCardIngredient*>> Map = {};
+TMap<UCardIngredient*, FIngredientPair> UCardRecipe::ToMap() const {
+	TMap<UCardIngredient*, FIngredientPair> Map = {};
 	TQueue<UCardNode*> Queue = {};
 	Queue.Enqueue(this->Source);
 	UCardNode* Curr;
 	while (!Queue.Dequeue(Curr)) {
 		UCardIngredient* Ingredient = Curr->Unpack();
 		if (!Map.Contains(Ingredient)) {
-			Map.Add(Ingredient, {});
+			Map.Add(Ingredient, FIngredientPair());
 		}
 
 		for (auto& Successor : Curr->GetSuccessors()) {
-			Map[Ingredient].Add(Successor->Unpack());
+			if (!Map[Ingredient].First) {
+				Map[Ingredient].First = Successor->Unpack();
+			} else if (!Map[Ingredient].Second) {
+				Map[Ingredient].Second = Successor->Unpack();
+			}
+
 			Queue.Enqueue(Successor);
 		}
 	}
