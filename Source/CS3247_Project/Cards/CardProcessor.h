@@ -17,5 +17,5 @@ class CS3247_PROJECT_API UCardProcessor : public UObject {
 
 public:
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
-	void ProcessCard(UCard* Card, ABasicCharacter* Character);
+	void ProcessCard(UCard* Card, ABasicCharacter* SourceCharacter, ABasicCharacter* TargetCharacter);
 };
