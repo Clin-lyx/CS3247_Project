@@ -34,6 +34,10 @@ void AEnemyBase::SetPlayer(APlayerCharacter* playerCharacter)
     player = playerCharacter;
 }
 
+int AEnemyBase::GetCurrentHealth() const {
+    return CurrentHP;
+}
+
 void AEnemyBase::ReceiveDamage(int damage) {
     if (isGuard) {
         isGuard = false;
@@ -42,11 +46,11 @@ void AEnemyBase::ReceiveDamage(int damage) {
     CurrentHP -= damage;
     if (CurrentHP <= 0) {
         CurrentHP = 0;
-        isDead();
+        Die();
     }
 }
 
-void AEnemyBase::isDead() {
+void AEnemyBase::Die() {
     UE_LOG(LogTemp, Log, TEXT("Enemy is dead."));
     Destroy();
 }

@@ -1,14 +1,15 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
 #include "EnemyActions.h"
+#include "EnemyInterface.h"
+#include "GameFramework/Actor.h"
 #include "EnemyBase.generated.h"
 
 class APlayerCharacter;
 
 UCLASS()
-class CS3247_PROJECT_API AEnemyBase : public AActor
+class CS3247_PROJECT_API AEnemyBase : public AActor, public IEnemyInterface
 {
     GENERATED_BODY()
 
@@ -28,8 +29,11 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Health")
     void ReceiveDamage(int damage);
 
+    UFUNCTION(BlueprintCallable, Category = "Health")
+    int GetCurrentHealth() const;
+
     UFUNCTION(BlueprintCallable, Category = "status")
-    void isDead();
+    void Die();
 
     UPROPERTY()
     APlayerCharacter* player;
