@@ -23,6 +23,14 @@ public:
 	ATTRIBUTE_ACCESSORS(UBasicAttributeSet, Health)
 	ATTRIBUTE_ACCESSORS(UBasicAttributeSet, MaxHealth)
 	ATTRIBUTE_ACCESSORS(UBasicAttributeSet, Defence)
+	ATTRIBUTE_ACCESSORS(UBasicAttributeSet, MagicResistance)
+	ATTRIBUTE_ACCESSORS(UBasicAttributeSet, WaterResistance)
+	ATTRIBUTE_ACCESSORS(UBasicAttributeSet, FireResistance)
+	ATTRIBUTE_ACCESSORS(UBasicAttributeSet, AirResistance)
+	ATTRIBUTE_ACCESSORS(UBasicAttributeSet, EarthResistance)
+	ATTRIBUTE_ACCESSORS(UBasicAttributeSet, SliceResistance)
+	ATTRIBUTE_ACCESSORS(UBasicAttributeSet, ProjectileResistance)
+	ATTRIBUTE_ACCESSORS(UBasicAttributeSet, ExplosionResistance)
 	
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attributes")
@@ -33,6 +41,30 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attributes")
 	FGameplayAttributeData Defence;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attributes/Resistances")
+	FGameplayAttributeData MagicResistance;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attributes/Resistances")
+	FGameplayAttributeData WaterResistance;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attributes/Resistances")
+	FGameplayAttributeData FireResistance;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attributes/Resistances")
+	FGameplayAttributeData AirResistance;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attributes/Resistances")
+	FGameplayAttributeData EarthResistance;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attributes/Resistances")
+	FGameplayAttributeData SliceResistance;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attributes/Resistances")
+	FGameplayAttributeData ProjectileResistance;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attributes/Resistances")
+	FGameplayAttributeData ExplosionResistance;
 
 	virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
 };
