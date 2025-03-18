@@ -22,6 +22,7 @@ class CS3247_PROJECT_API UBasicAttributeSet : public UAttributeSet {
 public:
 	ATTRIBUTE_ACCESSORS(UBasicAttributeSet, Health)
 	ATTRIBUTE_ACCESSORS(UBasicAttributeSet, MaxHealth)
+	ATTRIBUTE_ACCESSORS(UBasicAttributeSet, Defence)
 	
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attributes")
@@ -29,4 +30,9 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attributes")
 	FGameplayAttributeData MaxHealth;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attributes")
+	FGameplayAttributeData Defence;
+
+	virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
 };
