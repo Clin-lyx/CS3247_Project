@@ -10,7 +10,7 @@
  * 
  */
 UCLASS()
-class CS3247_PROJECT_API UIngredientBrancher : public UIngredientMixer {
+class CS3247_PROJECT_API UIngredientBrancher : public UCardIngredient {
 	GENERATED_BODY()
 
 public:

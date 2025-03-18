@@ -86,3 +86,19 @@ TArray<TObjectPtr<UCardEffect>> UCardNode::Build(UCard* OwningCard) {
 	return {};
 }
 
+TArray<UCardNode*> UCardNode::GetSuccessors() const {
+	if (this->FirstSuccessor && this->SecondSuccessor) {
+		return { this->FirstSuccessor, this->SecondSuccessor };
+	}
+
+	if (this->FirstSuccessor) {
+		return { this->FirstSuccessor };
+	}
+
+	if (this->SecondSuccessor) {
+		return { this->SecondSuccessor };
+	}
+		
+	return {};
+}
+

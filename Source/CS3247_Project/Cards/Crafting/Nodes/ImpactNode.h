@@ -18,6 +18,8 @@ public:
 	UPROPERTY()
 	TObjectPtr<UCardImpact> Impact;
 
+	FORCEINLINE virtual UCardIngredient* Unpack() const override { return this->Impact.Get(); }
+
 	virtual TArray<TObjectPtr<UCardEffect>> Build(UCard* OwningCard) override;
 
 	FORCEINLINE virtual FString ToString_Implementation() const override { return TEXT("[" + this->Impact->GetName() + "]"); }
