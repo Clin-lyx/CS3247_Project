@@ -7,8 +7,8 @@
 #include "../../../Card.h"
 #include "../Data/CardEffect.h"
 
-UCardEffect* UCardImpact::Apply(UCard* OwningCard) {
-	return NewObject<UCardEffect>(OwningCard);
+TArray<UCardEffect*> UCardImpact::Apply(UCard* OwningCard) {
+	return {NewObject<UCardEffect>(OwningCard)};
 }
 
 UCardNode* UCardImpact::WrapIntoNode(UActorComponent* CardCrafter) {

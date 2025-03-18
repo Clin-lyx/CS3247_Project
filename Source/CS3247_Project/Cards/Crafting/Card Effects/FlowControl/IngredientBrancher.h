@@ -17,7 +17,7 @@ public:
 	UPROPERTY(EditDefaultsOnly)
 	int32 EnchantmentPowerDecay;
 	
-	void Merge(TArray<TObjectPtr<UCardEffect>>& Base, const TArray<TObjectPtr<UCardEffect>> Others) const;
+	void Merge(TArray<UCardEffect*>& Base, const TArray<UCardEffect*> Others) const;
 
 	virtual UCardNode* WrapIntoNode(UActorComponent* CardCrafter) override;
 };

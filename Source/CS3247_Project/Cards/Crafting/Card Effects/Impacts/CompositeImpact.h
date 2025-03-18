@@ -4,24 +4,24 @@
 
 #include "CoreMinimal.h"
 #include "CardImpact.h"
-#include "CardImpactHeal.generated.h"
+#include "CompositeImpact.generated.h"
 
 /**
  * 
  */
-UCLASS()
-class CS3247_PROJECT_API UCardImpactHeal : public UCardImpact {
+UCLASS(BlueprintType)
+class CS3247_PROJECT_API UCompositeImpact : public UCardImpact {
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(EditDefaultsOnly, Category = "Heal")
-	int32 Value;
-	
+	UPROPERTY(EditDefaultsOnly, meta=(Categories="Inner Impacts"))
+	TArray<UCardImpact*> InnerImpacts;
+
 	virtual TArray<UCardEffect*> Apply(UCard* OwningCard) override;
-	
+
 	virtual FString ToString_Implementation() const override;
-	
+
 	virtual FText ToText_Implementation() const override;
-	
+
 	virtual FText ToRichText_Implementation() const override;
 };
