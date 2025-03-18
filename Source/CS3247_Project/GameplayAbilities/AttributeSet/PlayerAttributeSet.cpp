@@ -4,15 +4,10 @@
 #include "PlayerAttributeSet.h"
 
 void UPlayerAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) {
-	switch (Attribute) {
-	case Mana:
+	if (Attribute == this->GetManaAttribute()) {
 		NewValue = FMath::Clamp(NewValue, 0.0f, this->GetMaxMana());
-		break;
-	case MaxMana:
+	} else if (Attribute == this->GetMaxManaAttribute()) {
 		NewValue = FMath::Max(NewValue, 0.0f);
-		break;
-	default:
-		break;
 	}
 	
 	Super::PreAttributeChange(Attribute, NewValue);
