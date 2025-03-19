@@ -3,11 +3,16 @@
 
 #include "CardImpact.h"
 
-UCardEffect* UCardImpact::Apply() {
-	return NewObject<UCardEffect>();
+#include "../../Nodes/ImpactNode.h"
+#include "../../../Card.h"
+#include "../Data/CardEffect.h"
+
+TArray<UCardEffect*> UCardImpact::Apply(UCard* OwningCard) {
+	return {NewObject<UCardEffect>(OwningCard)};
 }
 
-FString UCardImpact::ToRichText() const {
-	return FString::Printf(TEXT("Unknown Card Impact"));
+UCardNode* UCardImpact::WrapIntoNode(UActorComponent* CardCrafter) {
+	UImpactNode* Node = NewObject<UImpactNode>(CardCrafter);
+	Node->Impact= this;
+	return Node;
 }
-

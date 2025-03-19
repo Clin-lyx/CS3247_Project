@@ -3,12 +3,38 @@
 
 #include "CardEnchantmentMagic.h"
 
-UCardEffect* UCardEnchantmentMagic::Enchant(UCardEffect* Effect) {
-	const double ExtraDamageAmount = Effect->BaseDamage.DamageValue * this->Strength / 100.0;
-	if (Effect->ExtraDamageEffects.Contains(this->EnchantmentType)) {
-		Effect->ExtraDamageEffects[this->EnchantmentType] += ExtraDamageAmount;
-	}
+#include "../Data/CardEffect.h"
+#include "../Data/DamageEffect.h"
+#include "../Data/EnchantmentDamageEffect.h"
+#include "../../../../UI/Texts/Text.h"
 
+UCardEffect* UCardEnchantmentMagic::ComposeTo(UCardEffect* Effect) {
+	const UDamageEffect* BaseDamage = Cast<UDamageEffect>(Effect->GetEffect(UDamageEffect::StaticClass()));
+	UEnchantmentDamageEffect* EnchantmentDamage =
+		Cast<UEnchantmentDamageEffect>(Effect->GetEffect(UEnchantmentDamageEffect::StaticClass()));
+	if (!IsValid(EnchantmentDamage)) {
+		EnchantmentDamage = NewObject<UEnchantmentDamageEffect>(Effect);
+		Effect->SetEffect(UEnchantmentDamageEffect::StaticClass(), EnchantmentDamage);
+	}
+	
+	const double ExtraDamageAmount = static_cast<double>(*BaseDamage) * (this->Strength / 100.0);
+	const double CurrentDmg = EnchantmentDamage->Get(this->EnchantmentType);
+	EnchantmentDamage->Set(this->EnchantmentType, CurrentDmg + ExtraDamageAmount);
 	return Effect;
+}
+
+FString UCardEnchantmentMagic::ToString_Implementation() const {
+	return FString::Printf(TEXT("%d%% %s enchantment"), this->Strength,
+		*this->EnchantmentType.GetTagName().ToString());	
+}
+
+FText UCardEnchantmentMagic::ToText_Implementation() const {
+	return FText::FromString(Execute_ToString(this));
+}
+
+FText UCardEnchantmentMagic::ToRichText_Implementation() const {
+	return FText::Format(FTextFormat::FromString(TEXT("{0}% {1} enchantment")),
+		UText::Bf(FString::FromInt(this->Strength)),
+		UText::BfIt(this->EnchantmentType.ToString()));
 }
 
