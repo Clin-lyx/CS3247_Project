@@ -6,10 +6,10 @@
 #include "UObject/Interface.h"
 #include "EnemyInterface.generated.h"
 
-/**
- * 
- */
-UINTERFACE(BlueprintType)  // or Blueprintable if you prefer
+
+class APlayerCharacter;
+
+UINTERFACE()
 class CS3247_PROJECT_API UEnemyInterface : public UInterface
 {
     GENERATED_BODY()
@@ -22,15 +22,11 @@ class CS3247_PROJECT_API IEnemyInterface
 public:
     // Example function signatures that any "enemy" class must implement.
 
-    // Called when the enemy decides on an action (e.g. attack, guard, heal).
-    UFUNCTION(BlueprintCallable, Category = "Enemy")
     virtual void DecideAction() = 0;
 
-    // Called when the enemy receives damage.
-    UFUNCTION(BlueprintCallable, Category = "Enemy")
     virtual void ReceiveDamage(int32 DamageAmount) = 0;
 
-    // Called when the enemy should die (e.g. health <= 0).
-    UFUNCTION(BlueprintCallable, Category = "Enemy")
+    virtual void SetPlayer(APlayerCharacter* playerCharacter) = 0;
+
     virtual void Die() = 0;
 };

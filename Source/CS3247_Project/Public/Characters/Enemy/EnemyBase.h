@@ -6,7 +6,6 @@
 #include "GameFramework/Actor.h"
 #include "EnemyBase.generated.h"
 
-class APlayerCharacter;
 
 UCLASS()
 class CS3247_PROJECT_API AEnemyBase : public AActor, public IEnemyInterface
