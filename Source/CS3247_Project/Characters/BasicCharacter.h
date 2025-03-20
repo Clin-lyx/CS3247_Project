@@ -28,6 +28,11 @@ protected:
 	}
 
 public:
+	UFUNCTION(BlueprintCallable)
+	TMap<FGameplayAttribute, float> Save();
+
+	UFUNCTION(BlueprintCallable)
+	void Load(TMap<FGameplayAttribute, float> InAttributes);
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 

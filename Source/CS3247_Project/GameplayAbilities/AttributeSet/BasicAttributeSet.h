@@ -68,7 +68,6 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attributes/Resistances")
 	FGameplayAttributeData ElectricResistance;
-
 protected:
 	virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
 };
