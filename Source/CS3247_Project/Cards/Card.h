@@ -49,4 +49,16 @@ public:
 		CardDurability = this->Durability;
 		CardEffects = this->Effects;
 	}
+
+	FORCEINLINE bool operator==(const UCard& Other) const {
+		return this->Recipe == Other.Recipe;
+	}
+	
+	FORCEINLINE bool operator!=(const UCard& Other) const {
+		return this->Recipe != Other.Recipe;
+	}
+	
+	FORCEINLINE friend uint32 GetTypeHash(const UCard& Card) {
+		return GetTypeHash(Card.Recipe);
+	}
 };
