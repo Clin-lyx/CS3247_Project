@@ -17,7 +17,7 @@ void ABasicCharacter::BeginPlay() {
 	
 }
 
-TMap<FGameplayAttribute, float> ABasicCharacter::Save() {
+TMap<FGameplayAttribute, float> ABasicCharacter::SaveAttributes() const {
 	TMap<FGameplayAttribute, float> SaveData = {};
 	TArray<FGameplayAttribute> Attributes = {};
 	this->GetAbilitySystemComponent()->GetAllAttributes(Attributes);
@@ -31,7 +31,7 @@ TMap<FGameplayAttribute, float> ABasicCharacter::Save() {
     return SaveData;
 	
 }
-void ABasicCharacter::Load(TMap<FGameplayAttribute, float> InAttributes) {
+void ABasicCharacter::LoadAttributes(TMap<FGameplayAttribute, float> InAttributes) const {
 	for (auto& Entry : InAttributes) {
 		this->GetAbilitySystemComponent()
 			->ApplyModToAttribute(Entry.Key, EGameplayModOp::Override, Entry.Value);
