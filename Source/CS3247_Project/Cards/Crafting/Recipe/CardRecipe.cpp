@@ -3,7 +3,7 @@
 
 #include "CardRecipe.h"
 
-#include "IngredientPair.h"
+#include "RecipeEdge.h"
 #include "../Nodes/CardNode.h"
 #include "../../Card.h"
 
@@ -13,29 +13,24 @@ UCard* UCardRecipe::Forge(UActorComponent* PlayerDeckComponent) const {
 	return Card;
 }
 
-TMap<UCardIngredient*, FIngredientPair> UCardRecipe::ToMap() const {
-	TMap<UCardIngredient*, FIngredientPair> Map = {};
+TArray<FRecipeEdge> UCardRecipe::ToEdgeList() {
+	if (!this->Edges.IsEmpty()) {
+		return this->Edges;
+	}
+	
 	TQueue<UCardNode*> Queue = {};
 	Queue.Enqueue(this->Source);
 	UCardNode* Curr;
 	while (!Queue.Dequeue(Curr)) {
 		UCardIngredient* Ingredient = Curr->Unpack();
-		if (!Map.Contains(Ingredient)) {
-			Map.Add(Ingredient, FIngredientPair());
-		}
 
 		for (auto& Successor : Curr->GetSuccessors()) {
-			if (!Map[Ingredient].First) {
-				Map[Ingredient].First = Successor->Unpack();
-			} else if (!Map[Ingredient].Second) {
-				Map[Ingredient].Second = Successor->Unpack();
-			}
-
+			this->Edges.Add(FRecipeEdge(Ingredient, Successor->Unpack()));
 			Queue.Enqueue(Successor);
 		}
 	}
-
-	return Map;
+	
+	return this->Edges;
 }
 
 bool UCardRecipe::operator==(const UCardRecipe& Other) const {
