@@ -3,16 +3,35 @@
 
 #include "CardImpactDamage.h"
 
-#include "CS3247_Project/UI/Texts/Text.h"
+#include "../Data/CardEffect.h"
+#include "../Data/DamageEffect.h"
+#include "../../../../UI/Texts/Text.h"
 
-UCardEffect* UCardImpactDamage::Apply() {
-	UCardEffect* Data = Super::Apply();
-	Data->BaseDamage = FDamageData(this->DamageType, this->Value);
-	return Data;
+TArray<UCardEffect*> UCardImpactDamage::Apply(UCard* OwningCard) {
+	TArray<UCardEffect*> Effects = Super::Apply(OwningCard);
+	for (const auto& Data : Effects) {
+		UDamageEffect* Dmg = NewObject<UDamageEffect>(Data);
+		Dmg->DamageType = this->DamageType;
+		Dmg->DamageValue = this->Value;
+		Data->SetEffect(UDamageEffect::StaticClass(), Dmg);
+	}
+	
+	return Effects;
 }
 
-FString UCardImpactDamage::ToRichText() const {
-	const FString DmgNum = UText::Red(FString::Printf(TEXT("%d"), this->Value));
-	const FString DmgType = UText::BfIt(FString::Printf(TEXT("%s"), *this->DamageType.ToString()));
-	return FString::Printf(TEXT("Deals %s %s damage"), *DmgNum, *DmgType);
+FString UCardImpactDamage::ToString_Implementation() const {
+	return FString::Printf(TEXT("%s damage: %d"),
+		*this->DamageType.GetTagName().ToString(), this->Value);
 }
+
+FText UCardImpactDamage::ToText_Implementation() const {
+	return FText::Format(FTextFormat::FromString(TEXT("{0} {1} damage")),
+		this->Value, FText::FromString(this->DamageType.ToString()));
+}
+FText UCardImpactDamage::ToRichText_Implementation() const {
+	return FText::Format(FTextFormat::FromString(TEXT("{0} {1} damage")),
+		UText::Red(FString::FromInt(this->Value)),
+		UText::BfIt(this->DamageType.ToString()));
+}
+
+

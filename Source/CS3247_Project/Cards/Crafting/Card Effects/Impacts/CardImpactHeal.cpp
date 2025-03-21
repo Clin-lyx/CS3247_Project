@@ -3,15 +3,30 @@
 
 #include "CardImpactHeal.h"
 
-#include "CS3247_Project/UI/Texts/Text.h"
+#include "../../../../UI/Texts/Text.h"
+#include "../Data/CardEffect.h"
+#include "../Data/HealEffect.h"
 
-UCardEffect* UCardImpactHeal::Apply() {
-	UCardEffect* Data = Super::Apply();
-	Data->HealAmount += this->Value;
-	return Data;
+TArray<UCardEffect*> UCardImpactHeal::Apply(UCard* OwningCard) {
+	TArray<UCardEffect*> Effects = Super::Apply(OwningCard);
+	for (const auto& Data : Effects) {
+		UHealEffect* Heal = NewObject<UHealEffect>(Data);
+		Heal->HealAmount = this->Value;
+		Data->SetEffect(UHealEffect::StaticClass(), Heal);
+	}
+	
+	return Effects;
 }
 
-FString UCardImpactHeal::ToRichText() const {
-	const FString HealNum = UText::Green(FString::Printf(TEXT("%d"), this->Value));
-	return FString::Printf(TEXT("Heals %s HP"), *HealNum);
+FString UCardImpactHeal::ToString_Implementation() const {
+	return FString::Printf(TEXT("Impact: heal %d HP"), this->Value);
+}
+
+FText UCardImpactHeal::ToText_Implementation() const {
+	return FText::FromString(FString::Printf(TEXT("Heals %d HP"), this->Value));
+}
+
+FText UCardImpactHeal::ToRichText_Implementation() const {
+	return FText::Format(FTextFormat::FromString(TEXT("Heals {0} HP")),
+		UText::Green(FString::FromInt(this->Value)));
 }
