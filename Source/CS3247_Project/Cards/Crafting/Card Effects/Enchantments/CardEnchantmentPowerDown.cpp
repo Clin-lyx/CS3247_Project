@@ -6,8 +6,8 @@
 #include "../Data/CardEffect.h"
 #include "CS3247_Project/UI/Texts/Text.h"
 
-UCardEffect* UCardEnchantmentPowerDown::ComposeTo(UCardEffect* Effect) {
-	const double Ratio = FMath::Clamp(1 - this->Value / 100.0, 0.0, 1.0);
+UCardEffect* UCardEnchantmentPowerDown::ComposeTo(UCardEffect* Effect, double Multiplier) {
+	const double Ratio = FMath::Clamp(1 - this->Value * Multiplier / 100.0, 0.0, 1.0);
 	for (const auto& Entry : Effect->AtomicEffects) {
 		if (this->IsApplicableTo(Entry.Value)) {
 			Entry.Value->ScaleStrength(Ratio);

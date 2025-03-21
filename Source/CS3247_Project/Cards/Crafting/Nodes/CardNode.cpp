@@ -82,7 +82,7 @@ void UCardNode::BreakAllLinks() {
 	}
 }
 
-TArray<UCardEffect*> UCardNode::Build(UCard* OwningCard) {
+TArray<UCardEffect*> UCardNode::Build(UCard& OwningCard, double& ModifierPower) {
 	return {};
 }
 

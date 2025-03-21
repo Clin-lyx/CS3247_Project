@@ -3,39 +3,36 @@
 
 #include "CardRecipe.h"
 
-#include "IngredientPair.h"
+#include "RecipeEdge.h"
 #include "../Nodes/CardNode.h"
 #include "../../Card.h"
+#include "../../../Characters/Player/Components/DeckComponent.h"
 
-UCard* UCardRecipe::Forge(UActorComponent* PlayerDeckComponent) const {
+UCard* UCardRecipe::Forge(UDeckComponent* PlayerDeckComponent) const {
 	UCard* Card = NewObject<UCard>(PlayerDeckComponent);
-	Card->Effects = this->Source.Get()->Build(Card);
+	double ModifierPower = 1.0;
+	Card->Effects = this->Source.Get()->Build(*Card, ModifierPower);
 	return Card;
 }
 
-TMap<UCardIngredient*, FIngredientPair> UCardRecipe::ToMap() const {
-	TMap<UCardIngredient*, FIngredientPair> Map = {};
+TArray<FRecipeEdge> UCardRecipe::ToEdgeList() {
+	if (!this->Edges.IsEmpty()) {
+		return this->Edges;
+	}
+	
 	TQueue<UCardNode*> Queue = {};
 	Queue.Enqueue(this->Source);
 	UCardNode* Curr;
 	while (!Queue.Dequeue(Curr)) {
-		UCardIngredient* Ingredient = Curr->Unpack();
-		if (!Map.Contains(Ingredient)) {
-			Map.Add(Ingredient, FIngredientPair());
-		}
+		const FIngredientKey IngredientKey = Curr->Unpack();
 
 		for (auto& Successor : Curr->GetSuccessors()) {
-			if (!Map[Ingredient].First) {
-				Map[Ingredient].First = Successor->Unpack();
-			} else if (!Map[Ingredient].Second) {
-				Map[Ingredient].Second = Successor->Unpack();
-			}
-
+			this->Edges.Add(FRecipeEdge(IngredientKey, Successor->Unpack()));
 			Queue.Enqueue(Successor);
 		}
 	}
-
-	return Map;
+	
+	return this->Edges;
 }
 
 bool UCardRecipe::operator==(const UCardRecipe& Other) const {

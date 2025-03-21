@@ -8,6 +8,8 @@
 APlayerCharacter::APlayerCharacter() {
 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+	CurrHP = 0;
+	MaxHP = 20;
 }
 
 // Called when the game starts or when spawned
@@ -17,6 +19,25 @@ void APlayerCharacter::BeginPlay() {
 	if (IsValid(AbilitySystem)) {
 		this->AttributeSet = AbilitySystem->GetSet<UPlayerAttributeSet>();
 	}
+
+	CurrHP = MaxHP;
+}
+
+int APlayerCharacter::GetPlayerHealth() const {
+	return CurrHP;
+}
+
+void APlayerCharacter::ReceiveDamage(int damage) {
+	CurrHP -= damage;
+
+	if (CurrHP <= 0) {
+		CurrHP = 0;
+		PlayerIsDead();
+	}
+}
+
+void APlayerCharacter::PlayerIsDead() {
+	UE_LOG(LogTemp, Log, TEXT("Player is Dead!"));
 }
 
 // Called every frame
