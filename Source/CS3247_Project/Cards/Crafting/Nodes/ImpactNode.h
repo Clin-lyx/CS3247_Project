@@ -18,7 +18,7 @@ public:
 	UPROPERTY()
 	TObjectPtr<UCardImpact> Impact;
 
-	FORCEINLINE virtual UCardIngredient* Unpack() const override { return this->Impact.Get(); }
+	FORCEINLINE virtual FIngredientKey Unpack() const override { return FIngredientKey(this->Impact, this->Id); }
 
 	virtual TArray<UCardEffect*> Build(UCard& OwningCard, double& ModifierPower) override;
 

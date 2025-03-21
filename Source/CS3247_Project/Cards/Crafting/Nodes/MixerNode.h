@@ -18,7 +18,7 @@ public:
 	UPROPERTY()
 	TObjectPtr<UIngredientMixer> Mixer;
 
-	FORCEINLINE virtual UCardIngredient* Unpack() const override { return this->Mixer.Get(); }
+	FORCEINLINE virtual FIngredientKey Unpack() const override { return FIngredientKey(this->Mixer, this->Id); }
 
 	virtual TArray<UCardEffect*> Build(UCard& OwningCard, double& ModifierPower) override;
 

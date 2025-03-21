@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "../Card Effects/CardIngredient.h"
 #include "../../../UI/Texts/Localisable.h"
+#include "../Recipe/IngredientWrappers/IngredientKey.h"
 #include "UObject/Object.h"
 #include "CardNode.generated.h"
 /**
@@ -15,7 +16,9 @@ class CS3247_PROJECT_API UCardNode : public UDataAsset, public IPrintable, publi
 	GENERATED_BODY()
 
 public:
-	FORCEINLINE virtual UCardIngredient* Unpack() const { return nullptr; }
+	UCardNode() : Id(FGuid::NewGuid()) {}
+	
+	FORCEINLINE virtual FIngredientKey Unpack() const { return FIngredientKey(nullptr, this->Id); }
 	
 	FORCEINLINE bool IsTerminal() const {
 		return !this->FirstSuccessor && !this->SecondSuccessor;
@@ -46,6 +49,8 @@ public:
 
 	friend int32 GetTypeHash(const UCardNode& Node);
 protected:
+	FGuid Id;
+	
 	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UCardNode> Predecessor;
 

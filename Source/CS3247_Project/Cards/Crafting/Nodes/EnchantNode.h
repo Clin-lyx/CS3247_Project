@@ -18,7 +18,7 @@ public:
 	UPROPERTY()
 	TObjectPtr<UCardEnchantment> Enchantment;
 
-	FORCEINLINE virtual UCardIngredient* Unpack() const override { return this->Enchantment.Get(); }
+	FORCEINLINE virtual FIngredientKey Unpack() const override { return FIngredientKey(this->Enchantment, this->Id); }
 	
 	virtual TArray<UCardEffect*> Build(UCard& OwningCard, double& ModifierPower) override;
 

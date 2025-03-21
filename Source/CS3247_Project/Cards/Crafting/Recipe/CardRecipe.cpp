@@ -23,10 +23,10 @@ TArray<FRecipeEdge> UCardRecipe::ToEdgeList() {
 	Queue.Enqueue(this->Source);
 	UCardNode* Curr;
 	while (!Queue.Dequeue(Curr)) {
-		UCardIngredient* Ingredient = Curr->Unpack();
+		const FIngredientKey IngredientKey = Curr->Unpack();
 
 		for (auto& Successor : Curr->GetSuccessors()) {
-			this->Edges.Add(FRecipeEdge(Ingredient, Successor->Unpack()));
+			this->Edges.Add(FRecipeEdge(IngredientKey, Successor->Unpack()));
 			Queue.Enqueue(Successor);
 		}
 	}
