@@ -10,8 +10,6 @@ struct FRecipeEdge {
 	GENERATED_BODY()
 
 public:
-	FRecipeEdge() : From(nullptr), To(nullptr) {}
-	
 	UPROPERTY(BlueprintReadOnly, Category = "Ingredient Edge")
 	TObjectPtr<UCardIngredient> From;
 
