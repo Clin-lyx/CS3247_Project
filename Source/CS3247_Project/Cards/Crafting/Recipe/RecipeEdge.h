@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "CoreMinimal.h"
+#include "IngredientWrappers/IngredientKey.h"
 #include "RecipeEdge.generated.h"
 
 class UCardIngredient;
@@ -11,8 +12,8 @@ struct FRecipeEdge {
 
 public:
 	UPROPERTY(BlueprintReadOnly, Category = "Ingredient Edge")
-	TObjectPtr<UCardIngredient> From;
+	FIngredientKey From;
 
 	UPROPERTY(BlueprintReadOnly, Category = "Ingredient Edge")
-	TObjectPtr<UCardIngredient> To;
+	FIngredientKey To;
 };

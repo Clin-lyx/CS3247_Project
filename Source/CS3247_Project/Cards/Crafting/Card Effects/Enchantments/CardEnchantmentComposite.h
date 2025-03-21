@@ -18,5 +18,5 @@ public:
 	UPROPERTY(EditDefaultsOnly, Category = "Inner Enchantments")
 	TArray<TSoftObjectPtr<UCardEnchantment>> Enchantments;
 	
-	virtual UCardEffect* ComposeTo(UCardEffect* Effect) override;
+	virtual UCardEffect* ComposeTo(UCardEffect* Effect, double Multiplier) override;
 };

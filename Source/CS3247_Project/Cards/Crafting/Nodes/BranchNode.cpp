@@ -3,8 +3,9 @@
 
 #include "BranchNode.h"
 
-TArray<UCardEffect*> UBranchNode::Build(UCard* OwningCard) {
-	TArray<UCardEffect*> CardEffects = this->FirstSuccessor->Build(OwningCard);
-	this->Brancher->Merge(CardEffects, this->SecondSuccessor->Build(OwningCard));
+TArray<UCardEffect*> UBranchNode::Build(UCard& OwningCard, double& ModifierPower) {
+	TArray<UCardEffect*> CardEffects = this->FirstSuccessor->Build(OwningCard, ModifierPower);
+	this->Brancher->Merge(CardEffects, this->SecondSuccessor->Build(OwningCard, ModifierPower));
+	ModifierPower *= (1 - this->Brancher->EnchantmentPowerDecay / 100.0);
 	return CardEffects;
 }

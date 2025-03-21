@@ -6,6 +6,7 @@
 #include "UObject/Object.h"
 #include "CardRecipe.generated.h"
 
+class UDeckComponent;
 struct FRecipeEdge;
 class UCardIngredient;
 class ILocalisable;
@@ -23,7 +24,7 @@ public:
 	TObjectPtr<UCardNode> Source;
 
 	UFUNCTION(BlueprintCallable)
-	UCard* Forge(UActorComponent* PlayerDeckComponent) const;
+	UCard* Forge(UDeckComponent* PlayerDeckComponent) const;
 
 	UFUNCTION(BlueprintCallable)
 	TArray<FRecipeEdge> ToEdgeList();

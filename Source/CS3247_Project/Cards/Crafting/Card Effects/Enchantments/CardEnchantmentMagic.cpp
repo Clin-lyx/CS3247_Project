@@ -8,7 +8,7 @@
 #include "../Data/EnchantmentDamageEffect.h"
 #include "../../../../UI/Texts/Text.h"
 
-UCardEffect* UCardEnchantmentMagic::ComposeTo(UCardEffect* Effect) {
+UCardEffect* UCardEnchantmentMagic::ComposeTo(UCardEffect* Effect, double Multiplier) {
 	const UDamageEffect* BaseDamage = Cast<UDamageEffect>(Effect->GetEffect(UDamageEffect::StaticClass()));
 	UEnchantmentDamageEffect* EnchantmentDamage =
 		Cast<UEnchantmentDamageEffect>(Effect->GetEffect(UEnchantmentDamageEffect::StaticClass()));
@@ -17,7 +17,7 @@ UCardEffect* UCardEnchantmentMagic::ComposeTo(UCardEffect* Effect) {
 		Effect->SetEffect(UEnchantmentDamageEffect::StaticClass(), EnchantmentDamage);
 	}
 	
-	const double ExtraDamageAmount = static_cast<double>(*BaseDamage) * (this->Strength / 100.0);
+	const double ExtraDamageAmount = static_cast<double>(*BaseDamage) * (this->Strength * Multiplier / 100.0);
 	const double CurrentDmg = EnchantmentDamage->Get(this->EnchantmentType);
 	EnchantmentDamage->Set(this->EnchantmentType, CurrentDmg + ExtraDamageAmount);
 	return Effect;

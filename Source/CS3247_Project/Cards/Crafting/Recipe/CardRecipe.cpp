@@ -6,10 +6,12 @@
 #include "RecipeEdge.h"
 #include "../Nodes/CardNode.h"
 #include "../../Card.h"
+#include "../../../Characters/Player/Components/DeckComponent.h"
 
-UCard* UCardRecipe::Forge(UActorComponent* PlayerDeckComponent) const {
+UCard* UCardRecipe::Forge(UDeckComponent* PlayerDeckComponent) const {
 	UCard* Card = NewObject<UCard>(PlayerDeckComponent);
-	Card->Effects = this->Source.Get()->Build(Card);
+	double ModifierPower = 1.0;
+	Card->Effects = this->Source.Get()->Build(*Card, ModifierPower);
 	return Card;
 }
 
@@ -22,10 +24,10 @@ TArray<FRecipeEdge> UCardRecipe::ToEdgeList() {
 	Queue.Enqueue(this->Source);
 	UCardNode* Curr;
 	while (!Queue.Dequeue(Curr)) {
-		UCardIngredient* Ingredient = Curr->Unpack();
+		const FIngredientKey IngredientKey = Curr->Unpack();
 
 		for (auto& Successor : Curr->GetSuccessors()) {
-			this->Edges.Add(FRecipeEdge(Ingredient, Successor->Unpack()));
+			this->Edges.Add(FRecipeEdge(IngredientKey, Successor->Unpack()));
 			Queue.Enqueue(Successor);
 		}
 	}

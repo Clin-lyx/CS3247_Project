@@ -6,7 +6,7 @@
 #include "../Data/CardEffect.h"
 #include "../../Nodes/BranchNode.h"
 
-void UIngredientBrancher::Merge(TArray<UCardEffect*>& Base, const TArray<UCardEffect*> Others) const {
+void UIngredientBrancher::Merge(TArray<UCardEffect*>& Base, const TArray<UCardEffect*>& Others) const {
 	Base.Append(Others);
 	for (const auto& Effect : Base) {
 		Effect->EnchantmentDecay *= (1 - this->EnchantmentPowerDecay / 100.0);

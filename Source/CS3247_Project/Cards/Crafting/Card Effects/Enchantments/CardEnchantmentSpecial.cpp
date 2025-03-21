@@ -6,7 +6,7 @@
 #include "../Data/CardEffect.h"
 #include "../Data/SpecialEffect.h"
 
-UCardEffect* UCardEnchantmentSpecial::ComposeTo(UCardEffect* Effect) {
+UCardEffect* UCardEnchantmentSpecial::ComposeTo(UCardEffect* Effect, double Multiplier) {
 	Cast<USpecialEffect>(Effect->GetEffect(USpecialEffect::StaticClass()))->AddSpecialEffect(this->SpecialEffect);
 	return Effect;
 }
