@@ -24,5 +24,5 @@ public:
 	virtual UCardNode* WrapIntoNode(UActorComponent* CardCrafter) override;
 private:
 	UPROPERTY(EditDefaultsOnly)
-	TMap<FReactantKey, TObjectPtr<UCardImpact>> Combinations;
+	TMap<FReactantKey, UCardImpact*> Combinations;
 };

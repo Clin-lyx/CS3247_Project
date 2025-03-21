@@ -34,9 +34,12 @@ public:
 	double UseCost;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Cost")
+	double DurabilityDegradation;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Cost")
 	int32 CraftCost;
 
-	UCardIngredient() : Id(FGuid::NewGuid()), UseCost(0), CraftCost(0) {}
+	UCardIngredient() : Id(FGuid::NewGuid()), UseCost(0), DurabilityDegradation(0), CraftCost(0) {}
 
 	UFUNCTION(BlueprintCallable)
 	virtual UCardNode* WrapIntoNode(UActorComponent* CardCrafter);

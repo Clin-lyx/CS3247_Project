@@ -6,7 +6,7 @@
 #include "UObject/Object.h"
 #include "CardRecipe.generated.h"
 
-struct FIngredientPair;
+struct FRecipeEdge;
 class UCardIngredient;
 class ILocalisable;
 class UCard;
@@ -25,6 +25,15 @@ public:
 	UFUNCTION(BlueprintCallable)
 	UCard* Forge(UActorComponent* PlayerDeckComponent) const;
 
+	/**
+	 * Retrieve the edges in the recipe. The edges are collected by level-traversal,
+	 * so the first edge is guaranteed to be from the source and deeper edges will
+	 * appear later in the list.
+	 * @return List of edges in the recipe.
+	 */
 	UFUNCTION(BlueprintCallable)
-	TMap<UCardIngredient*, FIngredientPair> ToMap() const;
+	TArray<FRecipeEdge> ToEdgeList();
+
+private:
+	TArray<FRecipeEdge> Edges;
 };

@@ -6,6 +6,7 @@
 #include "ReactantKey.h"
 #include "../../Card Effects/Impacts/CardImpact.h"
 #include "../../Nodes/MixerNode.h"
+#include "CS3247_Project/Cards/Crafting/Card Effects/Impacts/CardImpactRawPower.h"
 
 UCardImpact* UIngredientMixer::Combine(const UCardImpact* Left, const UCardImpact* Right) {
 	const FReactantKey Key = FReactantKey(Left->Id, Right->Id);
@@ -13,7 +14,13 @@ UCardImpact* UIngredientMixer::Combine(const UCardImpact* Left, const UCardImpac
 		return this->Combinations[Key];
 	}
 
-	return nullptr;
+	const int32 LeftCost = Left->CraftCost;
+	const int32 RightCost = Right->CraftCost;
+	const int32 RawPower = FMath::RandRange(FMath::Min(LeftCost, RightCost),
+		FMath::Max(LeftCost, RightCost));
+	UCardImpactRawPower* RawPowerImpact = NewObject<UCardImpactRawPower>();
+	RawPowerImpact->RawPower = RawPower;
+	return RawPowerImpact;
 }
 
 UCardNode* UIngredientMixer::WrapIntoNode(UActorComponent* CardCrafter) {
