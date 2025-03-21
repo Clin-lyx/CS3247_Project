@@ -32,3 +32,11 @@ TArray<FRecipeEdge> UCardRecipe::ToEdgeList() {
 	
 	return this->Edges;
 }
+
+bool UCardRecipe::operator==(const UCardRecipe& Other) const {
+	return this->Source == Other.Source;
+}
+
+int32 GetTypeHash(UCardRecipe& Recipe) {
+	return GetTypeHash(Recipe.Source);
+}

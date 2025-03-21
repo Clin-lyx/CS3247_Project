@@ -32,6 +32,13 @@ public:
 	 * @return List of edges in the recipe.
 	 */
 	UFUNCTION(BlueprintCallable)
+	TMap<UCardIngredient*, FIngredientPair> ToMap() const;
+
+	bool operator==(const UCardRecipe& Other) const;
+
+	FORCEINLINE bool operator!=(const UCardRecipe& Other) const { return !(*this == Other); }
+
+	friend int32 GetTypeHash(UCardRecipe& Recipe);
 	TArray<FRecipeEdge> ToEdgeList();
 
 private:
