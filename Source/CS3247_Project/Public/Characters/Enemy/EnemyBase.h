@@ -2,18 +2,21 @@
 
 #include "CoreMinimal.h"
 #include "EnemyActions.h"
-#include "EnemyInterface.h"
 #include "GameFramework/Actor.h"
 #include "EnemyBase.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnEnemyDied, AEnemyBase*, DeadEnemy);
 
 UCLASS()
-class CS3247_PROJECT_API AEnemyBase : public AActor, public IEnemyInterface
+class CS3247_PROJECT_API AEnemyBase : public AActor
 {
     GENERATED_BODY()
 
 public:
     AEnemyBase();
+
+    UPROPERTY(BlueprintAssignable, Category="Events")
+    FOnEnemyDied OnEnemyDied;
 
     // Called when the game starts or when spawned
     virtual void BeginPlay() override;
@@ -34,6 +37,9 @@ public:
     UFUNCTION(BlueprintCallable, Category = "status")
     void Die();
 
+    UFUNCTION(BlueprintCallable, Category = "Enemy")
+    virtual bool ReturnStatus();
+
     UPROPERTY()
     APlayerCharacter* player;
 
@@ -50,19 +56,21 @@ protected:
     int AttackDamage;
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stats")
-    bool isGuard;
+    bool IsGuard;
+
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stats")
+    bool IsDead;
 
     // Example set of allowed actions
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI")
     TArray<EEnemyActions> AvailableActions;
 
-    // Action implementations
-    void PerformAttack();
-    void PerformGuard();
-    void PerformHeal();
+    // Make these virtual so derived classes can override them
+    virtual float ScoreAttack() const;
+    virtual float ScoreGuard() const;
+    virtual float ScoreHeal() const;
 
-    // The utility scoring methods
-    float ScoreAttack() const;
-    float ScoreGuard() const;
-    float ScoreHeal() const;
+    virtual void PerformAttack();
+    virtual void PerformGuard();
+    virtual void PerformHeal();
 };
