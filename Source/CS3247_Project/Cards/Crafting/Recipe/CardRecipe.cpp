@@ -6,8 +6,9 @@
 #include "RecipeEdge.h"
 #include "../Nodes/CardNode.h"
 #include "../../Card.h"
+#include "../../../Characters/Player/Components/DeckComponent.h"
 
-UCard* UCardRecipe::Forge(UActorComponent* PlayerDeckComponent) const {
+UCard* UCardRecipe::Forge(UDeckComponent* PlayerDeckComponent) const {
 	UCard* Card = NewObject<UCard>(PlayerDeckComponent);
 	double ModifierPower = 1.0;
 	Card->Effects = this->Source.Get()->Build(*Card, ModifierPower);

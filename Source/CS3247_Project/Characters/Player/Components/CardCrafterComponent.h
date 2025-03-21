@@ -4,11 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "../../../Cards/Crafting/Recipe/CardRecipe.h"
 #include "CardCrafterComponent.generated.h"
 
 
+class UDeckComponent;
+class UCardNode;
 struct FRecipeEdge;
-class UCardRecipe;
 
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
 class CS3247_PROJECT_API UCardCrafterComponent : public UActorComponent {
@@ -26,9 +28,14 @@ protected:
 	virtual void BeginPlay() override;
 
 public:
+	UFUNCTION(BlueprintCallable)
 	void LoadRecipe(TArray<FRecipeEdge> EdgeList);
 
-	TArray<FRecipeEdge> ParseRecipe();
+	UFUNCTION(BlueprintCallable)
+	TArray<FRecipeEdge> ParseRecipe() const;
+
+	UFUNCTION(BlueprintCallable)
+	FORCEINLINE UCard* Forge(UDeckComponent* PlayerDeckComponent) const { return this->CurrentRecipe->Forge(PlayerDeckComponent); }
 	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType,

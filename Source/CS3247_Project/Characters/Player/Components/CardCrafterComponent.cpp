@@ -4,6 +4,8 @@
 #include "CardCrafterComponent.h"
 
 #include "CS3247_Project/Cards/Crafting/Card Effects/CardIngredient.h"
+#include "CS3247_Project/Cards/Crafting/Nodes/CardNode.h"
+#include "CS3247_Project/Cards/Crafting/Recipe/CardRecipe.h"
 #include "CS3247_Project/Cards/Crafting/Recipe/RecipeEdge.h"
 #include "CS3247_Project/Cards/Crafting/Recipe/IngredientWrappers/IngredientKey.h"
 
@@ -31,16 +33,27 @@ void UCardCrafterComponent::LoadRecipe(TArray<FRecipeEdge> EdgeList) {
 		return;
 	}
 
-	TMap<FIngredientKey, UCardNode*> NodeMap = {};
-	for (const auto& Edge : EdgeList) {
-		/*UCardIngredient* Parent = Edge.From;
-		UCardIngredient* Child = Edge.To;
-		this->CurrentRecipe.Ad*/
+	FIngredientKey Root = EdgeList[0].From;
+	UCardNode* RootNode = NewObject<UCardNode>(this->CurrentRecipe);
+	TMap<FIngredientKey, UCardNode*> NodeMap = {{Root, RootNode}};
+	for (const auto& [From, To] : EdgeList) {
+		UCardNode* ParentNode = NodeMap[From]; // This should exist!
+		// Create a node for the child.
+		UCardNode* ChildNode = To.Ingredient->WrapIntoNode(this);
+		// Link parent to child.
+		FText ErrorMsg = FText::GetEmpty();
+		if (ParentNode->AddSuccessor(ChildNode, ErrorMsg)) {
+			// this->OnAddIngredient.Broadcast()
+			// Add child to map
+			NodeMap.Add(To, ChildNode);
+			return;
+		} 
+		UE_LOG(LogTemp, Warning, TEXT("%s"), *ErrorMsg.ToString());
 	}
 }
 
-TArray<FRecipeEdge> UCardCrafterComponent::ParseRecipe() {
-	return {};
+TArray<FRecipeEdge> UCardCrafterComponent::ParseRecipe() const {
+	return this->CurrentRecipe->ToEdgeList();
 }
 
 
