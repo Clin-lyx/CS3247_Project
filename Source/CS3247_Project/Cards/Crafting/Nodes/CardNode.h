@@ -39,6 +39,12 @@ public:
 	virtual FORCEINLINE FText ToText_Implementation() const override { return FText::FromString(Execute_ToString(this)); }
 	
 	virtual FORCEINLINE FText ToRichText_Implementation() const override { return Execute_ToText(this); }
+
+	bool operator==(const UCardNode& Other) const;
+
+	FORCEINLINE bool operator!=(const UCardNode& Other) const { return !(*this == Other); }
+
+	friend int32 GetTypeHash(const UCardNode& Node);
 protected:
 	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UCardNode> Predecessor;

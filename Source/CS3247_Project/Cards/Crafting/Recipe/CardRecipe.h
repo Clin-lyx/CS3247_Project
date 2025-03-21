@@ -6,7 +6,7 @@
 #include "UObject/Object.h"
 #include "CardRecipe.generated.h"
 
-struct FIngredientPair;
+struct FRecipeEdge;
 class UCardIngredient;
 class ILocalisable;
 class UCard;
@@ -26,5 +26,13 @@ public:
 	UCard* Forge(UActorComponent* PlayerDeckComponent) const;
 
 	UFUNCTION(BlueprintCallable)
-	TMap<UCardIngredient*, FIngredientPair> ToMap() const;
+	TArray<FRecipeEdge> ToEdgeList();
+	
+	bool operator==(const UCardRecipe& Other) const;
+
+	FORCEINLINE bool operator!=(const UCardRecipe& Other) const { return !(*this == Other); }
+
+	friend int32 GetTypeHash(UCardRecipe& Recipe);
+private:
+	TArray<FRecipeEdge> Edges;
 };

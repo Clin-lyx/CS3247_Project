@@ -6,6 +6,8 @@
 #include "../UI/Texts/Localisable.h"
 #include "Card.generated.h"
 
+struct FRecipeEdge;
+class UCardIngredient;
 class ILocalisable;
 class UCardRecipe;
 class UCardEffect;
@@ -19,19 +21,19 @@ class CS3247_PROJECT_API UCard : public UObject, public ILocalisable {
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(ExposeOnSpawn))
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	FText Name;
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(ExposeOnSpawn))
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	int Cost;
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(ExposeOnSpawn))
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	int Durability;
 
-	UPROPERTY(BlueprintReadOnly, EditAnywhere, meta=(ExposeOnSpawn))
+	UPROPERTY(BlueprintReadOnly, EditAnywhere)
 	TArray<TObjectPtr<UCardEffect>> Effects;
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(ExposeOnSpawn))
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	TObjectPtr<UCardRecipe> Recipe;
 	
 	UCard();
@@ -48,5 +50,17 @@ public:
 		UseCost = this->Cost;
 		CardDurability = this->Durability;
 		CardEffects = this->Effects;
+	}
+
+	FORCEINLINE bool operator==(const UCard& Other) const {
+		return this->Recipe == Other.Recipe;
+	}
+	
+	FORCEINLINE bool operator!=(const UCard& Other) const {
+		return this->Recipe != Other.Recipe;
+	}
+	
+	FORCEINLINE friend uint32 GetTypeHash(const UCard& Card) {
+		return GetTypeHash(Card.Recipe);
 	}
 };
