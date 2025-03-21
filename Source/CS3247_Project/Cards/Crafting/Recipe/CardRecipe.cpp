@@ -9,7 +9,8 @@
 
 UCard* UCardRecipe::Forge(UActorComponent* PlayerDeckComponent) const {
 	UCard* Card = NewObject<UCard>(PlayerDeckComponent);
-	Card->Effects = this->Source.Get()->Build(Card);
+	double ModifierPower = 1.0;
+	Card->Effects = this->Source.Get()->Build(*Card, ModifierPower);
 	return Card;
 }
 

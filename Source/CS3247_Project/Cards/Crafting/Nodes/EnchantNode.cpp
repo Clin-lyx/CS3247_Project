@@ -3,11 +3,11 @@
 
 #include "EnchantNode.h"
 
-TArray<UCardEffect*> UEnchantNode::Build(UCard* OwningCard) {
-	TArray<UCardEffect*> SuccessorEffects = this->FirstSuccessor->Build(OwningCard);
+TArray<UCardEffect*> UEnchantNode::Build(UCard& OwningCard, double& ModifierPower) {
+	TArray<UCardEffect*> SuccessorEffects = this->FirstSuccessor->Build(OwningCard, ModifierPower);
 	TArray<UCardEffect*> CardEffects = {};
 	for (const auto& CardEffect : SuccessorEffects) {
-		CardEffects.Add(this->Enchantment.Get()->ComposeTo(CardEffect));
+		CardEffects.Add(this->Enchantment.Get()->ComposeTo(CardEffect, ModifierPower));
 	}
 	
 	return CardEffects;

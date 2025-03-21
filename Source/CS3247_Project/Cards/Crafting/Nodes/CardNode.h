@@ -30,7 +30,7 @@ public:
 	UFUNCTION(BlueprintCallable, Category= "Node Connections")
 	void BreakAllLinks();
 	
-	virtual TArray<UCardEffect*> Build(UCard* OwningCard);
+	virtual TArray<UCardEffect*> Build(UCard& OwningCard, double& ModifierPower);
 
 	TArray<UCardNode*> GetSuccessors() const;
 

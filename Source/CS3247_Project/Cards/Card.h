@@ -31,7 +31,7 @@ public:
 	int Durability;
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere)
-	TArray<TObjectPtr<UCardEffect>> Effects;
+	TArray<UCardEffect*> Effects;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	TObjectPtr<UCardRecipe> Recipe;

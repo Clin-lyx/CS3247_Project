@@ -19,7 +19,7 @@ public:
 
 	FORCEINLINE virtual UCardIngredient* Unpack() const override { return this->Brancher.Get(); }
 
-	virtual TArray<UCardEffect*> Build(UCard* OwningCard) override;
+	virtual TArray<UCardEffect*> Build(UCard& OwningCard, double& ModifierPower) override;
 
 	FORCEINLINE virtual FString ToString_Implementation() const override { return TEXT("[" + this->Brancher->GetName() + "]"); }
 };
