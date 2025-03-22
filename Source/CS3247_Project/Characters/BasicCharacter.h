@@ -8,7 +8,7 @@
 #include "AbilitySystemInterface.h"
 #include "BasicCharacter.generated.h"
 
-UCLASS(Blueprintable, BlueprintType)
+UCLASS(Abstract, Blueprintable, BlueprintType)
 class CS3247_PROJECT_API ABasicCharacter : public ACharacter, public IAbilitySystemInterface {
 	GENERATED_BODY()
 
@@ -32,7 +32,7 @@ protected:
 
 public:
 	UFUNCTION(BlueprintCallable)
-	void SignalAttributeChange(const FGameplayAttribute& Attribute) const;
+	virtual void SignalAttributeChange(const FGameplayAttribute& Attribute) const;
 
 	UFUNCTION(BlueprintCallable)
 	void SignalAllAttributeUpdates() const;

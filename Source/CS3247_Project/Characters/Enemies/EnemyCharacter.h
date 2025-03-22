@@ -7,6 +7,7 @@
 #include "../BasicCharacter.h"
 #include "EnemyCharacter.generated.h"
 
+class UBasicAttributeSet;
 class UEnemy;
 
 UCLASS(BlueprintType, Blueprintable)
@@ -28,7 +29,11 @@ public:
 	
 	// Sets default values for this character's properties
 	AEnemyCharacter();
+
+	virtual void SignalAttributeChange(const FGameplayAttribute& Attribute) const override;
 protected:
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="GAS", meta=(AllowPrivateAccess="true"))
+	const UBasicAttributeSet* AttributeSet;
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 

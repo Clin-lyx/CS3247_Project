@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "AttributeSet.h"
 #include "DataManager.h"
 #include "Engine/GameInstance.h"
 #include "BasicGameInstance.generated.h"
@@ -19,6 +20,14 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	TMap<FGameplayTag, FName> GameplayTagLocalisations;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TMap<FGameplayAttribute, FGameplayTag> AttributesToTags;
+
 	UFUNCTION(BlueprintCallable)
 	virtual FName GetName_Implementation(const FGameplayTag Tag) const override;
+
+	UFUNCTION(BlueprintCallable)
+	FORCEINLINE FGameplayTag AttributeToAssetTag(const FGameplayAttribute Attribute) {
+		return this->AttributesToTags[Attribute];
+	};
 };
