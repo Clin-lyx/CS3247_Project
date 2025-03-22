@@ -38,6 +38,8 @@ public:
 		this->AtomicEffects.Add(EffectType, Effect);
 	}
 
+	bool IsHostile() const;
+
 	virtual FString ToString_Implementation() const override;
 	
 	virtual FText ToText_Implementation() const override;

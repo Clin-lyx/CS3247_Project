@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "../UI/Texts/Localisable.h"
+#include "Crafting/Card Effects/Data/CardEffect.h"
 #include "Card.generated.h"
 
 struct FRecipeEdge;
@@ -50,6 +51,11 @@ public:
 		UseCost = this->Cost;
 		CardDurability = this->Durability;
 		CardEffects = this->Effects;
+	}
+
+	UFUNCTION(BlueprintCallable)
+	FORCEINLINE bool IsHostile() const {
+		return this->Effects.ContainsByPredicate([](const UCardEffect* E) -> bool { return E->IsHostile(); });
 	}
 
 	FORCEINLINE bool operator==(const UCard& Other) const {
