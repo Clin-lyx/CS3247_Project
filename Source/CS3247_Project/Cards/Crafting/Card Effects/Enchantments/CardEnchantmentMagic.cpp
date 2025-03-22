@@ -8,7 +8,8 @@
 #include "../Data/EnchantmentDamageEffect.h"
 #include "../../../../UI/Texts/Text.h"
 
-UCardEffect* UCardEnchantmentMagic::ComposeTo(UCardEffect* Effect, double Multiplier) {
+UCardEffect* UCardEnchantmentMagic::ComposeTo(UCard* OwningCard, UCardEffect* Effect, double Multiplier) {
+	Effect = Super::ComposeTo(OwningCard, Effect, Multiplier);
 	const UDamageEffect* BaseDamage = Cast<UDamageEffect>(Effect->GetEffect(UDamageEffect::StaticClass()));
 	UEnchantmentDamageEffect* EnchantmentDamage =
 		Cast<UEnchantmentDamageEffect>(Effect->GetEffect(UEnchantmentDamageEffect::StaticClass()));

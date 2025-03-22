@@ -26,7 +26,7 @@ public:
 	FText Name;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	int Cost;
+	double Cost;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	int Durability;
@@ -48,7 +48,7 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Card Info")
 	FORCEINLINE void GetCardData(int& UseCost, int& CardDurability, TArray<UCardEffect*>& CardEffects) const {
-		UseCost = this->Cost;
+		UseCost = FMath::Floor(this->Cost);
 		CardDurability = this->Durability;
 		CardEffects = this->Effects;
 	}

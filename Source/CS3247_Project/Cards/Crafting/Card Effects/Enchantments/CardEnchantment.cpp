@@ -6,7 +6,8 @@
 #include "../../Nodes/EnchantNode.h"
 
 
-UCardEffect* UCardEnchantment::ComposeTo(UCardEffect* Current, double Multiplier) {
+UCardEffect* UCardEnchantment::ComposeTo(UCard* OwningCard, UCardEffect* Current, double Multiplier) {
+	OwningCard->Cost += this->UseCost;
 	return Current;
 }
 

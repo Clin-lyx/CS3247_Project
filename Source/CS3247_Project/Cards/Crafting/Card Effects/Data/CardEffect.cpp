@@ -36,10 +36,6 @@ FText UCardEffect::ToRichText_Implementation() const {
 	TStringBuilder<256> Sb = TStringBuilder<256>();
 	TArray<FString> Lines = {};
 	for (auto& Entry : this->AtomicEffects) {
-		if (Entry.Key == UManaCostEffect::StaticClass()) {
-			continue;
-		}
-		
 		Lines.Add(Execute_ToRichText(Entry.Value).ToString());
 	}
 

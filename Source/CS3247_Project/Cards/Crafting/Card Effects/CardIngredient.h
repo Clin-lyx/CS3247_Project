@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "../../../UI/Texts/Localisable.h"
 #include "../../../UI/Texts/Printable.h"
+#include "../../../Cards/Card.h"
 #include "Engine/DataAsset.h"
 #include "CardIngredient.generated.h"
 
@@ -49,4 +50,6 @@ public:
 	virtual FText ToText_Implementation() const override;
 
 	virtual FText ToRichText_Implementation() const override;
+protected:
+	FORCEINLINE void AddCost(UCard& OwningCard) const { OwningCard.Cost += this->UseCost; }
 };

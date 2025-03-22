@@ -3,6 +3,8 @@
 
 #include "BasicCharacter.h"
 
+#include "CS3247_Project/GameplayAbilities/AttributeSet/PlayerAttributeSet.h"
+
 
 // Sets default values
 ABasicCharacter::ABasicCharacter() {
@@ -14,6 +16,32 @@ ABasicCharacter::ABasicCharacter() {
 // Called when the game starts or when spawned
 void ABasicCharacter::BeginPlay() {
 	Super::BeginPlay();
+}
+
+void ABasicCharacter::SignalAttributeChange(const FGameplayAttribute& Attribute) const {
+	const UAbilitySystemComponent* AbilitySystem = this->GetAbilitySystemComponent();
+	bool bIsAttributeFound = false;
+	const float Curr = AbilitySystem->GetGameplayAttributeValue(Attribute, bIsAttributeFound);
+	float Max = 100.0f;
+	const UPlayerAttributeSet* AttributeSet = Cast<UPlayerAttributeSet>(
+		AbilitySystem->GetAttributeSet(UPlayerAttributeSet::StaticClass()));
+	if (Attribute == AttributeSet->GetHealthAttribute()) {
+		Max = AttributeSet->GetMaxHealth();
+	} else if (Attribute == AttributeSet->GetManaAttribute()) {
+		Max = AttributeSet->GetMaxMana();
+	} else if (Attribute == AttributeSet->GetMaxManaAttribute() || Attribute == AttributeSet->GetMaxHealthAttribute()) {
+		Max = INT32_MAX;
+	}
+
+	this->OnAttributeUpdated.Broadcast(Attribute, Curr, Max);
+}
+
+void ABasicCharacter::SignalAllAttributeUpdates() const {
+	TArray<FGameplayAttribute> Attributes = {};
+	this->GetAbilitySystemComponent()->GetAllAttributes(Attributes);
+	for (auto& Attribute : Attributes) {
+		this->SignalAttributeChange(Attribute);
+	}
 }
 
 TMap<FGameplayAttribute, float> ABasicCharacter::SaveAttributes() const {

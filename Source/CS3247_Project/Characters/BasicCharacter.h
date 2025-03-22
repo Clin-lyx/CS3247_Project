@@ -12,7 +12,10 @@ UCLASS(Blueprintable, BlueprintType)
 class CS3247_PROJECT_API ABasicCharacter : public ACharacter, public IAbilitySystemInterface {
 	GENERATED_BODY()
 
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnAttributeUpdatedDispatcher, const FGameplayAttribute&, Attribute, int32, CurrentValue, int32, MaxValue);
 public:
+	UPROPERTY(BlueprintAssignable, BlueprintCallable)
+	FOnAttributeUpdatedDispatcher OnAttributeUpdated;
 	// Sets default values for this character's properties
 	ABasicCharacter();
 
@@ -28,6 +31,12 @@ protected:
 	}
 
 public:
+	UFUNCTION(BlueprintCallable)
+	void SignalAttributeChange(const FGameplayAttribute& Attribute) const;
+
+	UFUNCTION(BlueprintCallable)
+	void SignalAllAttributeUpdates() const;
+	
 	UFUNCTION(BlueprintCallable)
 	TMap<FGameplayAttribute, float> SaveAttributes() const;
 
