@@ -23,6 +23,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	TMap<FGameplayAttribute, FGameplayTag> AttributesToTags;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TMap<FGameplayTag, FGameplayAttribute> ResistanceTypes;
+
 	UFUNCTION(BlueprintCallable)
 	virtual FName GetName_Implementation(const FGameplayTag Tag) const override;
 

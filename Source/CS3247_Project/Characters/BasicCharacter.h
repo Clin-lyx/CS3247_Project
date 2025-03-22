@@ -25,12 +25,11 @@ protected:
 	
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-
+public:
 	FORCEINLINE virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override {
 		return AbilitySystemComponent;
 	}
-
-public:
+	
 	UFUNCTION(BlueprintCallable)
 	virtual void SignalAttributeChange(const FGameplayAttribute& Attribute) const;
 
@@ -47,4 +46,10 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	FORCEINLINE int32 GetAttribute(const FGameplayAttribute& Attribute) const {
+		bool bFound = false;
+		const int32 CurrValue = this->GetAbilitySystemComponent()->GetGameplayAttributeValue(Attribute, bFound);
+		return bFound ? CurrValue : 0;
+	}
 };

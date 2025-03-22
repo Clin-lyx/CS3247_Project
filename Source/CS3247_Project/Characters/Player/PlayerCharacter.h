@@ -8,6 +8,8 @@
 #include "Misc/GeneratedTypeName.h"
 #include "PlayerCharacter.generated.h"
 
+class UCard;
+
 UCLASS()
 class CS3247_PROJECT_API APlayerCharacter : public ABasicCharacter {
 	GENERATED_BODY()

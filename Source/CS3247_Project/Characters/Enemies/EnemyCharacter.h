@@ -18,10 +18,10 @@ class CS3247_PROJECT_API AEnemyCharacter : public ABasicCharacter {
 	DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnEnemyAttackedDispatcher, AEnemyCharacter*, Attacker,
 		FEnemyAttack, AttackData);
 public:
-	UPROPERTY(BlueprintReadOnly, BlueprintAssignable)
+	UPROPERTY(BlueprintAssignable, BlueprintCallable)
 	FOnEnemyDeadDispatcher OnEnemyDead;
 	
-	UPROPERTY(BlueprintReadOnly, BlueprintAssignable)
+	UPROPERTY(BlueprintAssignable, BlueprintCallable)
 	FOnEnemyAttackedDispatcher OnEnemyAttacked;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(ExposeOnSpawn))
@@ -38,7 +38,6 @@ protected:
 	virtual void BeginPlay() override;
 
 	virtual void Destroyed() override;
-
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
