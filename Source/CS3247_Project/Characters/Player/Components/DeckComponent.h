@@ -21,8 +21,11 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Deck", meta = (AllowPrivateAccess = "true"))
 	TArray<UCard*> Deck;
 	
-	UPROPERTY(Instanced, EditAnywhere, BlueprintReadOnly, Category = "Deck", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(BlueprintReadOnly, Category = "Deck", meta = (AllowPrivateAccess = "true"))
 	TArray<UCard*> DefaultCards;
+
+	UPROPERTY(Instanced, EditAnywhere, BlueprintReadOnly, Category = "Deck", meta = (AllowPrivateAccess = "true"))
+	TArray<UCardRecipe*> DefaultRecipes;
 	
 	// Called when the game starts
 	virtual void BeginPlay() override;

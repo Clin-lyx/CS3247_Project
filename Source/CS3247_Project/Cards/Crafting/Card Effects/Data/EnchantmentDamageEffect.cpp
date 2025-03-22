@@ -5,6 +5,7 @@
 
 #include "../../../../UI/Texts/Text.h"
 #include "../../../../Common/DataManager.h"
+#include "../../../../Common/BasicGameInstance.h"
 #include "Kismet/GameplayStatics.h"
 
 void UEnchantmentDamageEffect::ScaleStrength(const FGameplayTag DmgType, const double Ratio) {
@@ -53,7 +54,7 @@ FText UEnchantmentDamageEffect::ToText_Implementation() const {
 	return FText::FromString(Sb.Join(Lines, '\n').ToString());
 }
 FText UEnchantmentDamageEffect::ToRichText_Implementation() const {
-	const UGameInstance* GameInstance = UGameplayStatics::GetGameInstance(GetWorld());
+	const UBasicGameInstance* GameInstance = Cast<UBasicGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
 	TStringBuilder<256> Sb = TStringBuilder<256>();
 	TArray<FString> Lines = {};
 	for (auto& Entry : this->EnchantmentDamages) {
