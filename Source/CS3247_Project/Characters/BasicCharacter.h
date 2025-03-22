@@ -8,7 +8,7 @@
 #include "AbilitySystemInterface.h"
 #include "BasicCharacter.generated.h"
 
-UCLASS()
+UCLASS(Blueprintable, BlueprintType)
 class CS3247_PROJECT_API ABasicCharacter : public ACharacter, public IAbilitySystemInterface {
 	GENERATED_BODY()
 

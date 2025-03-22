@@ -21,9 +21,19 @@ void UDeckComponent::BeginPlay() {
 	
 }
 
-void UDeckComponent::AddCard(UCard& Card) {
-	this->Deck.Add(&Card);
-	this->OnAddCard.Broadcast(&Card);
+void UDeckComponent::AddCard(UCard* Card) {
+	this->Deck.Add(Card);
+	this->OnAddCard.Broadcast(Card);
+}
+
+UCard* UDeckComponent::RandomDraw() {
+	if (this->Deck.Num() > 0) {
+		UCard* Card = this->Deck[FMath::RandRange(0, this->Deck.Num() - 1)];
+		this->Deck.Remove(Card);
+		return Card;
+	}
+	
+	return this->DefaultCards[FMath::RandRange(0, this->DefaultCards.Num() - 1)];
 }
 
 

@@ -16,7 +16,8 @@ class CS3247_PROJECT_API UManaCostEffect : public UAtomicCardEffect {
 
 public:
 	UManaCostEffect() : ManaCost(0) {}
-	
+
+	UPROPERTY(EditAnywhere)
 	double ManaCost;
 
 	UFUNCTION(BlueprintCallable)

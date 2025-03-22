@@ -7,7 +7,7 @@
 #include "../../../Cards/Card.h"
 #include "DeckComponent.generated.h"
 
-UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
+UCLASS(Blueprintable, ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
 class CS3247_PROJECT_API UDeckComponent : public UActorComponent {
 	GENERATED_BODY()
 
@@ -18,16 +18,24 @@ public:
 	UDeckComponent();
 
 protected:
-	UPROPERTY()
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Deck", meta = (AllowPrivateAccess = "true"))
 	TArray<UCard*> Deck;
+	
+	UPROPERTY(Instanced, EditAnywhere, BlueprintReadOnly, Category = "Deck", meta = (AllowPrivateAccess = "true"))
+	TArray<UCard*> DefaultCards;
+	
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
 public:
-	UPROPERTY(BlueprintAssignable)
+	UPROPERTY(EditAnywhere, BlueprintAssignable, Category = "Deck")
 	FOnAddCardDispatcher OnAddCard;
-	
-	void AddCard(UCard& Card);
+
+	UFUNCTION(BlueprintCallable)
+	void AddCard(UCard* Card);
+
+	UFUNCTION(BlueprintCallable)
+	UCard* RandomDraw();
 	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType,

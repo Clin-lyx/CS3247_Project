@@ -14,7 +14,6 @@ ABasicCharacter::ABasicCharacter() {
 // Called when the game starts or when spawned
 void ABasicCharacter::BeginPlay() {
 	Super::BeginPlay();
-	
 }
 
 TMap<FGameplayAttribute, float> ABasicCharacter::SaveAttributes() const {

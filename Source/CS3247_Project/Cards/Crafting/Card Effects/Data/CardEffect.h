@@ -3,7 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameplayTagContainer.h"
 #include "ManaCostEffect.h"
 #include "../../../../UI/Texts/Localisable.h"
 #include "../../../../UI/Texts/Printable.h"
@@ -19,17 +18,15 @@ class UAtomicCardEffect;
  * - Enchantment Damage
  * - Special Effects
  */
-UCLASS(BlueprintType)
+UCLASS(BlueprintType, DefaultToInstanced, EditInlineNew)
 class CS3247_PROJECT_API UCardEffect : public UObject, public IPrintable, public ILocalisable {
 	GENERATED_BODY()
 
 public:
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, Instanced)
 	TMap<TSubclassOf<UAtomicCardEffect>, UAtomicCardEffect*> AtomicEffects;
 	
-	double EnchantmentDecay;
-	
-	UCardEffect() : AtomicEffects({}), EnchantmentDecay(0) {}
+	UCardEffect() : AtomicEffects({}) {}
 
 	UFUNCTION(BlueprintCallable)
 	FORCEINLINE UAtomicCardEffect* GetEffect(const TSubclassOf<UAtomicCardEffect> EffectType) const {
