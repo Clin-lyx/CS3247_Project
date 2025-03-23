@@ -42,31 +42,31 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attributes")
 	FGameplayAttributeData Defence;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attributes/Resistances")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attributes")
 	FGameplayAttributeData WaterResistance;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attributes/Resistances")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attributes")
 	FGameplayAttributeData FireResistance;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attributes/Resistances")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attributes")
 	FGameplayAttributeData AirResistance;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attributes/Resistances")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attributes")
 	FGameplayAttributeData EarthResistance;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attributes/Resistances")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attributes")
 	FGameplayAttributeData SliceResistance;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attributes/Resistances")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attributes")
 	FGameplayAttributeData ProjectileResistance;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attributes/Resistances")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attributes")
 	FGameplayAttributeData ExplosionResistance;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attributes/Resistances")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attributes")
 	FGameplayAttributeData PoisonResistance;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attributes/Resistances")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attributes")
 	FGameplayAttributeData ElectricResistance;
 protected:
 	virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
