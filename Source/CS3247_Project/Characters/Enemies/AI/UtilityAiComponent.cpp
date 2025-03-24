@@ -34,7 +34,7 @@ float UUtilityAiComponent::Evaluate(const UEnemySkill& Action, const FAiDecision
 	float Max = -1.0f;
 	for (auto& Effect : Action.Effects) {
 		// For each action effect, normalise its raw utility to [0, 1].
-		const float EffectRawScore = Effect->Evaluate(Context) * RandomMultiplier;
+		const float EffectRawScore = Effect->Evaluate(GetWorld(), Context) * RandomMultiplier;
 		const float EffectScore = this->EvaluationCurves[Effect->GetClass()].GetRichCurveConst()->Eval(EffectRawScore);
 		Total += EffectScore;
 		Max = FMath::Max(Max, EffectScore);
@@ -59,7 +59,7 @@ FAiDecision UUtilityAiComponent::Decide(const FCombatContext& Context) const {
 			const float Score = this->Evaluate(*Skill, DecisionContext);
 			if (Score > MaxScore) {
 				MaxScore = Score;
-				BestDecision = FAiDecision(Skill, Player);
+				BestDecision = FAiDecision(Skill->ToGameplayEffects(), Player);
 			}
 		} else {
 			// If the skill is meant to be used on allies, consider all allies including the enemy itself.
@@ -72,7 +72,7 @@ FAiDecision UUtilityAiComponent::Decide(const FCombatContext& Context) const {
 				const float Score = this->Evaluate(*Skill, DecisionContext);
 				if (Score > MaxScore) {
 					MaxScore = Score;
-					BestDecision = FAiDecision(Skill, Enemy);
+					BestDecision = FAiDecision(Skill->ToGameplayEffects(), Enemy);
 				}
 			}
 		}

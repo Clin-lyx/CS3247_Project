@@ -6,7 +6,13 @@
 #include "../EnemyCharacter.h"
 #include "../../../GameplayAbilities/AttributeSet/BasicAttributeSet.h"
 
-float UHealAction::Evaluate(const FAiDecisionContext& Context) const {
+UHealAction::UHealAction() : bIsReflexive(false), Amount(0) {
+	static ConstructorHelpers::FClassFinder<UGameplayEffect> GameplayEffectClassFinder(
+			TEXT("/Game/Assets/GameplayAbilities/GameplayEffects/GE_Healing"));
+	this->GameplayEffectType = GameplayEffectClassFinder.Class;
+}
+
+float UHealAction::Evaluate(const UWorld* World, const FAiDecisionContext& Context) const {
 	const ABasicCharacter* Target = this->IsReflexive() ? Context.SelfData : Context.TargetData;
 	const UBasicAttributeSet* AttributeSet = Cast<UBasicAttributeSet>(
 		Target->GetAbilitySystemComponent()->GetAttributeSet(UBasicAttributeSet::StaticClass()));

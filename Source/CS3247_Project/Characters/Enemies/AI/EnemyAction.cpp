@@ -3,6 +3,7 @@
 
 #include "EnemyAction.h"
 
-float UEnemyAction::Evaluate(const FAiDecisionContext& Context) const {
+float UEnemyAction::Evaluate(const UWorld* World, const FAiDecisionContext& Context) const {
 	return 0;
 }
+

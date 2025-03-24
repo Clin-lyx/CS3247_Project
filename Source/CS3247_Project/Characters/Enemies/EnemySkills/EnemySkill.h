@@ -4,8 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "../AI/EnemyAction.h"
-#include "CS3247_Project/Characters/BasicCharacter.h"
-#include "CS3247_Project/Characters/Player/PlayerCharacter.h"
+#include "../../BasicCharacter.h"
+#include "../../Player/PlayerCharacter.h"
 #include "Engine/DataAsset.h"
 #include "EnemySkill.generated.h"
 
@@ -37,4 +37,6 @@ public:
 			[](const UEnemyAction* Action) -> bool { return Action->IsReflexive(); });
 		return !IsSelfOnly || Source == Target;
 	}
+
+	TArray<FGameplayEffectDescriptor> ToGameplayEffects() const;
 };

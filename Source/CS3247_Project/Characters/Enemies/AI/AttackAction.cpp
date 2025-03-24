@@ -9,8 +9,15 @@
 #include "../../../Common/BasicGameInstance.h"
 #include "Kismet/GameplayStatics.h"
 
-float UAttackAction::Evaluate(const FAiDecisionContext& Context) const {
-	UBasicGameInstance* GameInstance = Cast<UBasicGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+UAttackAction::UAttackAction() {
+	this->DamageData = FEnemyAttack();
+	static ConstructorHelpers::FClassFinder<UGameplayEffect> GameplayEffectClassFinder(
+			TEXT("/Game/Assets/GameplayAbilities/GameplayEffects/GE_Damage"));
+	this->GameplayEffectType = GameplayEffectClassFinder.Class;
+}
+
+float UAttackAction::Evaluate(const UWorld* World, const FAiDecisionContext& Context) const {
+	UBasicGameInstance* GameInstance = Cast<UBasicGameInstance>(UGameplayStatics::GetGameInstance(World));
 	// You can only attack the player. Otherwise, something wild is happening.
 	const ABasicCharacter* Target = Context.TargetData;
 	const UAbilitySystemComponent* TargetAbilitySystem = Target->GetAbilitySystemComponent();

@@ -1,9 +1,9 @@
 ﻿#pragma once
 
 #include "CoreMinimal.h"
+#include "../../../GameplayAbilities/GameplayEffectDescriptor.h"
 #include "AiDecision.generated.h"
 
-class UEnemySkill;
 class ABasicCharacter;
 class UEnemyAction;
 
@@ -12,7 +12,7 @@ struct FAiDecision {
 	GENERATED_BODY()
 public:
 	UPROPERTY(BlueprintReadOnly, EditAnywhere)
-	TObjectPtr<UEnemySkill> SkillToUse;
+	TArray<FGameplayEffectDescriptor> SkillEffects;
 
 	// The target of the action. Use this to check if the skill should be reflexive.
 	UPROPERTY(BlueprintReadOnly, EditAnywhere)

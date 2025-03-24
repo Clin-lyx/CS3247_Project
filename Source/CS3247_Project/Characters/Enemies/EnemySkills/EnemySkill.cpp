@@ -2,3 +2,12 @@
 
 
 #include "EnemySkill.h"
+
+TArray<FGameplayEffectDescriptor> UEnemySkill::ToGameplayEffects() const {
+	TArray<FGameplayEffectDescriptor> GameplayEffects = {};
+	for (auto& Action : Effects) {
+		GameplayEffects.Add(Action->ToGameplayEffect());
+	}
+	
+	return GameplayEffects;
+}
