@@ -3,9 +3,20 @@
 
 #include "MixerNode.h"
 #include "ImpactNode.h"
+#include "../Card Effects/Impacts/CardImpactRawPower.h"
 
 TArray<UCardEffect*> UMixerNode::Build(UCard& OwningCard, double& ModifierPower) {
 	const UCardImpact* Impact1 = Cast<UImpactNode>(this->FirstSuccessor)->Impact;
 	const UCardImpact* Impact2 = Cast<UImpactNode>(this->SecondSuccessor)->Impact;
-	return {this->Mixer->Combine(Impact1, Impact2)->Apply(&OwningCard)};	
+	if (UCardImpact* Result = this->Mixer->Combine(Impact1, Impact2)) {
+		return {Result->Apply(&OwningCard)};
+	}
+
+	const int32 LeftCost = this->FirstSuccessor->Unpack().Ingredient->CraftCost;
+	const int32 RightCost = this->SecondSuccessor->Unpack().Ingredient->CraftCost;
+	const int32 AvgCost = (LeftCost + RightCost) / 2;
+	const int32 RawPower = FMath::RandRange(AvgCost, FMath::Max(LeftCost, RightCost));
+	UCardImpactRawPower* RawPowerImpact = NewObject<UCardImpactRawPower>();
+	RawPowerImpact->RawPower = RawPower;
+	return {RawPowerImpact->Apply(&OwningCard)};	
 }

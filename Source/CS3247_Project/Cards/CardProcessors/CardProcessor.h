@@ -3,11 +3,11 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Card.h"
-#include "../Characters/BasicCharacter.h"
 #include "UObject/Object.h"
 #include "CardProcessor.generated.h"
 
+class UCard;
+class ABasicCharacter;
 /**
  * 
  */

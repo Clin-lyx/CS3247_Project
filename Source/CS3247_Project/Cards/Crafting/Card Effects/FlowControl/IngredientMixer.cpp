@@ -14,15 +14,8 @@ UCardImpact* UIngredientMixer::Combine(const UCardImpact* Left, const UCardImpac
 		// If the combination is legal, just return the new effect.
 		return this->Combinations[Key];
 	}
-
-	// Otherwise, each cost is worth one possible raw power.
-	const int32 LeftCost = Left->CraftCost;
-	const int32 RightCost = Right->CraftCost;
-	const int32 AvgCost = (LeftCost + RightCost) / 2;
-	const int32 RawPower = FMath::RandRange(AvgCost, FMath::Max(LeftCost, RightCost));
-	UCardImpactRawPower* RawPowerImpact = NewObject<UCardImpactRawPower>();
-	RawPowerImpact->RawPower = RawPower;
-	return RawPowerImpact;
+	
+	return nullptr;
 }
 
 UCardNode* UIngredientMixer::WrapIntoNode(UActorComponent* CardCrafter) {
