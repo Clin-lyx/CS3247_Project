@@ -4,10 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "AttributeSet.h"
-#include "EnemyAttack.h"
 #include "Engine/DataAsset.h"
 #include "Enemy.generated.h"
 
+class UEnemySkill;
 struct FLoot;
 class UGameItem;
 struct FGameplayAttribute;
@@ -23,16 +23,7 @@ public:
 	TMap<FGameplayAttribute, float> Attributes;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	FEnemyAttack Attack;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	int32 HealAmount;
-
-	/**
-	 * How much defence can this enemy gain per action?
-	 */
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	int32 Defence;
+	TSet<UEnemySkill*> Skills;
 
 	/**
 	 * Loots that this enemy can drop. The vector2 is the min and max amount of the loot.

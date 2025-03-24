@@ -86,6 +86,10 @@ TArray<UCardEffect*> UCardNode::Build(UCard& OwningCard, double& ModifierPower) 
 	return {};
 }
 
+/*TArray<UCardEffect*> UCardNode::Preview(double& ModifierPower) {
+	return {};
+}*/
+
 TArray<UCardNode*> UCardNode::GetSuccessors() const {
 	if (this->FirstSuccessor && this->SecondSuccessor) {
 		return { this->FirstSuccessor, this->SecondSuccessor };

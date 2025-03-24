@@ -3,9 +3,11 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "../../../UI/Texts/Localisable.h"
 #include "UObject/Object.h"
 #include "CardRecipe.generated.h"
 
+class UCardEffect;
 class UDeckComponent;
 struct FRecipeEdge;
 class UCardIngredient;
@@ -15,12 +17,12 @@ class UCardNode;
 /**
  * 
  */
-UCLASS(Blueprintable, BlueprintType)
-class CS3247_PROJECT_API UCardRecipe : public UDataAsset {
+UCLASS(BlueprintType, BlueprintType)
+class CS3247_PROJECT_API UCardRecipe : public UObject, public ILocalisable {
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly)
+	UPROPERTY(BlueprintReadWrite)
 	TObjectPtr<UCardNode> Source;
 
 	UFUNCTION(BlueprintCallable)
@@ -28,6 +30,10 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	TArray<FRecipeEdge> ToEdgeList();
+
+	virtual FText ToText_Implementation() const override;
+
+	virtual FText ToRichText_Implementation() const override;
 	
 	bool operator==(const UCardRecipe& Other) const;
 
