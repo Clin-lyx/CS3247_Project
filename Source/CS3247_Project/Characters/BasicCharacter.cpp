@@ -3,6 +3,8 @@
 
 #include "BasicCharacter.h"
 
+#include "CS3247_Project/GameplayAbilities/AttributeSet/PlayerAttributeSet.h"
+
 
 // Sets default values
 ABasicCharacter::ABasicCharacter() {
@@ -14,7 +16,18 @@ ABasicCharacter::ABasicCharacter() {
 // Called when the game starts or when spawned
 void ABasicCharacter::BeginPlay() {
 	Super::BeginPlay();
-	
+}
+
+void ABasicCharacter::SignalAttributeChange(const FGameplayAttribute& Attribute) const {
+	return;
+}
+
+void ABasicCharacter::SignalAllAttributeUpdates() const {
+	TArray<FGameplayAttribute> Attributes = {};
+	this->GetAbilitySystemComponent()->GetAllAttributes(Attributes);
+	for (auto& Attribute : Attributes) {
+		this->SignalAttributeChange(Attribute);
+	}
 }
 
 TMap<FGameplayAttribute, float> ABasicCharacter::SaveAttributes() const {

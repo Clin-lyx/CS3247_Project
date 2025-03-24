@@ -5,7 +5,10 @@
 #include "CoreMinimal.h"
 #include "CS3247_Project/Characters/BasicCharacter.h"
 #include "CS3247_Project/GameplayAbilities/AttributeSet/PlayerAttributeSet.h"
+#include "Misc/GeneratedTypeName.h"
 #include "PlayerCharacter.generated.h"
+
+class UCard;
 
 UCLASS()
 class CS3247_PROJECT_API APlayerCharacter : public ABasicCharacter {
@@ -23,6 +26,8 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Status")
 	void PlayerIsDead();
+	
+	virtual void SignalAttributeChange(const FGameplayAttribute& Attribute) const override;
 
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="GAS", meta=(AllowPrivateAccess="true"))

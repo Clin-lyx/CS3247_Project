@@ -15,12 +15,12 @@ class UCardNode;
 /**
  * 
  */
-UCLASS(BlueprintType)
-class CS3247_PROJECT_API UCardRecipe : public UObject {
+UCLASS(Blueprintable, BlueprintType)
+class CS3247_PROJECT_API UCardRecipe : public UDataAsset {
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly)
 	TObjectPtr<UCardNode> Source;
 
 	UFUNCTION(BlueprintCallable)

@@ -106,7 +106,7 @@ void UDamageExecution::Execute_Implementation(const FGameplayEffectCustomExecuti
 #pragma endregion
 
 	const FGameplayTag DmgTag = FGameplayTag::RequestGameplayTag(FName("GameplayEffect.Combat.Damage"));
-	float DmgAmount = Spec.GetSetByCallerMagnitude(DmgTag);
+	float DmgAmount = -Spec.GetSetByCallerMagnitude(DmgTag);
 	
 	const FGameplayTagContainer& AssetTags = Spec.GetDynamicAssetTags();
 #pragma region Calculate Resistance

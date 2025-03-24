@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "../UI/Texts/Localisable.h"
+#include "Crafting/Card Effects/Data/CardEffect.h"
 #include "Card.generated.h"
 
 struct FRecipeEdge;
@@ -16,7 +17,7 @@ class UCardEffect;
 /**
  * 
  */
-UCLASS(BlueprintType, Blueprintable)
+UCLASS(BlueprintType, Blueprintable, DefaultToInstanced, EditInlineNew)
 class CS3247_PROJECT_API UCard : public UObject, public ILocalisable {
 	GENERATED_BODY()
 
@@ -25,12 +26,12 @@ public:
 	FText Name;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	int Cost;
+	double Cost;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	int Durability;
 
-	UPROPERTY(BlueprintReadOnly, EditAnywhere)
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Instanced)
 	TArray<UCardEffect*> Effects;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
@@ -47,9 +48,14 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Card Info")
 	FORCEINLINE void GetCardData(int& UseCost, int& CardDurability, TArray<UCardEffect*>& CardEffects) const {
-		UseCost = this->Cost;
+		UseCost = FMath::Max(1, FMath::Floor(this->Cost));
 		CardDurability = this->Durability;
 		CardEffects = this->Effects;
+	}
+
+	UFUNCTION(BlueprintCallable)
+	FORCEINLINE bool IsHostile() const {
+		return this->Effects.ContainsByPredicate([](const UCardEffect* E) -> bool { return E->IsHostile(); });
 	}
 
 	FORCEINLINE bool operator==(const UCard& Other) const {

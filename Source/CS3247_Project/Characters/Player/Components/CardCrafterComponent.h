@@ -12,7 +12,7 @@ class UDeckComponent;
 class UCardNode;
 struct FRecipeEdge;
 
-UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
+UCLASS(Blueprintable, ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
 class CS3247_PROJECT_API UCardCrafterComponent : public UActorComponent {
 	GENERATED_BODY()
 

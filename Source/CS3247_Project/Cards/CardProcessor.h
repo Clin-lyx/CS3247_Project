@@ -8,6 +8,7 @@
 #include "UObject/Object.h"
 #include "CardProcessor.generated.h"
 
+class APlayerCharacter;
 /**
  * 
  */
@@ -18,4 +19,8 @@ class CS3247_PROJECT_API UCardProcessor : public UObject {
 public:
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
 	void ProcessCard(UCard* Card, ABasicCharacter* SourceCharacter, ABasicCharacter* TargetCharacter);
+
+/*protected:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess = "true", ExposeOnSpawn))
+	APlayerCharacter* PlayerCharacter;*/
 };

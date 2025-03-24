@@ -3,14 +3,12 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameplayTagContainer.h"
-#include "ManaCostEffect.h"
+#include "AtomicCardEffect.h"
 #include "../../../../UI/Texts/Localisable.h"
 #include "../../../../UI/Texts/Printable.h"
 #include "UObject/Object.h"
 #include "CardEffect.generated.h"
 
-class UAtomicCardEffect;
 /**
  * One complete card effect. It can consist of the following atomic effects:
  * - Mana Cost (always)
@@ -24,12 +22,10 @@ class CS3247_PROJECT_API UCardEffect : public UObject, public IPrintable, public
 	GENERATED_BODY()
 
 public:
-	UPROPERTY()
+	UPROPERTY(VisibleAnywhere)
 	TMap<TSubclassOf<UAtomicCardEffect>, UAtomicCardEffect*> AtomicEffects;
 	
-	double EnchantmentDecay;
-	
-	UCardEffect() : AtomicEffects({}), EnchantmentDecay(0) {}
+	UCardEffect() : AtomicEffects({}) {}
 
 	UFUNCTION(BlueprintCallable)
 	FORCEINLINE UAtomicCardEffect* GetEffect(const TSubclassOf<UAtomicCardEffect> EffectType) const {
@@ -40,6 +36,8 @@ public:
 		UAtomicCardEffect* Effect) {
 		this->AtomicEffects.Add(EffectType, Effect);
 	}
+
+	bool IsHostile() const;
 
 	virtual FString ToString_Implementation() const override;
 	

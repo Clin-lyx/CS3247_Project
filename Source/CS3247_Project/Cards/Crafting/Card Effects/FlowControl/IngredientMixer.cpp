@@ -6,9 +6,10 @@
 #include "ReactantKey.h"
 #include "../../Card Effects/Impacts/CardImpact.h"
 #include "../../Nodes/MixerNode.h"
-#include "CS3247_Project/Cards/Crafting/Card Effects/Impacts/CardImpactRawPower.h"
+#include "../Impacts/CardImpactRawPower.h"
 
-UCardImpact* UIngredientMixer::Combine(const UCardImpact* Left, const UCardImpact* Right) {
+UCardImpact* UIngredientMixer::Combine(UCard* OwningCard, const UCardImpact* Left, const UCardImpact* Right) {
+	OwningCard->Cost += (this->UseCost + Left->UseCost + Right->UseCost);
 	const FReactantKey Key = FReactantKey(Left->Id, Right->Id);
 	if (this->Combinations.Contains(Key)) {
 		// If the combination is legal, just return the new effect.
@@ -16,8 +17,8 @@ UCardImpact* UIngredientMixer::Combine(const UCardImpact* Left, const UCardImpac
 	}
 
 	// Otherwise, each cost is worth one possible raw power.
-	const int32 LeftCost = Left->CraftCost;
-	const int32 RightCost = Right->CraftCost;
+	const int32 LeftCost = Left->CraftCost[EGameItemTag::SoulFragment];
+	const int32 RightCost = Right->CraftCost[EGameItemTag::SoulFragment];
 	const int32 AvgCost = (LeftCost + RightCost) / 2;
 	const int32 RawPower = FMath::RandRange(AvgCost, FMath::Max(LeftCost, RightCost));
 	UCardImpactRawPower* RawPowerImpact = NewObject<UCardImpactRawPower>();

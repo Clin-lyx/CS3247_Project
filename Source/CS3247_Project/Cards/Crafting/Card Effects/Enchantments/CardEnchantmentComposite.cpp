@@ -3,9 +3,9 @@
 
 #include "CardEnchantmentComposite.h"
 
-UCardEffect* UCardEnchantmentComposite::ComposeTo(UCardEffect* Effect, double Multiplier) {
+UCardEffect* UCardEnchantmentComposite::ComposeTo(UCard* OwningCard, UCardEffect* Effect, double Multiplier) {
 	for (auto& Enchantment : this->Enchantments) {
-		Effect = Enchantment.Get()->ComposeTo(Effect, Multiplier);	
+		Effect = Enchantment.Get()->ComposeTo(OwningCard, Effect, Multiplier);	
 	}
 	
 	return Effect;
