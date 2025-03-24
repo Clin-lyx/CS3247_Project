@@ -6,7 +6,6 @@
 #include "ReactantKey.h"
 #include "../../Card Effects/Impacts/CardImpact.h"
 #include "../../Nodes/MixerNode.h"
-#include "../Impacts/CardImpactRawPower.h"
 
 UCardImpact* UIngredientMixer::Combine(const UCardImpact* Left, const UCardImpact* Right) {
 	const FReactantKey Key = FReactantKey(Left->Id, Right->Id);

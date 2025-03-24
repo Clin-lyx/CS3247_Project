@@ -7,6 +7,7 @@
 #include "UObject/Object.h"
 #include "EnemyAction.generated.h"
 
+struct FUtilityScore;
 struct FAiDecisionContext;
 /**
  * 
@@ -20,9 +21,17 @@ public:
 	EEnemyMove ActionName;
 	
 	UEnemyAction() : ActionName(EEnemyMove::Attack), RandomnessAllowance(0.1f) {};
-	
-	virtual float Evaluate(const FAiDecisionContext Context) const;
 
+	/**
+	 * Evaluate the raw score of the action, normalised to [0, 1].
+	 * @param Context An AI decision context containing essential data for decision-making.
+	 * @return 
+	 */
+	virtual float Evaluate(const FAiDecisionContext& Context) const;
+
+	FORCEINLINE virtual bool IsHostile() const { return false; }
+
+	FORCEINLINE virtual bool IsReflexive() const { return false; }
 protected:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess = "true"))
 	FRuntimeFloatCurve EvaluationCurve;

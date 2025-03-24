@@ -14,5 +14,15 @@ class CS3247_PROJECT_API UHealAction : public UEnemyAction {
 	GENERATED_BODY()
 
 public:
-	virtual float Evaluate(const FAiDecisionContext Context) const override;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	int32 Amount;
+	
+	virtual float Evaluate(const FAiDecisionContext& Context) const override;
+
+	UFUNCTION(BlueprintCallable)
+	virtual FORCEINLINE bool IsReflexive() const override { return this->bIsReflexive; }
+protected:
+	UPROPERTY(EditDefaultsOnly)
+	bool bIsReflexive;
+
 };

@@ -4,8 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "EnemyAction.h"
+#include "../EnemyAttack.h"
 #include "AttackAction.generated.h"
-
 /**
  * 
  */
@@ -14,5 +14,12 @@ class CS3247_PROJECT_API UAttackAction : public UEnemyAction {
 	GENERATED_BODY()
 
 public:
-	virtual float Evaluate(const FAiDecisionContext Context) const override;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	FEnemyAttack DamageData;
+	
+	virtual float Evaluate(const FAiDecisionContext& Context) const override;
+
+	FORCEINLINE virtual bool IsHostile() const override { return true; }
+
+	FORCEINLINE virtual bool IsReflexive() const override { return false; };
 };

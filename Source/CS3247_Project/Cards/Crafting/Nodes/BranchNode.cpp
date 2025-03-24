@@ -10,9 +10,9 @@ TArray<UCardEffect*> UBranchNode::Build(UCard& OwningCard, double& ModifierPower
 	return CardEffects;
 }
 
-TArray<UCardEffect*> UBranchNode::Preview(double& ModifierPower) {
+/*TArray<UCardEffect*> UBranchNode::Preview(double& ModifierPower) {
 	TArray<UCardEffect*> CardEffects = this->FirstSuccessor->Preview(ModifierPower);
 	this->Brancher->Merge(CardEffects, this->SecondSuccessor->Preview(ModifierPower));
 	ModifierPower *= (1 - this->Brancher->EnchantmentPowerDecay / 100.0);
 	return CardEffects;
-}
+}*/

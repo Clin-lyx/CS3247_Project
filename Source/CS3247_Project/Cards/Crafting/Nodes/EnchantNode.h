@@ -22,7 +22,7 @@ public:
 	
 	virtual TArray<UCardEffect*> Build(UCard& OwningCard, double& ModifierPower) override;
 
-	virtual TArray<UCardEffect*> Preview(double& ModifierPower) override;
+	//virtual TArray<UCardEffect*> Preview(double& ModifierPower) override;
 
 	FORCEINLINE virtual FString ToString_Implementation() const override { return TEXT("[" + this->Enchantment->GetName() + "]"); }
 };

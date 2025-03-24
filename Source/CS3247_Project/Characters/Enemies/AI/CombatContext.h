@@ -1,16 +1,14 @@
 ﻿#pragma once
 
 #include "CoreMinimal.h"
-#include "AiDecisionContext.generated.h"
+#include "CombatContext.generated.h"
 
-class ABasicCharacter;
-class APlayerCharacter;
 class AEnemyCharacter;
+class APlayerCharacter;
 
 USTRUCT(BlueprintType)
-struct FAiDecisionContext {
+struct FCombatContext {
 	GENERATED_BODY()
-
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TObjectPtr<AEnemyCharacter> SelfData;
@@ -19,5 +17,5 @@ public:
 	TObjectPtr<APlayerCharacter> PlayerData;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TObjectPtr<ABasicCharacter> TargetData;
+	TArray<AEnemyCharacter*> Enemies;
 };

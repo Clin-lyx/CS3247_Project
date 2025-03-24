@@ -17,7 +17,7 @@ class UCardNode;
 /**
  * 
  */
-UCLASS(BlueprintType)
+UCLASS(BlueprintType, BlueprintType)
 class CS3247_PROJECT_API UCardRecipe : public UObject, public ILocalisable {
 	GENERATED_BODY()
 

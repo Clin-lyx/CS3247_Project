@@ -13,7 +13,7 @@ TArray<UCardEffect*> UEnchantNode::Build(UCard& OwningCard, double& ModifierPowe
 	return CardEffects;
 }
 
-TArray<UCardEffect*> UEnchantNode::Preview(double& ModifierPower) {
+/*TArray<UCardEffect*> UEnchantNode::Preview(double& ModifierPower) {
 	TArray<UCardEffect*> SuccessorEffects = this->FirstSuccessor->Preview(OwningCard, ModifierPower);
 	TArray<UCardEffect*> CardEffects = {};
 	for (const auto& CardEffect : SuccessorEffects) {
@@ -21,4 +21,4 @@ TArray<UCardEffect*> UEnchantNode::Preview(double& ModifierPower) {
 	}
 	
 	return CardEffects;
-}
+}*/

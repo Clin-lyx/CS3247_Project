@@ -3,8 +3,6 @@
 
 #include "EnemyAction.h"
 
-#include "AiDecisionContext.h"
-
-float UEnemyAction::Evaluate(const FAiDecisionContext Context) const {
-	return 0.0f;
+float UEnemyAction::Evaluate(const FAiDecisionContext& Context) const {
+	return 0;
 }
