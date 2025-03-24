@@ -14,6 +14,7 @@ class CS3247_PROJECT_API UDefenceEffect : public UAtomicCardEffect {
 	GENERATED_BODY()
 
 public:
+	UPROPERTY(EditAnywhere)
 	double DefenceAmount;
 
 	UDefenceEffect() : DefenceAmount(0) {}

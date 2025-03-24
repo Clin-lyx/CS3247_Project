@@ -12,8 +12,8 @@ TArray<UCardEffect*> UMixerNode::Build(UCard& OwningCard, double& ModifierPower)
 		return {Result->Apply(&OwningCard)};
 	}
 
-	const int32 LeftCost = this->FirstSuccessor->Unpack().Ingredient->CraftCost;
-	const int32 RightCost = this->SecondSuccessor->Unpack().Ingredient->CraftCost;
+	const int32 LeftCost = this->FirstSuccessor->Unpack().Ingredient->CraftCost[EGameItemTag::SoulFragment];
+	const int32 RightCost = this->SecondSuccessor->Unpack().Ingredient->CraftCost[EGameItemTag::SoulFragment];
 	const int32 AvgCost = (LeftCost + RightCost) / 2;
 	const int32 RawPower = FMath::RandRange(AvgCost, FMath::Max(LeftCost, RightCost));
 	UCardImpactRawPower* RawPowerImpact = NewObject<UCardImpactRawPower>();

@@ -9,6 +9,8 @@ UDeckComponent::UDeckComponent() {
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = true;
+	this->Deck = {};
+	this->InitialCards = {};
 	// ...
 }
 
@@ -21,9 +23,19 @@ void UDeckComponent::BeginPlay() {
 	
 }
 
-void UDeckComponent::AddCard(UCard& Card) {
-	this->Deck.Add(&Card);
-	this->OnAddCard.Broadcast(&Card);
+void UDeckComponent::AddCard(UCard* Card) {
+	this->Deck.Add(Card);
+	this->OnAddCard.Broadcast(Card);
+}
+
+UCard* UDeckComponent::RandomDraw() {
+	if (this->Deck.Num() > 0) {
+		UCard* Card = this->Deck[FMath::RandRange(0, this->Deck.Num() - 1)];
+		this->Deck.Remove(Card);
+		return Card;
+	}
+	
+	return this->InitialCards[FMath::RandRange(0, this->InitialCards.Num() - 1)];
 }
 
 

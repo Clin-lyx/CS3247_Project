@@ -15,7 +15,7 @@ class CS3247_PROJECT_API UImpactNode : public UCardNode {
 	GENERATED_BODY()
 
 public:
-	UPROPERTY()
+	UPROPERTY(EditAnywhere)
 	TObjectPtr<UCardImpact> Impact;
 
 	FORCEINLINE virtual FIngredientKey Unpack() const override { return FIngredientKey(this->Impact, this->Id); }

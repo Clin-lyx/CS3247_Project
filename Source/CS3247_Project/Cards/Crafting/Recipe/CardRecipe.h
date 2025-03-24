@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "CS3247_Project/UI/Texts/Localisable.h"
+#include "../../../UI/Texts/Localisable.h"
 #include "UObject/Object.h"
 #include "CardRecipe.generated.h"
 
