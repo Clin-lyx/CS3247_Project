@@ -4,25 +4,31 @@
 #include "AttackAction.h"
 
 #include "AiDecisionContext.h"
-#include "../Enemy.h"
 #include "../EnemyCharacter.h"
 #include "../../Player/PlayerCharacter.h"
 #include "../../../Common/BasicGameInstance.h"
 #include "Kismet/GameplayStatics.h"
 
-float UAttackAction::Evaluate(const FAiDecisionContext Context) const {
-	UBasicGameInstance* GameInstance = Cast<UBasicGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
-	const APlayerCharacter* Player = Context.PlayerData;
-	const AEnemyCharacter* Self = Context.SelfData;
-	const auto [DamageType, Value] = Self->EnemyData.Get()->Attack;
-	int32 ActualDamage = Value;
-	if (GameInstance->ResistanceTypes.Contains(DamageType)) {
-		const int32 PlayerResistance = Player->GetAttribute(GameInstance->ResistanceTypes[DamageType]);
-		ActualDamage *= ((100 - PlayerResistance) / 100.0);
+UAttackAction::UAttackAction() {
+	this->DamageData = FEnemyAttack();
+	static ConstructorHelpers::FClassFinder<UGameplayEffect> GameplayEffectClassFinder(
+			TEXT("/Game/Assets/GameplayAbilities/GameplayEffects/GE_Damage"));
+	this->GameplayEffectType = GameplayEffectClassFinder.Class;
+}
+
+float UAttackAction::Evaluate(const UWorld* World, const FAiDecisionContext& Context) const {
+	UBasicGameInstance* GameInstance = Cast<UBasicGameInstance>(UGameplayStatics::GetGameInstance(World));
+	// You can only attack the player. Otherwise, something wild is happening.
+	const ABasicCharacter* Target = Context.TargetData;
+	const UAbilitySystemComponent* TargetAbilitySystem = Target->GetAbilitySystemComponent();
+	const UBasicAttributeSet* TargetAttributes = Cast<UBasicAttributeSet>(
+		Target->GetAbilitySystemComponent()->GetAttributeSet(UBasicAttributeSet::StaticClass()));
+	int32 ActualDamage = this->DamageData.Value;
+	if (GameInstance->ResistanceTypes.Contains(this->DamageData.DamageType)) {
+		const int32 TargetResistance = TargetAbilitySystem->GetNumericAttribute(
+			GameInstance->ResistanceTypes[this->DamageData.DamageType]);
+		ActualDamage *= ((100 - TargetResistance) / 100.0);
 	}
 	
-	const UPlayerAttributeSet* PlayerAttributes = Cast<UPlayerAttributeSet>(
-		Player->GetAbilitySystemComponent()->GetAttributeSet(UPlayerAttributeSet::StaticClass()));
-	const float RandomMultiplier = FMath::FRandRange(1 - this->RandomnessAllowance, 1 + this->RandomnessAllowance);
-	return this->EvaluationCurve.GetRichCurveConst()->Eval(ActualDamage / PlayerAttributes->GetHealth()) * RandomMultiplier;
+	return ActualDamage / TargetAttributes->GetHealth();
 }

@@ -4,9 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "EnemyMove.h"
+#include "../../../GameplayAbilities/GameplayEffectDescriptor.h"
 #include "UObject/Object.h"
 #include "EnemyAction.generated.h"
 
+struct FUtilityScore;
 struct FAiDecisionContext;
 /**
  * 
@@ -16,17 +18,23 @@ class CS3247_PROJECT_API UEnemyAction : public UDataAsset {
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(EditAnywhere, meta=(AllowPrivateAccess="true"))
-	EEnemyMove ActionName;
+	UEnemyAction() {}
+
+	/**
+	 * Evaluate the raw score of the action, normalised to [0, 1].
+	 * @param World The game world.
+	 * @param Context An AI decision context containing essential data for decision-making.
+	 * @return 
+	 */
+	virtual float Evaluate(const UWorld* World, const FAiDecisionContext& Context) const;
+
+	FORCEINLINE virtual bool IsHostile() const { return false; }
+
+	UFUNCTION(BlueprintCallable)
+	virtual FORCEINLINE bool IsReflexive() const { return false; }
 	
-	UEnemyAction() : ActionName(EEnemyMove::Attack), RandomnessAllowance(0.1f) {};
-	
-	virtual float Evaluate(const FAiDecisionContext Context) const;
+	virtual FGameplayEffectDescriptor ToGameplayEffect() const { return FGameplayEffectDescriptor(); }
 
 protected:
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(AllowPrivateAccess = "true"))
-	FRuntimeFloatCurve EvaluationCurve;
-
-	UPROPERTY(EditAnywhere, meta=(AllowPrivateAccess = "true"))
-	float RandomnessAllowance;
+	TSubclassOf<UGameplayEffect> GameplayEffectType;
 };
