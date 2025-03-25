@@ -3,6 +3,7 @@
 #include "CoreMinimal.h"
 #include "AiDecisionContext.generated.h"
 
+class ABasicCharacter;
 class APlayerCharacter;
 class AEnemyCharacter;
 
@@ -16,4 +17,7 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TObjectPtr<APlayerCharacter> PlayerData;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TObjectPtr<ABasicCharacter> TargetData;
 };

@@ -19,7 +19,7 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	int ModifierEffect;
 	
-	UCardImpact* Combine(UCard* OwningCard, const UCardImpact* Left, const UCardImpact* Right);
+	UCardImpact* Combine(const UCardImpact* Left, const UCardImpact* Right);
 
 	virtual UCardNode* WrapIntoNode(UActorComponent* CardCrafter) override;
 private:
