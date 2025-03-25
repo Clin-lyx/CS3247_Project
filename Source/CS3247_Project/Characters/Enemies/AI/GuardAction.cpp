@@ -6,7 +6,7 @@
 #include "../EnemyCharacter.h"
 #include "../../../GameplayAbilities/AttributeSet/BasicAttributeSet.h"
 
-UGuardAction::UGuardAction() : bIsReflexive(false), Amount(0) {
+UGuardAction::UGuardAction() : Amount(0), bIsReflexive(false) {
 	static ConstructorHelpers::FClassFinder<UGameplayEffect> GameplayEffectClassFinder(
 			TEXT("/Game/Assets/GameplayAbilities/GameplayEffects/GE_Defend"));
 	this->GameplayEffectType = GameplayEffectClassFinder.Class;
