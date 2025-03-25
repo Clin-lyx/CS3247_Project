@@ -3,9 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "../CardEffect.h"
 #include "../CardIngredient.h"
-#include "../../../../UI/Texts/RichTextRepresentable.h"
 #include "Engine/DataAsset.h"
 #include "CardImpact.generated.h"
 
@@ -13,12 +11,16 @@
  * 
  */
 UCLASS(Abstract)
-class CS3247_PROJECT_API UCardImpact : public UCardIngredient, public IRichTextRepresentable {
+class CS3247_PROJECT_API UCardImpact : public UCardIngredient {
 	GENERATED_BODY()
 
 public:
-	UFUNCTION(BlueprintCallable)
-	virtual UCardEffect* Apply();
+	/**
+	 * Create a new card effect based on the effects of this ingredient.
+	 * @param[in] OwningCard The card that owns this effect.
+	 * @return The new effects.
+	 */
+	virtual TArray<UCardEffect*> Apply(UCard* OwningCard);
 
-	virtual FString ToRichText() const override;
+	virtual UCardNode* WrapIntoNode(UActorComponent* CardCrafter) override;
 };

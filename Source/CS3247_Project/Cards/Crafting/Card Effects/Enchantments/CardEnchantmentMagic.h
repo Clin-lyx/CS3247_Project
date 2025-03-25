@@ -4,8 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "CardEnchantment.h"
+#include "GameplayTagContainer.h"
 #include "CardEnchantmentMagic.generated.h"
 
+class UCardEffect;
 /**
  * 
  */
@@ -23,5 +25,11 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	int Strength;
 	
-	virtual UCardEffect* Enchant(UCardEffect* Effect) override;
+	virtual UCardEffect* ComposeTo(UCard* OwningCard, UCardEffect* Effect, double Multiplier) override;
+
+	virtual FString ToString_Implementation() const override;
+
+	virtual FText ToText_Implementation() const override;
+
+	virtual FText ToRichText_Implementation() const override;
 };

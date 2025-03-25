@@ -10,19 +10,33 @@
  * 
  */
 UCLASS()
-class CS3247_PROJECT_API UText : public UObject {
+class CS3247_PROJECT_API UText : public UBlueprintFunctionLibrary {
 	GENERATED_BODY()
 
 public:
-	static FString Bf(FString Str);
+	UFUNCTION(BlueprintCallable, Category = "Rich-Text Formatting")
+	static FORCEINLINE FText Bf(const FString& Str) {
+		return FText::FromString(TEXT("<bf>" + Str + "</>"));
+	}
 
-	static FString It(FString Str);
+	UFUNCTION(BlueprintCallable, Category = "Rich-Text Formatting")
+	static FORCEINLINE FText It(const FString& Str) {
+		return FText::FromString(TEXT("<it>" + Str + "</>"));
+	}
 
-	static FString BfIt(FString Str);
+	FORCEINLINE static FText BfIt(const FString& Str) {
+		return FText::FromString(TEXT("<bfit>" + Str + "</>"));
+	}
 
-	static FString Rm(FString Str);
+	FORCEINLINE static FText Rm(const FString& Str) {
+		return FText::FromString(TEXT("<rm>" + Str + "</>"));
+	}
 
-	static FString Red(FString Str);
+	FORCEINLINE static FText Red(const FString& Str) {
+		return FText::FromString(TEXT("<red>" + Str + "</>"));
+	}
 
-	static FString Green(FString Str);
+	FORCEINLINE static FText Green(const FString& Str) {
+		return FText::FromString(TEXT("<green>" + Str + "</>"));
+	}
 };
