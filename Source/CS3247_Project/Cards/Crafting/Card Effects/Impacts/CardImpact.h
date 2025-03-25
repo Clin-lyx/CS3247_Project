@@ -4,8 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "../CardIngredient.h"
-#include "../../../../UI/Texts/Localisable.h"
-#include "../../../../UI/Texts/Printable.h"
 #include "Engine/DataAsset.h"
 #include "CardImpact.generated.h"
 

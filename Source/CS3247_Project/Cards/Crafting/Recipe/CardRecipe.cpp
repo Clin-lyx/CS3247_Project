@@ -35,6 +35,14 @@ TArray<FRecipeEdge> UCardRecipe::ToEdgeList() {
 	return this->Edges;
 }
 
+FText UCardRecipe::ToText_Implementation() const {
+	return ILocalisable::ToText_Implementation();
+}
+
+FText UCardRecipe::ToRichText_Implementation() const {
+	return ILocalisable::ToRichText_Implementation();
+}
+
 bool UCardRecipe::operator==(const UCardRecipe& Other) const {
 	return this->Source == Other.Source;
 }
