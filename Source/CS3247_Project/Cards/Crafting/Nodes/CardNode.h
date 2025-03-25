@@ -35,6 +35,8 @@ public:
 	
 	virtual TArray<UCardEffect*> Build(UCard& OwningCard, double& ModifierPower);
 
+	//virtual TArray<UCardEffect*> Preview(double& ModifierPower);
+
 	TArray<UCardNode*> GetSuccessors() const;
 
 	virtual FORCEINLINE FString ToString_Implementation() const override { return TEXT("Card Node"); }

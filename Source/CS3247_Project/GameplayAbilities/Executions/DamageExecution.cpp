@@ -106,7 +106,7 @@ void UDamageExecution::Execute_Implementation(const FGameplayEffectCustomExecuti
 #pragma endregion
 
 	const FGameplayTag DmgTag = FGameplayTag::RequestGameplayTag(FName("GameplayEffect.Combat.Damage"));
-	float DmgAmount = -Spec.GetSetByCallerMagnitude(DmgTag);
+	float DmgAmount = Spec.GetSetByCallerMagnitude(DmgTag);
 	
 	const FGameplayTagContainer& AssetTags = Spec.GetDynamicAssetTags();
 #pragma region Calculate Resistance
@@ -114,19 +114,19 @@ void UDamageExecution::Execute_Implementation(const FGameplayEffectCustomExecuti
 		DmgAmount *= 1.0f - TargetProjectileResistance / 100.0f;	
 	} else if (AssetTags.HasTagExact(FGameplayTag::RequestGameplayTag(FName("GameData.Damage.Explosion")))) {
 		DmgAmount *= 1.0f - TargetExplosionResistance / 100.0f;
-	} else if (AssetTags.HasTagExact(FGameplayTag::RequestGameplayTag(FName("GameData.Damage.Slice")))) {
+	} else if (AssetTags.HasTagExact(FGameplayTag::RequestGameplayTag(FName("GameData.Damage.Slicing")))) {
 		DmgAmount *= 1.0f - TargetSliceResistance / 100.0f;
 	} else if (AssetTags.HasTagExact(FGameplayTag::RequestGameplayTag(FName("GameData.Damage.Poison")))) {
 		DmgAmount *= 1.0f - TargetPoisonResistance / 100.0f;
-	} else if (AssetTags.HasTagExact(FGameplayTag::RequestGameplayTag(FName("GameData.Damage.Water")))) {
+	} else if (AssetTags.HasTagExact(FGameplayTag::RequestGameplayTag(FName("GameData.Damage.Magic.Water")))) {
 		DmgAmount *= 1.0f - TargetWaterResistance / 100.0f;
-	} else if (AssetTags.HasTagExact(FGameplayTag::RequestGameplayTag(FName("GameData.Damage.Fire")))) {
+	} else if (AssetTags.HasTagExact(FGameplayTag::RequestGameplayTag(FName("GameData.Damage.Magic.Fire")))) {
 		DmgAmount *= 1.0f - TargetFireResistance / 100.0f;
-	} else if (AssetTags.HasTagExact(FGameplayTag::RequestGameplayTag(FName("GameData.Damage.Air")))) {
+	} else if (AssetTags.HasTagExact(FGameplayTag::RequestGameplayTag(FName("GameData.Damage.Magic.Air")))) {
 		DmgAmount *= 1.0f - TargetAirResistance / 100.0f;
-	} else if (AssetTags.HasTagExact(FGameplayTag::RequestGameplayTag(FName("GameData.Damage.Earth")))) {
+	} else if (AssetTags.HasTagExact(FGameplayTag::RequestGameplayTag(FName("GameData.Damage.Magic.Earth")))) {
 		DmgAmount *= 1.0f - TargetEarthResistance / 100.0f;
-	} else if (AssetTags.HasTagExact(FGameplayTag::RequestGameplayTag(FName("GameData.Damage.Electric")))) {
+	} else if (AssetTags.HasTagExact(FGameplayTag::RequestGameplayTag(FName("GameData.Damage.Magic.Electric")))) {
 		DmgAmount *= 1.0f - TargetElectricResistance / 100.0f;
 	}
 #pragma endregion
