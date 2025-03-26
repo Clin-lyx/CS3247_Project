@@ -3,9 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "CS3247_Project/Characters/BasicCharacter.h"
-#include "CS3247_Project/GameplayAbilities/AttributeSet/PlayerAttributeSet.h"
-#include "Misc/GeneratedTypeName.h"
+#include "../BasicCharacter.h"
+#include "../../GameplayAbilities/AttributeSet/PlayerAttributeSet.h"
 #include "PlayerCharacter.generated.h"
 
 class UCard;

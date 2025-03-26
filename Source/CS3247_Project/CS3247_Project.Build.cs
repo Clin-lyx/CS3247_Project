@@ -18,7 +18,8 @@ public class CS3247_Project : ModuleRules
 		PrivateDependencyModuleNames.AddRange(new string[] {
 			"GameplayTags",
 			"GameplayAbilities",
-			"GameplayTasks"
+			"GameplayTasks",
+			"Paper2D"
 		});
 
 		// Uncomment if you are using Slate UI

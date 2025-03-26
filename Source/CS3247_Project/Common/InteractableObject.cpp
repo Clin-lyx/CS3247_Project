@@ -3,8 +3,6 @@
 
 #include "InteractableObject.h"
 
-#include "Components/BoxComponent.h"
-
 
 // Sets default values
 AInteractableObject::AInteractableObject() {

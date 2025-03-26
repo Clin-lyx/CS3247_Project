@@ -11,7 +11,7 @@ struct FEnemyAttack {
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta=(Category = "GameData.DamageType"))
 	FGameplayTag DamageType;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)

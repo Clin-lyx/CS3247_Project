@@ -12,3 +12,13 @@ TArray<UCardEffect*> UEnchantNode::Build(UCard& OwningCard, double& ModifierPowe
 	
 	return CardEffects;
 }
+
+/*TArray<UCardEffect*> UEnchantNode::Preview(double& ModifierPower) {
+	TArray<UCardEffect*> SuccessorEffects = this->FirstSuccessor->Preview(OwningCard, ModifierPower);
+	TArray<UCardEffect*> CardEffects = {};
+	for (const auto& CardEffect : SuccessorEffects) {
+		CardEffects.Add(this->Enchantment.Get()->ComposeTo(CardEffect, ModifierPower));
+	}
+	
+	return CardEffects;
+}*/
