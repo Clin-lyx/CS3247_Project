@@ -10,6 +10,7 @@
 #include "Engine/DataAsset.h"
 #include "CardIngredient.generated.h"
 
+class UResource;
 class UCardNode;
 class UCard;
 class UCardEffect;
@@ -30,14 +31,15 @@ public:
 	double DurabilityDegradation;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Cost")
-	TMap<EGameItemTag, int32> CraftCost;
+	TMap<UResource*, int32> CraftCost;
 
 	UCardIngredient() : Super(EGameItemTag::CardIngredient),
-		Id(FGuid::NewGuid()), UseCost(0), DurabilityDegradation(0), CraftCost({
-			{EGameItemTag::SoulFragment, 0}}) {}
+		Id(FGuid::NewGuid()), UseCost(0), DurabilityDegradation(0), CraftCost({}) {}
 
 	UFUNCTION(BlueprintCallable)
 	virtual UCardNode* WrapIntoNode(UActorComponent* CardCrafter);
+
+	int32 AggregateWorth() const;
 
 	virtual FString ToString_Implementation() const override;
 
