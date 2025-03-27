@@ -11,6 +11,7 @@ class UEnemySkill;
 struct FLoot;
 class UGameItem;
 struct FGameplayAttribute;
+class UPaperSprite;
 /**
  * 
  */
@@ -19,6 +20,12 @@ class CS3247_PROJECT_API UEnemy : public UDataAsset {
 	GENERATED_BODY()
 
 public:
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	FName Name;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	TSoftObjectPtr<UPaperSprite> Sprite;
+	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	TMap<FGameplayAttribute, float> Attributes;
 
