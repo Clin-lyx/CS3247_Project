@@ -17,3 +17,23 @@ UCardNode* UCardImpact::WrapIntoNode(UActorComponent* CardCrafter) {
 	Node->Impact= this;
 	return Node;
 }
+
+bool UCardImpact::operator<(UCardImpact* Other) const {
+	return this->AggregateWorth() < Other->AggregateWorth();
+}
+
+bool UCardImpact::operator<(const UCardImpact& Other) const {
+	return this->AggregateWorth() < Other.AggregateWorth();
+}
+
+bool UCardImpact::operator>(const UCardImpact& Other) const {
+	return this->AggregateWorth() > Other.AggregateWorth();
+}
+
+bool UCardImpact::operator<=(const UCardImpact& Other) const {
+	return !(*this > Other);
+}
+
+bool UCardImpact::operator>=(const UCardImpact& Other) const {
+	return !(*this < Other);
+}

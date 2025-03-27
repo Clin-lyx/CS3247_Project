@@ -3,6 +3,8 @@
 
 #include "Card.h"
 #include "Crafting/Card Effects/Data/CardEffect.h"
+#include "Crafting/Card Effects/Impacts/CardImpact.h"
+#include "Crafting/Recipe/CardRecipe.h"
 
 UCard::UCard() {
 	this->Cost = 0;
@@ -30,12 +32,14 @@ FText UCard::ToRichText_Implementation() const {
 	return FText::FromString(Sb.Join(Lines, '\n').ToString());
 }
 
-void UCard::GetCardInfo(FText& CardName, FText& Desc, int& UseCost, int& CardDurability,
-	TArray<UCardEffect*>& CardEffects) const {
-	CardName = this->Name;
-	Desc = Execute_ToRichText(this);
-	UseCost = this->Cost;
-	CardDurability = this->Durability;
-	CardEffects = this->Effects;
+TArray<UCardImpact*> UCard::TopThreeImpacts() const {
+	TArray<UCardImpact*> AllImpacts = this->Recipe.Get()->FetchImpacts();
+	Algo::StableSort(AllImpacts);
+	TArray<UCardImpact*> TopImpacts = {};
+	for (int i = 0; i < FMath::Min(3, AllImpacts.Num()); i += 1) {
+		TopImpacts.Add(AllImpacts[i]);
+	}
+
+	return TopImpacts;
 }
 
