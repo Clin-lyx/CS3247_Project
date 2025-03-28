@@ -16,5 +16,5 @@ public:
 
 	// The target of the action. Use this to check if the skill should be reflexive.
 	UPROPERTY(BlueprintReadOnly, EditAnywhere)
-	TObjectPtr<ABasicCharacter> Target;
+	TArray<ABasicCharacter*> Target;
 };

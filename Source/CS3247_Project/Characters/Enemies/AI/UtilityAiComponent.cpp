@@ -55,7 +55,7 @@ FAiDecision UUtilityAiComponent::Decide(const FCombatContext& Context) const {
 	for (auto& Skill : this->StrategySpace) {
 		if (Skill->IsApplicableTo(Self, Player)) {
 			// If the skill is meant to attack the player, only consider the player as the target.
-			FAiDecisionContext DecisionContext = FAiDecisionContext(Self, Player, Player);
+			FAiDecisionContext DecisionContext = FAiDecisionContext(Self, Enemies, Player, Player);
 			const float Score = this->Evaluate(*Skill, DecisionContext);
 			if (Score > MaxScore) {
 				MaxScore = Score;
@@ -68,7 +68,7 @@ FAiDecision UUtilityAiComponent::Decide(const FCombatContext& Context) const {
 					continue;
 				}
 				
-				FAiDecisionContext DecisionContext = FAiDecisionContext(Self, Player, Enemy);
+				FAiDecisionContext DecisionContext = FAiDecisionContext(Self, Enemies, Player, Enemy);
 				const float Score = this->Evaluate(*Skill, DecisionContext);
 				if (Score > MaxScore) {
 					MaxScore = Score;

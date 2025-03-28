@@ -16,6 +16,9 @@ public:
 	TObjectPtr<AEnemyCharacter> SelfData;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray<AEnemyCharacter*> AlliesData;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TObjectPtr<APlayerCharacter> PlayerData;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

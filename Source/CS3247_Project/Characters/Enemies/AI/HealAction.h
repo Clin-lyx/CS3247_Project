@@ -3,14 +3,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "EnemyAction.h"
+#include "UHealAction.h"
 #include "HealAction.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class CS3247_PROJECT_API UHealAction : public UEnemyAction {
+class CS3247_PROJECT_API UHealAction : public UHealAction {
 	GENERATED_BODY()
 
 public:
