@@ -20,7 +20,7 @@ public:
 
     virtual float Evaluate(const UWorld* World, const FAiDecisionContext& Context) const override;
     virtual FORCEINLINE bool IsHostile() const override { return false; }
-    virtual FORCEINLINE bool IsAOE() const override { return true; }
+    virtual FORCEINLINE bool IsAoe() const override { return true; }
 
     virtual FGameplayEffectDescriptor ToGameplayEffect() const override
     {
