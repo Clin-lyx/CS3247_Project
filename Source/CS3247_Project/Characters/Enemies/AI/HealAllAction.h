@@ -1,24 +1,39 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
-#pragma once
-
 #pragma once
 
 #include "CoreMinimal.h"
-#include "HealAction.h"
+#include "EnemyAction.h"
 #include "HealAllAction.generated.h"
 
 /**
- * A variant of HealAction that considers *all* allies in AlliesData.
+ * Heals all allies in AlliesData.
  */
 UCLASS()
-class CS3247_PROJECT_API UHealAllAction : public UHealAction
+class CS3247_PROJECT_API UHealAllAction : public UEnemyAction
 {
     GENERATED_BODY()
 
 public:
     UHealAllAction();
 
-    // Evaluate how urgent a "Heal All" is by summing the total missing health among all allies
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+    int32 Amount;
+
     virtual float Evaluate(const UWorld* World, const FAiDecisionContext& Context) const override;
+    virtual FORCEINLINE bool IsHostile() const override { return false; }
+    virtual FORCEINLINE bool IsAOE() const override { return true; }
+
+    virtual FGameplayEffectDescriptor ToGameplayEffect() const override
+    {
+        return FGameplayEffectDescriptor(
+            false,
+            this->GameplayEffectType,
+            FGameplayTag::RequestGameplayTag(FName("GameplayEffect.Combat.Healing")),
+            FGameplayTag::EmptyTag,
+            this->Amount);
+    }
+
+protected:
+    // If reflexive, this effect is always applied to the enemy itself regardless of which target it chooses.
+    UPROPERTY(EditDefaultsOnly)
+    bool bIsReflexive = false;
 };

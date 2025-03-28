@@ -6,7 +6,7 @@
 #include "../../../GameplayAbilities/AttributeSet/BasicAttributeSet.h"
 
 
-UHealAllAction::UHealAllAction() : Amount(0), bIsReflexive(true)
+UHealAllAction::UHealAllAction() : Amount(0), bIsReflexive(false)
 {
     static ConstructorHelpers::FClassFinder<UGameplayEffect> GameplayEffectClassFinder(
         TEXT("/Game/Assets/GameplayAbilities/GameplayEffects/GE_Healing"));
@@ -16,7 +16,7 @@ UHealAllAction::UHealAllAction() : Amount(0), bIsReflexive(true)
 float UHealAllAction::Evaluate(const UWorld* World, const FAiDecisionContext& Context) const
 {
     // If no allies, there's nothing to heal
-    if (Context.AlliesData.Num() == 0)
+    if (Context.TargetsData.Num() == 0)
     {
         return 0.f;
     }
@@ -24,7 +24,7 @@ float UHealAllAction::Evaluate(const UWorld* World, const FAiDecisionContext& Co
     float TotalMissingHP = 0.f;
     float TotalMaxHP = 0.f;
 
-    for (AEnemyCharacter* Ally : Context.AlliesData)
+    for (ABasicCharacter* Ally : Context.TargetsData)
     {
         if (!Ally) { continue; }
 

@@ -30,6 +30,8 @@ public:
 
 	FORCEINLINE virtual bool IsHostile() const { return false; }
 
+	FORCEINLINE virtual bool IsAOE() const { return false; }
+
 	UFUNCTION(BlueprintCallable)
 	virtual FORCEINLINE bool IsReflexive() const { return false; }
 	
