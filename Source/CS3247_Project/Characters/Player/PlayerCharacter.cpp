@@ -67,37 +67,3 @@ void APlayerCharacter::Tick(float DeltaTime) {
 void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 }
-
-void APlayerCharacter::SignalAttributeChange(const FGameplayAttribute& Attribute) const
-{
-    // Retrieve the player's AbilitySystemComponent.
-    const UAbilitySystemComponent* AbilitySystem = this->GetAbilitySystemComponent();
-    if (!AbilitySystem)
-    {
-        UE_LOG(LogTemp, Warning, TEXT("AbilitySystemComponent not found on %s"), *GetName());
-        return;
-    }
-
-    // Retrieve the current value for the attribute.
-    bool bFound = false;
-    const float CurrentValue = AbilitySystem->GetGameplayAttributeValue(Attribute, bFound);
-    if (!bFound)
-    {
-        UE_LOG(LogTemp, Warning, TEXT("Attribute %s not found on %s"), *Attribute.GetName(), *GetName());
-        return;
-    }
-
-    // Default max value if we can't determine it.
-    float MaxValue = 100.f;
-
-    // Try to cast to your basic attribute set.
-    const UBasicAttributeSet* PlayerAttributeSet = Cast<UBasicAttributeSet>(
-        AbilitySystem->GetAttributeSet(UBasicAttributeSet::StaticClass()));
-    if (PlayerAttributeSet && (Attribute == PlayerAttributeSet->GetHealthAttribute()))
-    {
-        MaxValue = PlayerAttributeSet->GetMaxHealth();
-    }
-
-    // Broadcast the attribute update event.
-    OnAttributeUpdated.Broadcast(Attribute, CurrentValue, MaxValue);
-}
