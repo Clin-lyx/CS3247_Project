@@ -10,11 +10,13 @@ class UEnemyAction;
 USTRUCT(BlueprintType)
 struct FAiDecision {
 	GENERATED_BODY()
+	
 public:
+	// GameplayEffects to apply when executing the decision
 	UPROPERTY(BlueprintReadOnly, EditAnywhere)
 	TArray<FGameplayEffectDescriptor> SkillEffects;
 
-	// The target of the action. Use this to check if the skill should be reflexive.
+	// All recipients of this action
 	UPROPERTY(BlueprintReadOnly, EditAnywhere)
-	TObjectPtr<ABasicCharacter> Target;
+	TArray<ABasicCharacter*> Targets;
 };

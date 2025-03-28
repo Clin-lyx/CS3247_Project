@@ -18,6 +18,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TObjectPtr<APlayerCharacter> PlayerData;
 
+	// Typically the "primary" target if we do single-target
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TObjectPtr<ABasicCharacter> TargetData;
+	TArray<ABasicCharacter*> TargetsData;
 };
