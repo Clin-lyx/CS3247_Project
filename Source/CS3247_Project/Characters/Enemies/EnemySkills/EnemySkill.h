@@ -38,5 +38,12 @@ public:
 		return !IsSelfOnly || Source == Target;
 	}
 
+	FORCEINLINE bool IsAOE() const {
+		return this->Effects.ContainsByPredicate([](const UEnemyAction* Action) -> bool {
+			return Action->IsAOE();
+			});
+	}
+
+
 	TArray<FGameplayEffectDescriptor> ToGameplayEffects() const;
 };

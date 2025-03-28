@@ -13,7 +13,7 @@ UGuardAction::UGuardAction() : Amount(0), bIsReflexive(false) {
 }
 
 float UGuardAction::Evaluate(const UWorld* World, const FAiDecisionContext& Context) const {
-	const ABasicCharacter* Target = this->IsReflexive() ? Context.SelfData : Context.TargetData;
+	const ABasicCharacter* Target = this->IsReflexive() ? Context.SelfData : Context.TargetsData[0];
 	const UBasicAttributeSet* AttributeSet = Cast<UBasicAttributeSet>(
 		Target->GetAbilitySystemComponent()->GetAttributeSet(UBasicAttributeSet::StaticClass()));
 	return AttributeSet->GetHealth() / AttributeSet->GetMaxHealth();
