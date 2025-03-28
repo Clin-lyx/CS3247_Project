@@ -4,9 +4,12 @@
 #include "../../../GameplayAbilities/GameplayEffectDescriptor.h"
 #include "AiDecision.generated.h"
 
-class ABasicCharacter;
-class UEnemyAction;
 
+class ABasicCharacter;
+
+/**
+ * Represents the final AI choice of skill + targets.
+ */
 USTRUCT(BlueprintType)
 struct FAiDecision {
 	GENERATED_BODY()

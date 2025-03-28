@@ -3,22 +3,26 @@
 #include "CoreMinimal.h"
 #include "AiDecisionContext.generated.h"
 
-class ABasicCharacter;
-class APlayerCharacter;
 class AEnemyCharacter;
+class APlayerCharacter;
+class ABasicCharacter;
 
+/**
+ * Data passed to actions for scoring (Evaluate)
+ */
 USTRUCT(BlueprintType)
-struct FAiDecisionContext {
-	GENERATED_BODY()
+struct FAiDecisionContext
+{
+    GENERATED_BODY()
 
 public:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TObjectPtr<AEnemyCharacter> SelfData;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    TObjectPtr<AEnemyCharacter> SelfData;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TObjectPtr<APlayerCharacter> PlayerData;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    TObjectPtr<APlayerCharacter> PlayerData;
 
-	// Typically the "primary" target if we do single-target
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray<ABasicCharacter*> TargetsData;
+    // Typically the "primary" target if we do single-target
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    TArray<ABasicCharacter*> TargetsData;
 };
