@@ -11,27 +11,15 @@ class ABasicCharacter;
  * Represents the final AI choice of skill + targets.
  */
 USTRUCT(BlueprintType)
-struct FAiDecision
-{
-    GENERATED_BODY()
-
+struct FAiDecision {
+	GENERATED_BODY()
+	
 public:
-    // GameplayEffects to apply when executing the decision
-    UPROPERTY(BlueprintReadOnly, EditAnywhere)
-    TArray<FGameplayEffectDescriptor> SkillEffects;
+	// GameplayEffects to apply when executing the decision
+	UPROPERTY(BlueprintReadOnly, EditAnywhere)
+	TArray<FGameplayEffectDescriptor> SkillEffects;
 
-    // All recipients of this action
-    UPROPERTY(BlueprintReadOnly, EditAnywhere)
-    TArray<ABasicCharacter*> Targets;
-
-    // Constructors
-    FAiDecision() {}
-
-    // Multi-target constructor
-    FAiDecision(const TArray<FGameplayEffectDescriptor>& InEffects,
-        const TArray<ABasicCharacter*>& InTargets)
-    {
-        SkillEffects = InEffects;
-        Targets = InTargets;
-    }
+	// All recipients of this action
+	UPROPERTY(BlueprintReadOnly, EditAnywhere)
+	TArray<ABasicCharacter*> Targets;
 };

@@ -14,13 +14,12 @@ APlayerCharacter::APlayerCharacter() {
 
 // Called when the game starts or when spawned
 void APlayerCharacter::BeginPlay() {
-	Super::BeginPlay();
 	const UAbilitySystemComponent* AbilitySystem = this->GetAbilitySystemComponent();
 	if (IsValid(AbilitySystem)) {
 		this->AttributeSet = AbilitySystem->GetSet<UPlayerAttributeSet>();
 	}
 
-	CurrHP = MaxHP;
+	Super::BeginPlay();
 }
 
 int APlayerCharacter::GetPlayerHealth() const {
@@ -38,6 +37,25 @@ void APlayerCharacter::ReceiveDamage(int damage) {
 
 void APlayerCharacter::PlayerIsDead() {
 	UE_LOG(LogTemp, Log, TEXT("Player is Dead!"));
+}
+
+void APlayerCharacter::InitialiseAttributesUIData() {
+	bool bIsAttributeFound = false;
+	TArray<FGameplayAttribute> Attributes;
+	this->AbilitySystemComponent->GetAllAttributes(Attributes);
+	for (const auto& Attribute : Attributes) {
+		const float Curr = this->AbilitySystemComponent->GetGameplayAttributeValue(Attribute, bIsAttributeFound);
+		float Max = 100.0f;
+		if (Attribute == this->AttributeSet->GetHealthAttribute()) {
+			Max = this->AttributeSet->GetMaxHealth();
+		} else if (Attribute == this->AttributeSet->GetManaAttribute()) {
+			Max = this->AttributeSet->GetMaxMana();
+		} else if (Attribute == this->AttributeSet->GetMaxManaAttribute() || Attribute == this->AttributeSet->GetMaxHealthAttribute()) {
+			Max = static_cast<float>(INT32_MAX);
+		}
+
+		this->OnAttributeUpdated.Broadcast(Attribute, Curr, Curr, Max);
+	}
 }
 
 // Called every frame

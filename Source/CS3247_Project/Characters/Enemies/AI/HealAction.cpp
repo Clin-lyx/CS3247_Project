@@ -6,7 +6,7 @@
 #include "../EnemyCharacter.h"
 #include "../../../GameplayAbilities/AttributeSet/BasicAttributeSet.h"
 
-UHealAction::UHealAction() : Amount(0), bIsReflexive(false) {
+UHealAction::UHealAction() : Amount(0), bIsReflexive(false), bIsAoe(false) {
 	static ConstructorHelpers::FClassFinder<UGameplayEffect> GameplayEffectClassFinder(
 			TEXT("/Game/Assets/GameplayAbilities/GameplayEffects/GE_Healing"));
 	this->GameplayEffectType = GameplayEffectClassFinder.Class;

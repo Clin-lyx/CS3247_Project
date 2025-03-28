@@ -25,10 +25,4 @@ public:
     // Typically the "primary" target if we do single-target
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     TArray<ABasicCharacter*> TargetsData;
-
-    FAiDecisionContext() {}
-    FAiDecisionContext(AEnemyCharacter* InSelf,
-        APlayerCharacter* InPlayer,
-        TArray<ABasicCharacter*> InTarget)
-        : SelfData(InSelf), PlayerData(InPlayer), TargetsData(InTarget){}
 };

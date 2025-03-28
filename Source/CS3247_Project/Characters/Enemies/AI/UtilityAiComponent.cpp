@@ -67,7 +67,7 @@ FAiDecision UUtilityAiComponent::Decide(const FCombatContext& Context) const {
             }
         }
         // AoE branch: if the skill is marked as AOE, gather all valid allies (and self, if applicable)
-        else if (Skill->IsAOE()) {
+        else if (Skill->IsAoe()) {
             TArray<ABasicCharacter*> AoeTargets;
             for (AEnemyCharacter* Ally : Enemies) {
                 if (Skill->IsApplicableTo(Self, Ally)) {

@@ -38,9 +38,9 @@ public:
 		return !IsSelfOnly || Source == Target;
 	}
 
-	FORCEINLINE bool IsAOE() const {
+	FORCEINLINE bool IsAoe() const {
 		return this->Effects.ContainsByPredicate([](const UEnemyAction* Action) -> bool {
-			return Action->IsAOE();
+			return Action->IsAoe();
 			});
 	}
 
