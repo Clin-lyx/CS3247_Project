@@ -20,6 +20,15 @@ void UPlayerAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute
 
 	NewValue = FMath::Clamp(NewValue, 0.0f, MaxValue);
 	
-	Super::PreAttributeChange(Attribute, NewValue);
 	this->OnAttributeChanged.Broadcast(Attribute, OldValue, NewValue);
+}
+
+bool UPlayerAttributeSet::PreGameplayEffectExecute(struct FGameplayEffectModCallbackData& Data) {
+	this->SetMana(FMath::Clamp(this->GetMana(), 0.0f, this->GetMaxMana()));
+	return Super::PreGameplayEffectExecute(Data);
+}
+
+void UPlayerAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData& Data) {
+	this->SetMana(FMath::Clamp(this->GetMana(), 0.0f, this->GetMaxMana()));
+	Super::PostGameplayEffectExecute(Data);
 }
