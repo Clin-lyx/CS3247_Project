@@ -21,10 +21,9 @@ void UBasicAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute,
 
 bool UBasicAttributeSet::PreGameplayEffectExecute(struct FGameplayEffectModCallbackData& Data) {
 	this->SetHealth(FMath::Clamp(this->GetHealth(), 0.0f, this->GetMaxHealth()));
-	return Super::PreGameplayEffectExecute(Data);
+	return true;
 }
 
 void UBasicAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData& Data) {
 	this->SetHealth(FMath::Clamp(this->GetHealth(), 0.0f, this->GetMaxHealth()));
-	Super::PostGameplayEffectExecute(Data);
 }
