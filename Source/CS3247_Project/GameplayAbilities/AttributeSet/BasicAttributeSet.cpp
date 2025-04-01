@@ -16,6 +16,14 @@ void UBasicAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute,
 
 	NewValue = FMath::Clamp(NewValue, 0.0f, MaxValue);
 	
-	Super::PreAttributeChange(Attribute, NewValue);
 	this->OnAttributeChanged.Broadcast(Attribute, OldValue, NewValue);
+}
+
+bool UBasicAttributeSet::PreGameplayEffectExecute(struct FGameplayEffectModCallbackData& Data) {
+	this->SetHealth(FMath::Clamp(this->GetHealth(), 0.0f, this->GetMaxHealth()));
+	return true;
+}
+
+void UBasicAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData& Data) {
+	this->SetHealth(FMath::Clamp(this->GetHealth(), 0.0f, this->GetMaxHealth()));
 }
