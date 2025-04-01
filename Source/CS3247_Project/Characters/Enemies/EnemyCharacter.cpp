@@ -36,3 +36,10 @@ void AEnemyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 }
 
+bool AEnemyCharacter::GetIsDead() {
+	return this->isDead;
+}
+
+void AEnemyCharacter::SetIsDead() {
+	this->isDead = true;
+}

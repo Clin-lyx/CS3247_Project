@@ -26,6 +26,12 @@ public:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(ExposeOnSpawn))
 	TObjectPtr<UEnemy> EnemyData;
+
+	UFUNCTION(BlueprintCallable, Category = "Status")
+	bool GetIsDead();
+
+	UFUNCTION(BlueprintCallable, Category = "Status")
+	void SetIsDead();
 	
 	// Sets default values for this character's properties
 	AEnemyCharacter();
@@ -36,6 +42,10 @@ protected:
 	virtual void BeginPlay() override;
 
 	virtual void Destroyed() override;
+
+	UPROPERTY(BlueprintReadOnly, Category = "Dead or Alive")
+	bool isDead = false;
+
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
