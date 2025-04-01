@@ -10,6 +10,7 @@ UCard::UCard() {
 	this->Cost = 0;
 	this->Durability = 0;
 	this->Effects = {};
+	this->bIsDefault = false;
 }
 
 FText UCard::ToText_Implementation() const {
