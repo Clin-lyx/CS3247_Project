@@ -30,7 +30,7 @@ public:
 	TObjectPtr<UCardNode> Source;
 
 	UFUNCTION(BlueprintCallable)
-	UCard* Forge(UDeckComponent* PlayerDeckComponent, bool bIsDefault = false);
+	UCard* Forge(UDeckComponent* PlayerDeckComponent, const bool bIsDefault = false);
 
 	UFUNCTION(BlueprintCallable)
 	TArray<FRecipeEdge> ToEdgeList();
