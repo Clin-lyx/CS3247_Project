@@ -10,8 +10,9 @@
 #include "../Card Effects/Impacts/CardImpact.h"
 #include "../Nodes/MixerNode.h"
 
-UCard* UCardRecipe::Forge(UDeckComponent* PlayerDeckComponent) {
+UCard* UCardRecipe::Forge(UDeckComponent* PlayerDeckComponent, const bool bIsDefault) {
 	UCard* Card = NewObject<UCard>(PlayerDeckComponent);
+	Card->bIsDefault = bIsDefault;
 	Card->Recipe = this;
 	double ModifierPower = 1.0;
 	Card->Effects = this->Source.Get()->Build(*Card, ModifierPower);

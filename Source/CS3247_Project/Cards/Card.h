@@ -23,6 +23,9 @@ class CS3247_PROJECT_API UCard : public UObject, public ILocalisable {
 	GENERATED_BODY()
 
 public:
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, meta=(ExposeOnSpawn = "true"))
+	bool bIsDefault;
+	
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	double Cost;
 

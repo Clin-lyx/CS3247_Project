@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
-#include "CS3247_Project/Common/GameItemTag.h"
+#include "../../../Common/GameItemTag.h"
 #include "InventoryComponent.generated.h"
 
 

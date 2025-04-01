@@ -17,7 +17,7 @@ class UCardEffect;
 /**
  * The abstract base class for all card ingredients in crafting.
  */
-UCLASS(Abstract, BlueprintType, Blueprintable)
+UCLASS(Abstract, BlueprintType, Blueprintable, EditInlineNew, DefaultToInstanced)
 class CS3247_PROJECT_API UCardIngredient : public UGameItem, public IPrintable, public ILocalisable {
 	GENERATED_BODY()
 	
