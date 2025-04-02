@@ -30,6 +30,9 @@ public:
 	TObjectPtr<UCardNode> Source;
 
 	UFUNCTION(BlueprintCallable)
+	TMap<UResource*, int32> GetCosts() const;
+
+	UFUNCTION(BlueprintCallable)
 	UCard* Forge(UDeckComponent* PlayerDeckComponent, const bool bIsDefault = false);
 
 	UFUNCTION(BlueprintCallable)

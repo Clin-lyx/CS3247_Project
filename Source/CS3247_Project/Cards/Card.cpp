@@ -8,7 +8,7 @@
 
 UCard::UCard() {
 	this->Cost = 0;
-	this->Durability = 0;
+	this->Durability = 10;
 	this->Effects = {};
 	this->bIsDefault = false;
 }

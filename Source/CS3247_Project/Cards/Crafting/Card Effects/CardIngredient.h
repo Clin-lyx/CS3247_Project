@@ -46,6 +46,8 @@ public:
 	virtual FText ToText_Implementation() const override;
 
 	virtual FText ToRichText_Implementation() const override;
+	
 protected:
 	FORCEINLINE void AddCost(UCard& OwningCard) const { OwningCard.Cost += this->UseCost; }
+	FORCEINLINE void ChangeDurability(UCard& OwningCard) const { OwningCard.Durability -= this->DurabilityDegradation; }
 };
