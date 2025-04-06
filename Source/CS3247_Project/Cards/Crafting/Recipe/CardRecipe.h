@@ -7,6 +7,7 @@
 #include "UObject/Object.h"
 #include "CardRecipe.generated.h"
 
+class UResource;
 class UCardImpact;
 class UCardEffect;
 class UDeckComponent;

@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "../../../Common/GameItemTag.h"
+#include "CS3247_Project/Common/GameItem.h"
 #include "InventoryComponent.generated.h"
 
 
@@ -37,9 +38,28 @@ protected:
 		}
 		
 		return this->Inventory[ItemType];
-	};
+	}
+
+	UFUNCTION(BlueprintCallable)
+	FORCEINLINE bool HasEnough(UGameItem* Item, const int32 Quantity) const {
+		return this->Count(Item) >= Quantity;
+	}
+	
 public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType,
 	                           FActorComponentTickFunction* ThisTickFunction) override;
+
+private:
+	FORCEINLINE int32 Count(UGameItem* Item) const {
+		if (!this->Inventory.Contains(Item->ItemType)) {
+			return 0;
+		}
+		
+		if (!this->Inventory[Item->ItemType].Contains(Item)) {
+			return 0;
+		}
+		
+		return this->Inventory[Item->ItemType][Item];
+	}
 };
