@@ -31,7 +31,13 @@ protected:
 	int32 RemoveItem(const UGameItem* Item, int32 Quantity);
 
 	UFUNCTION(BlueprintCallable)
-	FORCEINLINE TMap<UGameItem*, int32> FetchAllOfType(const EGameItemTag ItemType) const { return this->Inventory[ItemType]; };
+	FORCEINLINE TMap<UGameItem*, int32> FetchAllOfType(const EGameItemTag ItemType) const {
+		if (!this->Inventory.Contains(ItemType)) {
+			return {};
+		}
+		
+		return this->Inventory[ItemType];
+	};
 public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType,
