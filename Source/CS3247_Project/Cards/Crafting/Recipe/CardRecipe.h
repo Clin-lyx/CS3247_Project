@@ -7,6 +7,7 @@
 #include "UObject/Object.h"
 #include "CardRecipe.generated.h"
 
+class UResource;
 class UCardImpact;
 class UCardEffect;
 class UDeckComponent;
@@ -28,6 +29,9 @@ public:
 	
 	UPROPERTY(BlueprintReadWrite)
 	TObjectPtr<UCardNode> Source;
+
+	UFUNCTION(BlueprintCallable)
+	TMap<UResource*, int32> GetCosts() const;
 
 	UFUNCTION(BlueprintCallable)
 	UCard* Forge(UDeckComponent* PlayerDeckComponent, const bool bIsDefault = false);

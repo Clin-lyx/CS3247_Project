@@ -8,7 +8,7 @@
 #include "../Data/CardEffect.h"
 
 TArray<UCardEffect*> UCardImpact::Apply(UCard* OwningCard) {
-	Super::AddCost(*OwningCard);
+	this->AddCost(*OwningCard);
 	return {NewObject<UCardEffect>(OwningCard)};
 }
 
