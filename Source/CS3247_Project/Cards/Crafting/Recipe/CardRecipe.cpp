@@ -10,6 +10,10 @@
 #include "../Card Effects/Impacts/CardImpact.h"
 #include "../Nodes/MixerNode.h"
 
+TMap<UResource*, int32> UCardRecipe::GetCosts() const {
+	return this->Source->GetSubtreeCost();
+}
+
 UCard* UCardRecipe::Forge(UDeckComponent* PlayerDeckComponent, const bool bIsDefault) {
 	UCard* Card = NewObject<UCard>(PlayerDeckComponent);
 	Card->bIsDefault = bIsDefault;

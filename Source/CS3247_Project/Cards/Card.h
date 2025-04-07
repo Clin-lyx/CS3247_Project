@@ -30,7 +30,7 @@ public:
 	double Cost;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	int Durability;
+	double Durability;
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere)
 	TArray<UCardEffect*> Effects;
@@ -47,7 +47,7 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Card Info")
 	FORCEINLINE void GetCardData(int& UseCost, int& CardDurability, TArray<UCardEffect*>& CardEffects) const {
 		UseCost = FMath::Max(1, FMath::Floor(this->Cost));
-		CardDurability = this->Durability;
+		CardDurability = FMath::CeilToInt32(this->Durability);
 		CardEffects = this->Effects;
 	}
 
