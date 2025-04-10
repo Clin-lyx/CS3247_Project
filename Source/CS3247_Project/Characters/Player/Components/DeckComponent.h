@@ -26,9 +26,6 @@ protected:
 	
 	UPROPERTY(BlueprintReadOnly, Category = "Deck", meta = (AllowPrivateAccess = "true"))
 	TArray<UCard*> InitialCards;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Deck", DisplayName = "Initial Recipes", meta = (AllowPrivateAccess = "true"))
-	TArray<TObjectPtr<UCardRecipe>> TestRecipes;
 	
 	// Called when the game starts
 	virtual void BeginPlay() override;
