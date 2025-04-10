@@ -51,7 +51,7 @@ public:
 	
 	UFUNCTION(BlueprintCallable, Category = "Card Info")
 	FORCEINLINE void GetCardData(int& UseCost, int& CardDurability, TArray<UCardEffect*>& CardEffects) const {
-		UseCost = FMath::Max(1, FMath::Floor(this->Cost));
+		UseCost = FMath::Clamp(FMath::Floor(this->Cost), 1, 3);
 		CardDurability = FMath::CeilToInt32(this->Durability);
 		CardEffects = this->Effects;
 	}
