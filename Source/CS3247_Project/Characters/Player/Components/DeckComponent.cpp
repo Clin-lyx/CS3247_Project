@@ -22,7 +22,12 @@ void UDeckComponent::BeginPlay() {
 }
 
 void UDeckComponent::AddCard(UCard* Card) {
-	this->Deck.Add(Card);
+	if (Card->bIsDefault) {
+		this->InitialCards.Add(Card);
+	} else {
+		this->Deck.Add(Card);
+	}
+	
 	this->OnAddCard.Broadcast(Card);
 }
 
