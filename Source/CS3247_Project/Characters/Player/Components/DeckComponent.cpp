@@ -27,6 +27,12 @@ void UDeckComponent::AddCard(UCard* Card) {
 }
 
 UCard* UDeckComponent::RandomDraw() {
+	if (this->Deck.IsEmpty()) {
+		for (auto& Card : this->DiscardPile) {
+			this->Deck.Add(Card);
+		}
+	}
+	
 	if (this->Deck.Num() > 0) {
 		UCard* Card = this->Deck[FMath::RandRange(0, this->Deck.Num() - 1)];
 		this->Deck.Remove(Card);
@@ -34,6 +40,18 @@ UCard* UDeckComponent::RandomDraw() {
 	}
 	
 	return this->InitialCards[FMath::RandRange(0, this->InitialCards.Num() - 1)];
+}
+
+void UDeckComponent::Discard(UCard* Card) {
+	if (Card->bIsDefault) {
+		return;
+	}
+	
+	const int32 Durability = FMath::CeilToInt32(Card->Durability);
+	if (Durability > 1) {
+		this->DiscardPile.Add(Card);
+		Card->Durability -= 1;
+	}
 }
 
 

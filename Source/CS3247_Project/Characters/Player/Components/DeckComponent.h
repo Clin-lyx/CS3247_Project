@@ -20,6 +20,9 @@ public:
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Deck", meta = (AllowPrivateAccess = "true"))
 	TArray<UCard*> Deck;
+
+	UPROPERTY()	
+	TSet<UCard*> DiscardPile;
 	
 	UPROPERTY(BlueprintReadOnly, Category = "Deck", meta = (AllowPrivateAccess = "true"))
 	TArray<UCard*> InitialCards;
@@ -43,6 +46,17 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	UCard* RandomDraw();
+
+	UFUNCTION(BlueprintCallable)
+	void Discard(UCard* Card);
+
+	UFUNCTION(BlueprintCallable)
+	FORCEINLINE void Reshuffle() {
+		for (auto& Card : this->DiscardPile) {
+			this->DiscardPile.Remove(Card);
+			this->Deck.Add(Card);
+		}
+	}
 	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType,
