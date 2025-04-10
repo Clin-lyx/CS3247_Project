@@ -22,7 +22,12 @@ UCLASS(BlueprintType, Blueprintable, DefaultToInstanced, EditInlineNew)
 class CS3247_PROJECT_API UCard : public UObject, public ILocalisable {
 	GENERATED_BODY()
 
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnPlayDispatcher, UCard*, Card);
+
 public:
+	UPROPERTY(BlueprintAssignable, BlueprintCallable)
+	FOnPlayDispatcher OnPlay;
+	
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, meta=(ExposeOnSpawn = "true"))
 	bool bIsDefault;
 	

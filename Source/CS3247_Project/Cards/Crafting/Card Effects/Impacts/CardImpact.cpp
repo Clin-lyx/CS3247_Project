@@ -9,6 +9,7 @@
 
 TArray<UCardEffect*> UCardImpact::Apply(UCard* OwningCard) {
 	this->AddCost(*OwningCard);
+	this->ChangeDurability(*OwningCard);
 	return {NewObject<UCardEffect>(OwningCard)};
 }
 

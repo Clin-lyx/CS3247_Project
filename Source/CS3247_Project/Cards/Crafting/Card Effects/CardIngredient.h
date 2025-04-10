@@ -49,5 +49,8 @@ public:
 	
 protected:
 	FORCEINLINE void AddCost(UCard& OwningCard) const { OwningCard.Cost += this->UseCost; }
-	FORCEINLINE void ChangeDurability(UCard& OwningCard) const { OwningCard.Durability -= this->DurabilityDegradation; }
+	FORCEINLINE void ChangeDurability(UCard& OwningCard) const {
+		OwningCard.Durability -= this->DurabilityDegradation;
+		OwningCard.Durability = FMath::Max(3, OwningCard.Durability);
+	}
 };
