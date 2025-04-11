@@ -22,7 +22,7 @@ public:
 	 */
 	virtual TArray<UCardEffect*> Apply(UCard* OwningCard);
 
-	virtual UCardNode* WrapIntoNode(UActorComponent* CardCrafter) override;
+	virtual UCardNode* WrapIntoNode(UPlayerDeckSubsystem* CardCrafter) override;
 
 	bool operator<(UCardImpact* Other) const;
 	

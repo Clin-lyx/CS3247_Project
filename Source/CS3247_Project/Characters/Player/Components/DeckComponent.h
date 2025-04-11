@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "../../../Cards/Card.h"
+#include "CS3247_Project/Common/PlayerDeckSubsystem.h"
 #include "DeckComponent.generated.h"
 
 UCLASS(Blueprintable, ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
@@ -18,15 +19,6 @@ public:
 	UDeckComponent();
 
 protected:
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Deck", meta = (AllowPrivateAccess = "true"))
-	TArray<UCard*> Deck;
-
-	UPROPERTY()	
-	TSet<UCard*> DiscardPile;
-	
-	UPROPERTY(BlueprintReadOnly, Category = "Deck", meta = (AllowPrivateAccess = "true"))
-	TArray<UCard*> InitialCards;
-	
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
@@ -49,10 +41,11 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	FORCEINLINE void Reshuffle() {
-		for (auto& Card : this->DiscardPile) {
-			this->DiscardPile.Remove(Card);
-			this->Deck.Add(Card);
+		for (auto& Card : this->GetOwner()->GetGameInstance()->GetSubsystem<UPlayerDeckSubsystem>()->DiscardPile) {
+			this->GetOwner()->GetGameInstance()->GetSubsystem<UPlayerDeckSubsystem>()->Deck.Add(Card);
 		}
+
+		this->GetOwner()->GetGameInstance()->GetSubsystem<UPlayerDeckSubsystem>()->DiscardPile.Empty();
 	}
 	
 	// Called every frame

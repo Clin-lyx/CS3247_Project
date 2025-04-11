@@ -13,7 +13,7 @@ TArray<UCardEffect*> UCardImpact::Apply(UCard* OwningCard) {
 	return {NewObject<UCardEffect>(OwningCard)};
 }
 
-UCardNode* UCardImpact::WrapIntoNode(UActorComponent* CardCrafter) {
+UCardNode* UCardImpact::WrapIntoNode(UPlayerDeckSubsystem* CardCrafter) {
 	UImpactNode* Node = NewObject<UImpactNode>(CardCrafter);
 	Node->Impact= this;
 	return Node;

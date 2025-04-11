@@ -7,6 +7,7 @@
 #include "../../../UI/Texts/Printable.h"
 #include "../../Card.h"
 #include "../../../Common/GameItem.h"
+#include "../../../Common/PlayerDeckSubsystem.h"
 #include "Engine/DataAsset.h"
 #include "CardIngredient.generated.h"
 
@@ -37,7 +38,7 @@ public:
 		Id(FGuid::NewGuid()), UseCost(0), DurabilityDegradation(0), CraftCost({}) {}
 
 	UFUNCTION(BlueprintCallable)
-	virtual UCardNode* WrapIntoNode(UActorComponent* CardCrafter);
+	virtual UCardNode* WrapIntoNode(UPlayerDeckSubsystem* CardCrafter);
 
 	int32 AggregateWorth() const;
 

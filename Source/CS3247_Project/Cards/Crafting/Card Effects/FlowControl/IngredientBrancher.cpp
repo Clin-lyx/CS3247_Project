@@ -12,7 +12,7 @@ void UIngredientBrancher::Merge(UCard* OwningCard, TArray<UCardEffect*>& LeftEff
 	LeftEffects.Append(RightEffects);
 }
 
-UCardNode* UIngredientBrancher::WrapIntoNode(UActorComponent* CardCrafter) {
+UCardNode* UIngredientBrancher::WrapIntoNode(UPlayerDeckSubsystem* CardCrafter) {
 	UBranchNode* Node = NewObject<UBranchNode>(CardCrafter);
 	Node->Brancher = this;
 	return Node;

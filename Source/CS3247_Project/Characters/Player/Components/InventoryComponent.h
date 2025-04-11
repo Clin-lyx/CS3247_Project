@@ -5,7 +5,8 @@
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "../../../Common/GameItemTag.h"
-#include "CS3247_Project/Common/GameItem.h"
+#include "../../../Common/GameItem.h"
+#include "../../../Common/InventorySubsystem.h"
 #include "InventoryComponent.generated.h"
 
 
@@ -20,8 +21,6 @@ public:
 	UInventoryComponent();
 
 protected:
-	TMap<EGameItemTag, TMap<UGameItem*, int32>> Inventory;
-	
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
@@ -33,11 +32,11 @@ protected:
 
 	UFUNCTION(BlueprintCallable)
 	FORCEINLINE TMap<UGameItem*, int32> FetchAllOfType(const EGameItemTag ItemType) const {
-		if (!this->Inventory.Contains(ItemType)) {
+		if (!this->GetOwner()->GetGameInstance()->GetSubsystem<UInventorySubsystem>()->Inventory.Contains(ItemType)) {
 			return {};
 		}
 		
-		return this->Inventory[ItemType];
+		return this->GetOwner()->GetGameInstance()->GetSubsystem<UInventorySubsystem>()->Inventory[ItemType];
 	}
 
 	UFUNCTION(BlueprintCallable)
@@ -52,14 +51,14 @@ public:
 
 private:
 	FORCEINLINE int32 Count(UGameItem* Item) const {
-		if (!this->Inventory.Contains(Item->ItemType)) {
+		if (!this->GetOwner()->GetGameInstance()->GetSubsystem<UInventorySubsystem>()->Inventory.Contains(Item->ItemType)) {
 			return 0;
 		}
 		
-		if (!this->Inventory[Item->ItemType].Contains(Item)) {
+		if (!this->GetOwner()->GetGameInstance()->GetSubsystem<UInventorySubsystem>()->Inventory[Item->ItemType].Contains(Item)) {
 			return 0;
 		}
 		
-		return this->Inventory[Item->ItemType][Item];
+		return this->GetOwner()->GetGameInstance()->GetSubsystem<UInventorySubsystem>()->Inventory[Item->ItemType][Item];
 	}
 };

@@ -12,7 +12,7 @@ UCardEffect* UCardEnchantment::ComposeTo(UCard* OwningCard, UCardEffect* Current
 	return Current;
 }
 
-UCardNode* UCardEnchantment::WrapIntoNode(UActorComponent* CardCrafter) {
+UCardNode* UCardEnchantment::WrapIntoNode(UPlayerDeckSubsystem* CardCrafter) {
 	UEnchantNode* Node = NewObject<UEnchantNode>(CardCrafter);
 	Node->Enchantment = this;
 	return Node;

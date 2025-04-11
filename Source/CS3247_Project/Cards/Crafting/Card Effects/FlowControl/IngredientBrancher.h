@@ -19,5 +19,5 @@ public:
 
 	void Merge(UCard* OwningCard, TArray<UCardEffect*>& LeftEffects, const TArray<UCardEffect*>& RightEffects) const;
 
-	virtual UCardNode* WrapIntoNode(UActorComponent* CardCrafter) override;
+	virtual UCardNode* WrapIntoNode(UPlayerDeckSubsystem* CardCrafter) override;
 };

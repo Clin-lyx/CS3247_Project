@@ -7,6 +7,7 @@
 #include "UObject/Object.h"
 #include "CardRecipe.generated.h"
 
+class UPlayerDeckSubsystem;
 class UResource;
 class UCardImpact;
 class UCardEffect;
@@ -34,7 +35,7 @@ public:
 	TMap<UResource*, int32> GetCosts() const;
 
 	UFUNCTION(BlueprintCallable)
-	UCard* Forge(UDeckComponent* PlayerDeckComponent, const bool bIsDefault = false);
+	UCard* Forge(UPlayerDeckSubsystem* PlayerDeckComponent, const bool bIsDefault = false);
 
 	UFUNCTION(BlueprintCallable)
 	TArray<FRecipeEdge> ToEdgeList();
