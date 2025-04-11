@@ -87,17 +87,38 @@ TArray<UCardEffect*> UCardNode::Build(UCard& OwningCard, double& ModifierPower) 
 }
 
 TMap<UResource*, int32> UCardNode::GetSubtreeCost() const {
-	TMap<UResource*, int32> Cost = {};
+	TMap<UResource*, int32> Costs = {};
 	if (this->FirstSuccessor) {
-		Cost.Append(this->FirstSuccessor->GetSubtreeCost());
+		TMap<UResource*, int32> FirstSuccessorCost = this->FirstSuccessor->GetSubtreeCost();
+		for (auto& [Resource, SuccessorCost] : FirstSuccessorCost) {
+			if (Costs.Contains(Resource)) {
+				Costs[Resource] += SuccessorCost;
+			} else {
+				Costs.Add(Resource, SuccessorCost);
+			}
+		}
 	}
 
 	if (this->SecondSuccessor) {
-		Cost.Append(this->SecondSuccessor->GetSubtreeCost());
+		TMap<UResource*, int32> SecondSuccessorCost = this->SecondSuccessor->GetSubtreeCost();
+		for (auto& [Resource, SuccessorCost] : SecondSuccessorCost) {
+			if (Costs.Contains(Resource)) {
+				Costs[Resource] += SuccessorCost;
+			} else {
+				Costs.Add(Resource, SuccessorCost);
+			}
+		}
 	}
 
-	Cost.Append(this->Unpack().Ingredient->CraftCost);
-	return Cost;
+	for (auto& [Resource, Cost] : this->Unpack().Ingredient->CraftCost) {
+		if (Costs.Contains(Resource)) {
+			Costs[Resource] += Cost;
+		} else {
+			Costs.Add(Resource, Cost);
+		}
+	}
+	
+	return Costs;
 }
 
 TArray<UCardNode*> UCardNode::GetSuccessors() const {
