@@ -23,9 +23,6 @@ UCardCrafterComponent::UCardCrafterComponent() {
 // Called when the game starts
 void UCardCrafterComponent::BeginPlay() {
 	Super::BeginPlay();
-
-	// ...
-	
 }
 
 void UCardCrafterComponent::LoadRecipe(TArray<FRecipeEdge> EdgeList) {
@@ -39,7 +36,7 @@ void UCardCrafterComponent::LoadRecipe(TArray<FRecipeEdge> EdgeList) {
 	for (const auto& [From, To] : EdgeList) {
 		UCardNode* ParentNode = NodeMap[From]; // This should exist!
 		// Create a node for the child.
-		UCardNode* ChildNode = To.Ingredient->WrapIntoNode(this);
+		UCardNode* ChildNode = To.Ingredient->WrapIntoNode(this->GetOwner()->GetGameInstance()->GetSubsystem<UPlayerDeckSubsystem>());
 		// Link parent to child.
 		FText ErrorMsg = FText::GetEmpty();
 		if (ParentNode->AddSuccessor(ChildNode, ErrorMsg)) {

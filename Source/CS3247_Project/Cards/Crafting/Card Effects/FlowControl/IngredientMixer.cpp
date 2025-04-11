@@ -21,7 +21,7 @@ UCardImpact* UIngredientMixer::Combine(UCardImpact* Left, UCardImpact* Right) co
 	return nullptr;
 }
 
-UCardNode* UIngredientMixer::WrapIntoNode(UActorComponent* CardCrafter) {
+UCardNode* UIngredientMixer::WrapIntoNode(UPlayerDeckSubsystem* CardCrafter) {
 	UMixerNode* Node = NewObject<UMixerNode>(CardCrafter);
 	Node->Mixer = this;
 	return Node;

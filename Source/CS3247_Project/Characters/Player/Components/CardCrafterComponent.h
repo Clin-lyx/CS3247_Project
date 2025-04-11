@@ -35,7 +35,7 @@ public:
 	TArray<FRecipeEdge> ParseRecipe() const;
 
 	UFUNCTION(BlueprintCallable)
-	FORCEINLINE UCard* Forge(UDeckComponent* PlayerDeckComponent) const { return this->CurrentRecipe->Forge(PlayerDeckComponent); }
+	FORCEINLINE UCard* Forge(UPlayerDeckSubsystem* PlayerDeckComponent) const { return this->CurrentRecipe->Forge(PlayerDeckComponent); }
 	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType,

@@ -25,12 +25,12 @@ void UInventoryComponent::BeginPlay() {
 }
 
 int32 UInventoryComponent::RemoveItem(const UGameItem* Item, const int32 Quantity) {
-	if (this->Inventory.Contains(Item->ItemType)) {
-		if (this->Inventory[Item->ItemType].Contains(Item)) {
-			this->Inventory[Item->ItemType][Item] -= Quantity;
-			const int32 Remaining = this->Inventory[Item->ItemType][Item];
+	if (this->GetOwner()->GetGameInstance()->GetSubsystem<UInventorySubsystem>()->Inventory.Contains(Item->ItemType)) {
+		if (this->GetOwner()->GetGameInstance()->GetSubsystem<UInventorySubsystem>()->Inventory[Item->ItemType].Contains(Item)) {
+			this->GetOwner()->GetGameInstance()->GetSubsystem<UInventorySubsystem>()->Inventory[Item->ItemType][Item] -= Quantity;
+			const int32 Remaining = this->GetOwner()->GetGameInstance()->GetSubsystem<UInventorySubsystem>()->Inventory[Item->ItemType][Item];
 			if (Remaining <= 0) {
-				this->Inventory[Item->ItemType].Remove(Item);
+				this->GetOwner()->GetGameInstance()->GetSubsystem<UInventorySubsystem>()->Inventory[Item->ItemType].Remove(Item);
 			}
 			
 			return Remaining;
@@ -43,17 +43,17 @@ int32 UInventoryComponent::RemoveItem(const UGameItem* Item, const int32 Quantit
 }
 
 int32 UInventoryComponent::AddItem(UGameItem* Item, const int32 Quantity) {
-	if (this->Inventory.Contains(Item->ItemType)) {
-		if (this->Inventory[Item->ItemType].Contains(Item)) {
-			this->Inventory[Item->ItemType][Item] += Quantity;
-			return this->Inventory[Item->ItemType][Item];
+	if (this->GetOwner()->GetGameInstance()->GetSubsystem<UInventorySubsystem>()->Inventory.Contains(Item->ItemType)) {
+		if (this->GetOwner()->GetGameInstance()->GetSubsystem<UInventorySubsystem>()->Inventory[Item->ItemType].Contains(Item)) {
+			this->GetOwner()->GetGameInstance()->GetSubsystem<UInventorySubsystem>()->Inventory[Item->ItemType][Item] += Quantity;
+			return this->GetOwner()->GetGameInstance()->GetSubsystem<UInventorySubsystem>()->Inventory[Item->ItemType][Item];
 		}
 
-		this->Inventory[Item->ItemType].Add(Item, Quantity);
+		this->GetOwner()->GetGameInstance()->GetSubsystem<UInventorySubsystem>()->Inventory[Item->ItemType].Add(Item, Quantity);
 		return Quantity;
 	}
 
-	this->Inventory.Add(Item->ItemType, {{ Item, Quantity }});
+	this->GetOwner()->GetGameInstance()->GetSubsystem<UInventorySubsystem>()->Inventory.Add(Item->ItemType, {{ Item, Quantity }});
 	return Quantity;
 }
 

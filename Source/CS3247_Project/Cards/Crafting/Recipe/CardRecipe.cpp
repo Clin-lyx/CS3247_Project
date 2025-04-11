@@ -14,7 +14,7 @@ TMap<UResource*, int32> UCardRecipe::GetCosts() const {
 	return this->Source->GetSubtreeCost();
 }
 
-UCard* UCardRecipe::Forge(UDeckComponent* PlayerDeckComponent, const bool bIsDefault) {
+UCard* UCardRecipe::Forge(UPlayerDeckSubsystem* PlayerDeckComponent, const bool bIsDefault) {
 	UCard* Card = NewObject<UCard>(PlayerDeckComponent);
 	Card->bIsDefault = bIsDefault;
 	Card->Recipe = this;

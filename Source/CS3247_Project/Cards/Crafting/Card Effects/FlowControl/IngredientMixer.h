@@ -21,7 +21,7 @@ public:
 	
 	UCardImpact* Combine(UCardImpact* Left, UCardImpact* Right) const;
 
-	virtual UCardNode* WrapIntoNode(UActorComponent* CardCrafter) override;
+	virtual UCardNode* WrapIntoNode(UPlayerDeckSubsystem* CardCrafter) override;
 private:
 	UPROPERTY(EditDefaultsOnly)
 	TSoftObjectPtr<UDataTable> Combinations;

@@ -22,5 +22,5 @@ public:
 	 */
 	virtual UCardEffect* ComposeTo(UCard* OwningCard, UCardEffect* Current, double Multiplier);
 
-	virtual UCardNode* WrapIntoNode(UActorComponent* CardCrafter) override;
+	virtual UCardNode* WrapIntoNode(UPlayerDeckSubsystem* CardCrafter) override;
 };

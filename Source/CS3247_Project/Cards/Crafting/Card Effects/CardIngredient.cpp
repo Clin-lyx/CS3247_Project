@@ -6,7 +6,7 @@
 #include "../../../Cards/Card.h"
 #include "../../../Items/Resources/Resource.h"
 
-UCardNode* UCardIngredient::WrapIntoNode(UActorComponent* CardCrafter) {
+UCardNode* UCardIngredient::WrapIntoNode(UPlayerDeckSubsystem* CardCrafter) {
 	return nullptr;
 }
 
