@@ -3,6 +3,9 @@
 
 #include "BasicGameInstance.h"
 
+#include "ShaderCompiler.h"
+
+
 FName UBasicGameInstance::GetName_Implementation(const FGameplayTag Tag) const {
 	if (this->GameplayTagLocalisations.Contains(Tag)) {
 		return this->GameplayTagLocalisations[Tag];
