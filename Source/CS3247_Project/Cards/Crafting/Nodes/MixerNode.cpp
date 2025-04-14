@@ -6,8 +6,20 @@
 #include "../Card Effects/Impacts/CardImpactRawPower.h"
 
 TArray<UCardEffect*> UMixerNode::Build(UCard& OwningCard, double& ModifierPower) {
-	UCardImpact* Impact1 = Cast<UImpactNode>(this->FirstSuccessor)->Impact;
-	UCardImpact* Impact2 = Cast<UImpactNode>(this->SecondSuccessor)->Impact;
+	UCardImpact* Impact1 = nullptr;
+	if (this->FirstSuccessor.IsA(UMixerNode::StaticClass())) {
+		Impact1 = Cast<UMixerNode>(this->FirstSuccessor)->Impact;
+	} else if (this->FirstSuccessor.IsA(UImpactNode::StaticClass())) {
+		Impact1 = Cast<UImpactNode>(this->FirstSuccessor)->Impact;
+	}
+	
+	UCardImpact* Impact2 = nullptr;
+	if (this->SecondSuccessor.IsA(UMixerNode::StaticClass())) {
+		Impact2 = Cast<UMixerNode>(this->SecondSuccessor)->Impact;
+	} else if (this->SecondSuccessor.IsA(UImpactNode::StaticClass())) {
+		Impact2 = Cast<UImpactNode>(this->SecondSuccessor)->Impact;
+	}
+	
 	if (UCardImpact* Result = this->Mixer->Combine(Impact1, Impact2)) {
 		this->Impact = Result;
 		return {Result->Apply(&OwningCard)};
