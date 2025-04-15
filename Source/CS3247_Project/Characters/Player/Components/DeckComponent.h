@@ -40,13 +40,7 @@ public:
 	void Discard(UCard* Card);
 
 	UFUNCTION(BlueprintCallable)
-	FORCEINLINE void Reshuffle() {
-		for (auto& Card : this->GetOwner()->GetGameInstance()->GetSubsystem<UPlayerDeckSubsystem>()->DiscardPile) {
-			this->GetOwner()->GetGameInstance()->GetSubsystem<UPlayerDeckSubsystem>()->Deck.Add(Card);
-		}
-
-		this->GetOwner()->GetGameInstance()->GetSubsystem<UPlayerDeckSubsystem>()->DiscardPile.Empty();
-	}
+	void Reshuffle(); 
 	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType,

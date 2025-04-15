@@ -15,10 +15,17 @@ UDeckComponent::UDeckComponent() {
 
 // Called when the game starts
 void UDeckComponent::BeginPlay() {
-	Super::BeginPlay();
+	TArray<UCard*> Cards = this->GetOwner()->GetGameInstance()->GetSubsystem<UPlayerDeckSubsystem>()->InitialCards;
+	for (const auto& Card : this->GetOwner()->GetGameInstance()->GetSubsystem<UPlayerDeckSubsystem>()->InitialCards) {
+		this->OnAddCard.Broadcast(Card);
+	}
 
-	// ...
-	
+	Cards = this->GetOwner()->GetGameInstance()->GetSubsystem<UPlayerDeckSubsystem>()->Deck;
+	for (const auto& Card : this->GetOwner()->GetGameInstance()->GetSubsystem<UPlayerDeckSubsystem>()->Deck) {
+		this->OnAddCard.Broadcast(Card);
+	}
+
+	Super::BeginPlay();
 }
 
 void UDeckComponent::AddCard(UCard* Card) {
@@ -33,12 +40,17 @@ void UDeckComponent::AddCard(UCard* Card) {
 
 UCard* UDeckComponent::RandomDraw() {
 	if (this->GetOwner()->GetGameInstance()->GetSubsystem<UPlayerDeckSubsystem>()->Deck.IsEmpty()) {
-		this->Reshuffle();
+		for (auto& Card : this->GetOwner()->GetGameInstance()->GetSubsystem<UPlayerDeckSubsystem>()->DiscardPile) {
+			this->GetOwner()->GetGameInstance()->GetSubsystem<UPlayerDeckSubsystem>()->Deck.Add(Card);
+		}
+
+		this->GetOwner()->GetGameInstance()->GetSubsystem<UPlayerDeckSubsystem>()->DiscardPile.Empty();
 	}
 
 	if (this->GetOwner()->GetGameInstance()->GetSubsystem<UPlayerDeckSubsystem>()->Deck.Num() > 0) {
 		UCard* Card = this->GetOwner()->GetGameInstance()->GetSubsystem<UPlayerDeckSubsystem>()->Deck[FMath::RandRange(0, this->GetOwner()->GetGameInstance()->GetSubsystem<UPlayerDeckSubsystem>()->Deck.Num() - 1)];
 		this->GetOwner()->GetGameInstance()->GetSubsystem<UPlayerDeckSubsystem>()->Deck.Remove(Card);
+		this->GetOwner()->GetGameInstance()->GetSubsystem<UPlayerDeckSubsystem>()->Hand.Add(Card);
 		return Card;
 	}
 	
@@ -52,9 +64,27 @@ void UDeckComponent::Discard(UCard* Card) {
 	
 	const int32 Durability = FMath::CeilToInt32(Card->Durability);
 	if (Durability > 1) {
+		this->GetOwner()->GetGameInstance()->GetSubsystem<UPlayerDeckSubsystem>()->Hand.Remove(Card);
 		this->GetOwner()->GetGameInstance()->GetSubsystem<UPlayerDeckSubsystem>()->DiscardPile.Add(Card);
 		Card->Durability -= 1;
 	}
+}
+
+void UDeckComponent::Reshuffle() {
+	for (auto& Card : this->GetOwner()->GetGameInstance()->GetSubsystem<UPlayerDeckSubsystem>()->DiscardPile) {
+		this->GetOwner()->GetGameInstance()->GetSubsystem<UPlayerDeckSubsystem>()->Deck.Add(Card);
+	}
+
+	for (auto& Card : this->GetOwner()->GetGameInstance()->GetSubsystem<UPlayerDeckSubsystem>()->Hand) {
+		if (Card->bIsDefault) {
+			continue;
+		}
+		
+		this->GetOwner()->GetGameInstance()->GetSubsystem<UPlayerDeckSubsystem>()->Deck.Add(Card);
+	}
+
+	this->GetOwner()->GetGameInstance()->GetSubsystem<UPlayerDeckSubsystem>()->Hand.Empty();
+	this->GetOwner()->GetGameInstance()->GetSubsystem<UPlayerDeckSubsystem>()->DiscardPile.Empty();
 }
 
 

@@ -21,4 +21,6 @@ public:
 	TArray<UCard*> DiscardPile;
 	UPROPERTY(BlueprintReadOnly)
 	TArray<UCard*> InitialCards;
+	UPROPERTY()
+	TArray<UCard*> Hand;
 };
