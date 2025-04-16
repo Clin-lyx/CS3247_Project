@@ -18,4 +18,6 @@ public:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	int32 MaxQuantity;
+
+	FLoot() : Item(nullptr), MinQuantity(0), MaxQuantity(0) {}
 };

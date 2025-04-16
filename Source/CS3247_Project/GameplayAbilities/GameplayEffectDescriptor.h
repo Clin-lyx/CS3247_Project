@@ -25,4 +25,8 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	int32 Magnitude;
+
+	FGameplayEffectDescriptor() : bIsReflexive(false), GameplayEffectType(nullptr), DataTag(FGameplayTag::EmptyTag), AssetTag(FGameplayTag::EmptyTag), Magnitude(0) {}
+	FGameplayEffectDescriptor(const bool bCond, const TSubclassOf<UGameplayEffect>& Class, const FGameplayTag GameplayTag, const FGameplayTag DamageType, const int32 Magnitude) :
+		bIsReflexive(bCond), GameplayEffectType(Class), DataTag(GameplayTag), AssetTag(DamageType), Magnitude(Magnitude) {};
 };
