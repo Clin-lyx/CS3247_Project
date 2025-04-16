@@ -11,9 +11,13 @@
 UCardEffect* UCardEnchantmentMagic::ComposeTo(UCard* OwningCard, UCardEffect* Effect, double Multiplier) {
 	Effect = Super::ComposeTo(OwningCard, Effect, Multiplier);
 	const UDamageEffect* BaseDamage = Cast<UDamageEffect>(Effect->GetEffect(UDamageEffect::StaticClass()));
+	if (!BaseDamage) {
+		return Effect;
+	}
+	
 	UEnchantmentDamageEffect* EnchantmentDamage =
 		Cast<UEnchantmentDamageEffect>(Effect->GetEffect(UEnchantmentDamageEffect::StaticClass()));
-	if (!IsValid(EnchantmentDamage)) {
+	if (!EnchantmentDamage) {
 		EnchantmentDamage = NewObject<UEnchantmentDamageEffect>(Effect);
 		Effect->SetEffect(UEnchantmentDamageEffect::StaticClass(), EnchantmentDamage);
 	}
