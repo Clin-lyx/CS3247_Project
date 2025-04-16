@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameItemTag.h"
+#include "../Characters/Player/Components/Inventory.h"
 #include "Subsystems/GameInstanceSubsystem.h"
 #include "InventorySubsystem.generated.h"
 
@@ -16,5 +17,6 @@ class CS3247_PROJECT_API UInventorySubsystem : public UGameInstanceSubsystem {
 	GENERATED_BODY()
 
 public:
-	TMap<EGameItemTag, TMap<UGameItem*, int32>> Inventory;
+	UPROPERTY()
+	TMap<EGameItemTag, FInventory> Inventory;
 };

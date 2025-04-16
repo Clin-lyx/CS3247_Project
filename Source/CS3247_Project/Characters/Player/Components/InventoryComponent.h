@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Inventory.h"
 #include "Components/ActorComponent.h"
 #include "../../../Common/GameItemTag.h"
 #include "../../../Common/GameItem.h"
@@ -36,7 +37,7 @@ protected:
 			return {};
 		}
 		
-		return this->GetOwner()->GetGameInstance()->GetSubsystem<UInventorySubsystem>()->Inventory[ItemType];
+		return this->GetOwner()->GetGameInstance()->GetSubsystem<UInventorySubsystem>()->Inventory[ItemType].Items;
 	}
 
 	UFUNCTION(BlueprintCallable)
@@ -55,10 +56,10 @@ private:
 			return 0;
 		}
 		
-		if (!this->GetOwner()->GetGameInstance()->GetSubsystem<UInventorySubsystem>()->Inventory[Item->ItemType].Contains(Item)) {
+		if (!this->GetOwner()->GetGameInstance()->GetSubsystem<UInventorySubsystem>()->Inventory[Item->ItemType].Items.Contains(Item)) {
 			return 0;
 		}
 		
-		return this->GetOwner()->GetGameInstance()->GetSubsystem<UInventorySubsystem>()->Inventory[Item->ItemType][Item];
+		return this->GetOwner()->GetGameInstance()->GetSubsystem<UInventorySubsystem>()->Inventory[Item->ItemType].Items[Item];
 	}
 };

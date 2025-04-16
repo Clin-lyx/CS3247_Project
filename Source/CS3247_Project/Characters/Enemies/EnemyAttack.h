@@ -16,4 +16,6 @@ public:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	int32 Value;
+	
+	FEnemyAttack() : DamageType(FGameplayTag::RequestGameplayTag(FName("GameData.Damage"))), Value(0) {}
 };
