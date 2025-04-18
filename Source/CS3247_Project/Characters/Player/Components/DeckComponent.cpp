@@ -63,8 +63,8 @@ void UDeckComponent::Discard(UCard* Card) {
 	}
 	
 	const int32 Durability = FMath::CeilToInt32(Card->Durability);
+	this->GetOwner()->GetGameInstance()->GetSubsystem<UPlayerDeckSubsystem>()->Hand.Remove(Card);
 	if (Durability > 1) {
-		this->GetOwner()->GetGameInstance()->GetSubsystem<UPlayerDeckSubsystem>()->Hand.Remove(Card);
 		this->GetOwner()->GetGameInstance()->GetSubsystem<UPlayerDeckSubsystem>()->DiscardPile.Add(Card);
 		Card->Durability -= 1;
 	}
@@ -79,8 +79,10 @@ void UDeckComponent::Reshuffle() {
 		if (Card->bIsDefault) {
 			continue;
 		}
-		
-		this->GetOwner()->GetGameInstance()->GetSubsystem<UPlayerDeckSubsystem>()->Deck.Add(Card);
+
+		if (FMath::CeilToInt32(Card->Durability) > 1) {
+			this->GetOwner()->GetGameInstance()->GetSubsystem<UPlayerDeckSubsystem>()->Deck.Add(Card);
+		}
 	}
 
 	this->GetOwner()->GetGameInstance()->GetSubsystem<UPlayerDeckSubsystem>()->Hand.Empty();
